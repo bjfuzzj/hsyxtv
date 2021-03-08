@@ -23,12 +23,11 @@
 //Route::any('wx_pay_back', 'PayController@wxPayBack');
 //Route::any('test', 'ProductController@test');
 //Route::any('/wx_refund_back', 'PayController@wxRefundBack');
-Route::get('/login', 'TvUserController@login');
 
 
 Route::middleware(['api'])->group(function () {
 
-
+    Route::get('/login', 'TvUserController@login');
     // 收集formId
     Route::get('collect_form_id', 'WxappController@collectFormId');
 
