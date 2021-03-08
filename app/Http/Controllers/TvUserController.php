@@ -24,14 +24,11 @@ class TvUserController extends Controller
         $mac   = $params['mac'];
         $t     = $params['t'];
         $token = $params['token'];
-        Log::info(print_r($params, 1));
 
         if (empty($mac) || empty($t) || empty($token)) {
             return $this->outErrorResultApi(500, '内部错误[1]');
         }
-        Log::info(config('app.login_key'));
         $sign = md5(config('app.login_key') . $mac . $t);
-        Log::info($sign);
         if ($sign != strtolower($token)) {
             return $this->outErrorResultApi(500, '参数错误[1]');
         } else {
