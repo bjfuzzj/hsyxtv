@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Idgenter;
 use App\Helper\Codec;
+use Illuminate\Support\Facades\Log;
 
 class TvUserController extends Controller
 {
@@ -23,6 +24,7 @@ class TvUserController extends Controller
         $mac   = $params['mac'];
         $t     = $params['t'];
         $token = $params['token'];
+        Log::info(print_r($params, 1));
 
         if (empty($mac) || empty($t) || empty($token)) {
             return $this->outErrorResultApi(500, '内部错误[1]');

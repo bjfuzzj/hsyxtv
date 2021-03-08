@@ -35,14 +35,14 @@ class Controller extends BaseController
     //输出 json 格式正确结果前台使用
     public function outSuccessResultApi(array $data = [])
     {
-        return response()->json(['status' => 200, 'msg' => '', 'data' => $data]);
+        return response()->json(['code' => 200, 'msg' => '', 'data' => $data]);
     }
 
     //输出 json 格式错误结果
     public function outErrorResultApi($code, $msg, array $data = [])
     {
-        return response()->json(['status' => $code, 'msg' => $msg, 'data' => $data]);
+        return response()->json(['code' => $code, 'msg' => $msg, 'data' => $data]);
     }
 
-    
+
 }
