@@ -1,0 +1,53 @@
+<?php
+#require_once("plib/head.php");
+require_once("plib/config_inc.php");
+require_once("plib/db.php");
+require_once("plib/global_func.php");
+$pid = ${projid};
+conProjDB($pid);
+$cgi = getCGI();
+
+gsql_esc($cgi,$pub_mysql);
+$mac = $cgi['mac'];
+$t =  $cgi['t'];
+$token = $cgi['token'];
+
+
+
+$result = [
+    'code'=>500,
+    'msg'=>'内部错误'
+];
+if(empty($mac) || empty($t) || empty($token)) {
+    $result = [
+        'code'=>500,
+        'msg'=>'参数错误[1]'
+    ];
+
+
+}
+$sign = md5('xlab-qx#$999'.$mac.$t);
+
+if($sign != $token){
+    $result = [
+        'code'=>500,
+        'msg'=>'参数错误[2]'
+    ];
+}else{
+$userId = 123;
+$result= [
+'code'=>200,
+'msg'=>'请求成功',
+'userid'=>$userId,
+'groupid'=>123,
+'portal'=>'https://tv.yiqiqw.com/',
+'upgrade'=>'https://tv.yiqiqw.com/',
+'cache'=>'https://tv.yiqiqw.com/',
+];
+}
+
+
+
+$data_json = json_encode($result);
+header('Content-type:text/json');
+echo $data_json;

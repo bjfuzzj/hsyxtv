@@ -1,0 +1,1 @@
+/www/wwwroot/pub.yiqiqw.com/temp_view.php
