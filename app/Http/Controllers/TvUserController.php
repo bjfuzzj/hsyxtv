@@ -38,11 +38,41 @@ class TvUserController extends Controller
                 'groupid' => 123,
                 'session' => $this->genTransferId($userId),
                 'portal'  => 'https://tv.yiqiqw.com/index.html',
-                'upgrade' => 'https://tv.yiqiqw.com/',
+                'upgrade' => 'https://tv.yiqiqw.com/upgrade',
                 'cache'   => 'https://tv.yiqiqw.com/',
             ];
         }
         return $this->outSuccessResultApi($result);
+    }
+
+
+    public function upgrade(Request $request)
+    {
+        $params = $this->validate($request, [
+            'userid'  => 'required|string',
+            'session' => 'required|string',
+        ], [
+            '*' => '参数出错，请重试[-1]'
+        ]);
+        $userId = $params['userid'];
+        $result = [
+            [
+                'name'        => '数据广播',
+                'packName'    => 'cn.xlab.dvn',
+                'versionName' => '1.0',
+                'versionCode' => '1',
+                'base64Str'   => 'OAAFAFAFAQQ',
+            ],
+            [
+                'name'        => '终端管控示',
+                'packName'    => 'cn.xlab.netmonitor',
+                'versionName' => '1.4',
+                'versionCode' => '5',
+                'base64Str'   => 'OAAFAFAFAQQ',
+            ]
+        ];
+        return $this->outSuccessResultApi($result);
+
     }
 
     public function genTransferId($userId)
