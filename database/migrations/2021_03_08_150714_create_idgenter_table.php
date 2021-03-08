@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateOrderGenTable extends Migration
+class CreateIdgenterTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,9 @@ class CreateOrderGenTable extends Migration
      */
     public function up()
     {
-        Schema::create('order_gen', function (Blueprint $table) {
+        Schema::create('idgenter', function (Blueprint $table) {
             $table->increments('id');
-            $table->timestamp('created_at')->nullable()->comment('创建时间');
+            $table->timestamp('created_at', 0);
         });
     }
 
@@ -26,6 +26,8 @@ class CreateOrderGenTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('order_gen');
+        Schema::table('idgenter', function (Blueprint $table) {
+            //
+        });
     }
 }
