@@ -27,7 +27,7 @@
 
 Route::middleware(['api'])->group(function () {
 
-    Route::get('/login', 'TvUserController@login');
+    Route::post('/login', 'TvUserController@login');
     // 收集formId
     Route::get('collect_form_id', 'WxappController@collectFormId');
 
