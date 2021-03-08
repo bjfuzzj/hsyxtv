@@ -53,7 +53,7 @@ class TvUserController extends Controller
 
         $incrId = IdGenter::getId();
         $incrId = str_pad($incrId, 6, '0', STR_PAD_RIGHT);
-        return substr($incrId, 0, 6) . date('YmdHis', time()) . $millisecond . mt_rand(1000, 9999) . mt_rand(10000, 99999) . md5(microtime(true));
+        return substr($incrId, 0, 6) . date('YmdHis', time()) . $millisecond . mt_rand(1000, 9999) . mt_rand(10000, 99999);
     }
 
 
