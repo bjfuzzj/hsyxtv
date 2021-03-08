@@ -32,11 +32,11 @@ class TvUserController extends Controller
         if ($sign != strtolower($token)) {
             return $this->outErrorResultApi(500, '参数错误[1]');
         } else {
-            $userId = Codec::encodeId(123);
+            $userId = 123;
             $result = [
-                'userid'  => $userId,
+                'userid'  => Codec::encodeId($userId),
                 'groupid' => 123,
-                'session' => $this->genTransferId(),
+                'session' => $this->genTransferId($userId),
                 'portal'  => 'https://tv.yiqiqw.com/',
                 'upgrade' => 'https://tv.yiqiqw.com/',
                 'cache'   => 'https://tv.yiqiqw.com/',
@@ -45,14 +45,14 @@ class TvUserController extends Controller
         return $this->outSuccessResultApi($result);
     }
 
-    public function genTransferId()
+    public function genTransferId($userId)
     {
         [$usec, $sec] = explode(" ", microtime());
         $millisecond = round($usec * 1000);
         $millisecond = str_pad($millisecond, 3, '0', STR_PAD_RIGHT);
 
-        $incrId = IdGenter::getId();
-        $incrId = str_pad($incrId, 6, '0', STR_PAD_RIGHT);
+//        $incrId = IdGenter::getId();
+        $incrId = str_pad($userId, 6, '0', STR_PAD_RIGHT);
         return substr($incrId, 0, 6) . date('YmdHis', time()) . $millisecond . mt_rand(1000, 9999) . mt_rand(10000, 99999);
     }
 
