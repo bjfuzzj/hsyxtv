@@ -39,7 +39,7 @@ class TvUserController extends Controller
                 'session' => $this->genTransferId($userId),
                 'portal'  => 'https://tv.yiqiqw.com/index.html',
                 'upgrade' => 'https://tv.yiqiqw.com/upgrade',
-                'cache'   => 'https://tv.yiqiqw.com/',
+                'cache'   => 'https://tv.yiqiqw.com/cache',
             ];
         }
         return $this->outSuccessResultApi($result);
@@ -70,6 +70,24 @@ class TvUserController extends Controller
                 'versionCode' => '5',
                 'base64Str'   => 'OAAFAFAFAQQ',
             ]
+        ];
+        return $this->outSuccessResultApi($result);
+
+    }
+
+    public function cache(Request $request)
+    {
+        $params = $this->validate($request, [
+            'userid'  => 'required|string',
+            'session' => 'required|string',
+        ], [
+            '*' => '参数出错，请重试[-1]'
+        ]);
+        $userId = $params['userid'];
+        $result = [
+            'https://img.meidaifu.com/FinalVideo_1613025176.689774.mp4',
+            'https://img.meidaifu.com/FinalVideo_1612973051.278023.mp4',
+            'https://img.meidaifu.com/tsFinalVideo_1613025176.689774.ts'
         ];
         return $this->outSuccessResultApi($result);
 
