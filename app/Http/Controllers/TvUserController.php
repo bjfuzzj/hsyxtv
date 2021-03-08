@@ -37,7 +37,7 @@ class TvUserController extends Controller
                 'userid'  => Codec::encodeId($userId),
                 'groupid' => 123,
                 'session' => $this->genTransferId($userId),
-                'portal'  => 'https://tv.yiqiqw.com/',
+                'portal'  => 'https://tv.yiqiqw.com/index.html',
                 'upgrade' => 'https://tv.yiqiqw.com/',
                 'cache'   => 'https://tv.yiqiqw.com/',
             ];
