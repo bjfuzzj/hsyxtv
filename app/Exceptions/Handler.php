@@ -33,7 +33,7 @@ class Handler extends ExceptionHandler
     /**
      * Report or log an exception.
      *
-     * @param  \Exception  $exception
+     * @param \Exception $exception
      * @return void
      */
     public function report(Exception $exception)
@@ -44,8 +44,8 @@ class Handler extends ExceptionHandler
     /**
      * Render an exception into an HTTP response.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Exception  $exception
+     * @param \Illuminate\Http\Request $request
+     * @param \Exception $exception
      * @return \Illuminate\Http\Response
      */
     public function render($request, Exception $exception)
@@ -54,7 +54,7 @@ class Handler extends ExceptionHandler
         if ($exception instanceof ValidationException) {
             Log::error($request->getUri() . ' 参数错误 params:' . print_r($request->all(), 1)
                 . ' errors:' . print_r($exception->errors(), 1));
-            return response()->json(['errorCode' => 500, 'errorMsg' => Arr::first(Arr::collapse($exception->errors())), 'data' => []]);
+            return response()->json(['code' => 500, 'msg' => Arr::first(Arr::collapse($exception->errors())), 'data' => []]);
         }
 
         // 用户认证的异常

@@ -24,7 +24,6 @@ class TvUserController extends Controller
         $t     = $params['t'];
         $token = $params['token'];
 
-
         if (empty($mac) || empty($t) || empty($token)) {
             return $this->outErrorResultApi(500, '内部错误[1]');
         }
