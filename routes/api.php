@@ -27,16 +27,16 @@
 
 Route::middleware(['api'])->group(function () {
 
-    Route::post('/login', 'TvUserController@login');
+    Route::get('/login', 'TvUserController@login');
     // 收集formId
     Route::get('collect_form_id', 'WxappController@collectFormId');
 
-    Route::prefix('wxapp')->group(function () {
-        Route::post('/login', 'WxappController@login');
-        Route::post('/auth', 'WxappController@doAuth');
-        Route::post('/decrypt_data', 'WxappController@decryptData');
-        Route::post('subscribe_message', 'WxappController@subscribeMessage');
-    });
+//    Route::prefix('wxapp')->group(function () {
+//        Route::post('/login', 'WxappController@login');
+//        Route::post('/auth', 'WxappController@doAuth');
+//        Route::post('/decrypt_data', 'WxappController@decryptData');
+//        Route::post('subscribe_message', 'WxappController@subscribeMessage');
+//    });
 
     Route::prefix('product')->group(function () {
         Route::get('/index', 'ProductController@index');
