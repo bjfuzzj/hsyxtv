@@ -101,18 +101,38 @@ class TvUserController extends Controller
 
     public function cache(Request $request)
     {
-        $params = $this->validate($request, [
+        $params         = $this->validate($request, [
             'userid'  => 'required|string',
             'session' => 'required|string',
         ], [
             '*' => '参数出错，请重试[-1]'
         ]);
-        $userId = $params['userid'];
-        $result = [
-            'https://img.meidaifu.com/FinalVideo_1613025176.689774.mp4',
-            'https://img.meidaifu.com/FinalVideo_1612973051.278023.mp4',
-            'https://img.meidaifu.com/tsFinalVideo_1613025176.689774.ts'
+        $userId         = $params['userid'];
+        $result         = [];
+        $result['add']  = [
+            [
+                'id'   => '1234567890',
+                'type' => 'mp4',
+                'md5'  => 'OAAFAFAFAAAAQ',
+                'url'  => 'https://tv.yiqiqw.com/apps/1.mp4',
+            ],
+            [
+                'id'   => '1230',
+                'type' => 'mp4',
+                'md5'  => 'OAAAAAAAFAAAAQ',
+                'url'  => 'https://tv.yiqiqw.com/apps/2.mp4',
+            ]
         ];
+        $result['dels'] = [
+            [
+                'id' => '1234567890',
+            ],
+            [
+                'id' => '124444490',
+            ]
+        ];
+        $result['type'] = 'delall';
+
         return $this->outSuccessResultApi($result);
 
     }
