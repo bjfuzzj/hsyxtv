@@ -127,10 +127,12 @@ class TvUserController extends Controller
         ];
         $result['dels'] = [
             [
-                'id' => '1234567890',
+                'id'   => '1234567890',
+                'type' => 'mp4'
             ],
             [
-                'id' => '124444490',
+                'id'   => '124444490',
+                'type' => 'ts'
             ]
         ];
         $result['type'] = 'delall';
