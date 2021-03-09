@@ -34,12 +34,14 @@ class TvUserController extends Controller
         } else {
             $userId = 123;
             $result = [
-                'userid'  => Codec::encodeId($userId),
-                'groupid' => 123,
-                'session' => $this->genTransferId($userId),
-                'portal'  => 'https://tv.yiqiqw.com/index.html',
-                'upgrade' => 'https://tv.yiqiqw.com/upgrade',
-                'cache'   => 'https://tv.yiqiqw.com/cache',
+                'userid'           => Codec::encodeId($userId),
+                'groupid'          => 123,
+                'session'          => $this->genTransferId($userId),
+                'portal'           => 'https://tv.yiqiqw.com/index.html',
+                'upgrade'          => 'https://tv.yiqiqw.com/upgrade',
+                'upgrade_interval' => '300',
+                'cache'            => 'https://tv.yiqiqw.com/cache',
+                'cache_interval'   => '300',
             ];
         }
         return $this->outSuccessResultApi($result);
