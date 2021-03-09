@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\DGroup;
 use Illuminate\Http\Request;
 use App\Models\Idgenter;
 use App\Helper\Codec;
 use Illuminate\Support\Facades\Log;
+use App\Models\TvUser;
 
 class TvUserController extends Controller
 {
@@ -32,10 +34,11 @@ class TvUserController extends Controller
         if ($sign != strtolower($token)) {
             return $this->outErrorResultApi(500, '参数错误[1]');
         } else {
-            $userId = 123;
+            $user   = TvUser::firstOrCreate(['mac' => $mac], ['group_id' => DGroup::DEFAULT_ID]);
+            $userId = $user->d_id;
             $result = [
                 'userid'           => Codec::encodeId($userId),
-                'groupid'          => 123,
+                'groupid'          => $user->group_id,
                 'session'          => $this->genTransferId($userId),
                 'portal'           => 'https://tv.yiqiqw.com/index.html',
                 'upgrade'          => 'https://tv.yiqiqw.com/upgrade',
