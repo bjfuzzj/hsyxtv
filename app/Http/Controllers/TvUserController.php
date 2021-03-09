@@ -109,7 +109,7 @@ class TvUserController extends Controller
         ]);
         $userId         = $params['userid'];
         $result         = [];
-        $result['add']  = [
+        $result['adds'] = [
             [
                 'id'   => '1234567890',
                 'type' => 'mp4',
