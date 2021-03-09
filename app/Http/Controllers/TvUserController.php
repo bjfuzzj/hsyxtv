@@ -55,22 +55,46 @@ class TvUserController extends Controller
             '*' => '参数出错，请重试[-1]'
         ]);
         $userId = $params['userid'];
-        $result = [
+
+        $result          = [];
+        $result['apps']  = [
             [
-                'name'        => '数据广播',
-                'packName'    => 'cn.xlab.dvn',
-                'versionName' => '1.0',
-                'versionCode' => '1',
-                'base64Str'   => 'OAAFAFAFAQQ',
+                'pkgName' => 'com.xlab.hello',
+                'clsName' => '.MainActivity',
+                'verName' => '1.1.100',
+                'verCode' => '100',
+                'md5'     => 'OAAFAFAFAQQ',
+                'url'     => 'https://tv.yiqiqw.com/apps/hello.apk',
             ],
             [
-                'name'        => '终端管控示',
-                'packName'    => 'cn.xlab.netmonitor',
-                'versionName' => '1.4',
-                'versionCode' => '5',
-                'base64Str'   => 'OAAFAFAFAQQ',
-            ]
+                'pkgName' => 'com.xlab.world',
+                'clsName' => '.MainActivity',
+                'verName' => '6.2.100',
+                'verCode' => '200',
+                'md5'     => 'OAAFAFAFAAAAQ',
+                'url'     => 'https://tv.yiqiqw.com/apps/hello.apk',
+            ],
         ];
+        $result['dels']  = [
+            [
+                'pkgName' => 'com.xlab.hello'
+            ],
+            [
+                'pkgName' => 'com.xlab.world'
+            ],
+        ];
+        $result['img']   = [
+            'imgdes' => 'ampere test key',
+            'imgutc' => '123456',
+            'md5'    => 'OAAFAFAFAAAAQ',
+            'url'    => 'https://tv.yiqiqw.com/apps/update.zip',
+        ];
+        $result['bootv'] = [
+            'md5' => 'OAAFAFAFAAAAQ',
+            'url' => 'https://tv.yiqiqw.com/apps/bootvide.mp4',
+        ];
+        $result['type']  = 'default';
+
         return $this->outSuccessResultApi($result);
 
     }
