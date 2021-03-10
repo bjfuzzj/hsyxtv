@@ -63,44 +63,78 @@ class TvUserController extends Controller
         ]);
         $userId = $params['userid'];
 
-        $result          = [];
-        $result['apps']  = [
-            [
-                'pkgName' => 'com.xlab.hello',
-                'clsName' => '.MainActivity',
-                'verName' => '1.1.100',
-                'verCode' => '100',
-                'md5'     => 'OAAFAFAFAQQ',
-                'url'     => 'https://tv.yiqiqw.com/apps/hello.apk',
-            ],
-            [
-                'pkgName' => 'com.xlab.world',
-                'clsName' => '.MainActivity',
-                'verName' => '6.2.100',
-                'verCode' => '200',
-                'md5'     => 'OAAFAFAFAAAAQ',
-                'url'     => 'https://tv.yiqiqw.com/apps/hello.apk',
-            ],
-        ];
-        $result['dels']  = [
-            [
-                'pkgName' => 'com.xlab.hello'
-            ],
-            [
-                'pkgName' => 'com.xlab.world'
-            ],
-        ];
-        $result['img']   = [
-            'imgdes' => 'ampere test key',
-            'imgutc' => '123456',
-            'md5'    => 'OAAFAFAFAAAAQ',
-            'url'    => 'https://tv.yiqiqw.com/apps/update.zip',
-        ];
-        $result['bootv'] = [
-            'md5' => 'OAAFAFAFAAAAQ',
-            'url' => 'https://tv.yiqiqw.com/apps/bootvide.mp4',
-        ];
-        $result['type']  = 'default';
+        $result         = [];
+        $result['apps'] = $result['dels'] = $result['img'] = $result['bootv'] = [];
+        $result['type'] = UpgradeConfig::DEL_TYPE_DEFAULT;
+        $allConfigs     = UpgradeConfig::where('status', UpgradeConfig::STATUS_ONLINE)->get();
+        foreach ($allConfigs as $config) {
+            if ($config->isAddType()) {
+                $adds = @json_decode($config->content, 1);
+                if (!empty($adds)) {
+                    $result['apps'] = $adds;
+                }
+            } elseif ($config->isDelType()) {
+                $dels = @json_decode($config->content, 1);
+                Log::info('111');
+                if (!empty($dels)) {
+                    Log::info('23333');
+                    $result['dels'] = $dels;
+                }
+            } elseif ($config->isImgType()) {
+                $img = @json_decode($config->content, 1);
+                if (!empty($img)) {
+                    $result['img'] = $img;
+                }
+            } elseif ($config->isVideoType()) {
+                $bootv = @json_decode($config->content, 1);
+                if (!empty($bootv)) {
+                    $result['bootv'] = $bootv;
+                }
+            } elseif ($config->isDelAllType()) {
+                $delTypeStr = trim($config->content);
+                if (!empty($delTypeStr)) {
+                    $result['type'] = $delTypeStr;
+                }
+            }
+        }
+
+//        $result['apps']  = [
+//            [
+//                'pkgName' => 'com.xlab.hello',
+//                'clsName' => '.MainActivity',
+//                'verName' => '1.1.100',
+//                'verCode' => '100',
+//                'md5'     => 'OAAFAFAFAQQ',
+//                'url'     => 'https://tv.yiqiqw.com/apps/hello.apk',
+//            ],
+//            [
+//                'pkgName' => 'com.xlab.world',
+//                'clsName' => '.MainActivity',
+//                'verName' => '6.2.100',
+//                'verCode' => '200',
+//                'md5'     => 'OAAFAFAFAAAAQ',
+//                'url'     => 'https://tv.yiqiqw.com/apps/hello.apk',
+//            ],
+//        ];
+//        $result['dels']  = [
+//            [
+//                'pkgName' => 'com.xlab.hello'
+//            ],
+//            [
+//                'pkgName' => 'com.xlab.world'
+//            ],
+//        ];
+//        $result['img']   = [
+//            'imgdes' => 'ampere test key',
+//            'imgutc' => '123456',
+//            'md5'    => 'OAAFAFAFAAAAQ',
+//            'url'    => 'https://tv.yiqiqw.com/apps/update.zip',
+//        ];
+//        $result['bootv'] = [
+//            'md5' => 'OAAFAFAFAAAAQ',
+//            'url' => 'https://tv.yiqiqw.com/apps/bootvide.mp4',
+//        ];
+//        $result['type']  = 'default';
 
         return $this->outSuccessResultApi($result);
 

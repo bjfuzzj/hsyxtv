@@ -25,4 +25,30 @@ class UpgradeConfig extends Model
 
     const UPDATED_AT = 'createdatetime';
     const CREATED_AT = 'savedatetime';
+
+
+    public function isAddType()
+    {
+        return self::TYPE_ADD == $this->type;
+    }
+
+    public function isDelType()
+    {
+        return self::TYPE_DEL == $this->type;
+    }
+
+    public function isImgType()
+    {
+        return self::TYPE_IMG == $this->type;
+    }
+
+    public function isVideoType()
+    {
+        return self::TYPE_VIDEO == $this->type;
+    }
+
+    public function isDelAllType()
+    {
+        return self::TYPE_DEL_ALL == $this->type;
+    }
 }
