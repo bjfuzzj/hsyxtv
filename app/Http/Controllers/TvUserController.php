@@ -77,7 +77,6 @@ class TvUserController extends Controller
                 $dels = @json_decode($config->content, 1);
 
                 if (!empty($dels)) {
-                    Log::info('23333');
                     $result['dels'] = $dels;
                 }
             } elseif ($config->isImgType()) {
