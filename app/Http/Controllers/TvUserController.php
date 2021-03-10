@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\CacheConfig;
 use App\Models\DGroup;
 use Illuminate\Http\Request;
 use App\Models\Idgenter;
 use App\Helper\Codec;
 use Illuminate\Support\Facades\Log;
 use App\Models\TvUser;
+use App\Models\UpgradeConfig;
 
 class TvUserController extends Controller
 {
@@ -114,31 +116,54 @@ class TvUserController extends Controller
         ]);
         $userId         = $params['userid'];
         $result         = [];
-        $result['adds'] = [
-            [
-                'id'   => '1234567890',
-                'type' => 'mp4',
-                'md5'  => 'OAAFAFAFAAAAQ',
-                'url'  => 'https://tv.yiqiqw.com/apps/1.mp4',
-            ],
-            [
-                'id'   => '1230',
-                'type' => 'mp4',
-                'md5'  => 'OAAAAAAAFAAAAQ',
-                'url'  => 'https://tv.yiqiqw.com/apps/2.mp4',
-            ]
-        ];
-        $result['dels'] = [
-            [
-                'id'   => '1234567890',
-                'type' => 'mp4'
-            ],
-            [
-                'id'   => '124444490',
-                'type' => 'ts'
-            ]
-        ];
-        $result['type'] = 'delall';
+        $result['adds'] = $result['dels'] = '';
+        $result['type'] = CacheConfig::DEL_TYPE_DEFAULT;
+
+        $allConfigs = CacheConfig::where('status', CacheConfig::STATUS_ONLINE)->get();
+        foreach ($allConfigs as $config) {
+            if ($config->isAddType()) {
+                $adds = @json_decode($config->content, 1);
+                if (!emtpy($adds)) {
+                    $result['adds'] = $adds;
+                }
+            } elseif ($config->isDelType()) {
+                $dels = @json_decode($config->content, 1);
+                if (!emtpy($dels)) {
+                    $result['dels'] = $dels;
+                }
+            } elseif ($config->isDelAllType()) {
+                $delTypeStr = trim($config->content);
+                if (!emtpy($delTypeStr)) {
+                    $result['type'] = $delTypeStr;
+                }
+            }
+        }
+
+//        $result['adds'] = [
+//            [
+//                'id'   => '1234567890',
+//                'type' => 'mp4',
+//                'md5'  => 'OAAFAFAFAAAAQ',
+//                'url'  => 'https://tv.yiqiqw.com/apps/1.mp4',
+//            ],
+//            [
+//                'id'   => '1230',
+//                'type' => 'mp4',
+//                'md5'  => 'OAAAAAAAFAAAAQ',
+//                'url'  => 'https://tv.yiqiqw.com/apps/2.mp4',
+//            ]
+//        ];
+//        $result['dels'] = [
+//            [
+//                'id'   => '1234567890',
+//                'type' => 'mp4'
+//            ],
+//            [
+//                'id'   => '124444490',
+//                'type' => 'ts'
+//            ]
+//        ];
+//        $result['type'] = 'delall';
 
         return $this->outSuccessResultApi($result);
 
