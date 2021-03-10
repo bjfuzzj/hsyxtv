@@ -123,17 +123,17 @@ class TvUserController extends Controller
         foreach ($allConfigs as $config) {
             if ($config->isAddType()) {
                 $adds = @json_decode($config->content, 1);
-                if (!emtpy($adds)) {
+                if (!empty($adds)) {
                     $result['adds'] = $adds;
                 }
             } elseif ($config->isDelType()) {
                 $dels = @json_decode($config->content, 1);
-                if (!emtpy($dels)) {
+                if (!empty($dels)) {
                     $result['dels'] = $dels;
                 }
             } elseif ($config->isDelAllType()) {
                 $delTypeStr = trim($config->content);
-                if (!emtpy($delTypeStr)) {
+                if (!empty($delTypeStr)) {
                     $result['type'] = $delTypeStr;
                 }
             }
