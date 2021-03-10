@@ -75,7 +75,7 @@ class TvUserController extends Controller
                 }
             } elseif ($config->isDelType()) {
                 $dels = @json_decode($config->content, 1);
-                Log::info('111');
+
                 if (!empty($dels)) {
                     Log::info('23333');
                     $result['dels'] = $dels;
@@ -150,7 +150,7 @@ class TvUserController extends Controller
         ]);
         $userId         = $params['userid'];
         $result         = [];
-        $result['adds'] = $result['dels'] = '';
+        $result['adds'] = $result['dels'] = [];
         $result['type'] = CacheConfig::DEL_TYPE_DEFAULT;
 
         $allConfigs = CacheConfig::where('status', CacheConfig::STATUS_ONLINE)->get();
