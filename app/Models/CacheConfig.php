@@ -4,10 +4,9 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class DGroup extends Model
+class CacheConfig extends Model
 {
-    const DEFAULT_ID = 1;
-    protected $table      = "dgroup";
+    protected $table      = 'cacheconfig';
     protected $primaryKey = 'd_id';
     protected $guarded    = [];
 
