@@ -169,6 +169,11 @@ class TvUserController extends Controller
                 if (!empty($delTypeStr)) {
                     $result['type'] = $delTypeStr;
                 }
+            } elseif ($config->isLimitType()) {
+                $limitStr = trim($config->content);
+                if (!empty($limitStr)) {
+                    $result['limit'] = $limitStr;
+                }
             }
         }
 

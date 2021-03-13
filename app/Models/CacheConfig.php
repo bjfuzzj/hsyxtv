@@ -19,6 +19,7 @@ class CacheConfig extends Model
     const TYPE_ADD     = 1; //增加包
     const TYPE_DEL     = 2; //删除包
     const TYPE_DEL_ALL = 3; //删除类型
+    const TYPE_LIMIT   = 4; //限速类型
 
 
     const UPDATED_AT = 'createdatetime';
@@ -38,6 +39,11 @@ class CacheConfig extends Model
     public function isDelAllType()
     {
         return self::TYPE_DEL_ALL == $this->type;
+    }
+
+    public function isLimitType()
+    {
+        return self::TYPE_LIMIT == $this->type;
     }
 
 
