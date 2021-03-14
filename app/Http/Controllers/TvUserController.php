@@ -18,15 +18,10 @@ class TvUserController extends Controller
     public function login(Request $request)
     {
         $params = $this->validate($request, [
-            'mac'     => 'required|string',
-            't'       => 'required|string',
-            'token'   => 'required|string',
-            'device'  => 'required|string',
-            'romutc'  => 'required|string',
-            'romdes'  => 'nullable|string',
-            'pkgname' => 'required|string',
-            'vername' => 'required|string',
-            'vercode' => 'required|string',
+            'mac'   => 'required|string',
+            't'     => 'required|string',
+            'token' => 'required|string',
+
         ], [
             '*' => '登录失败，请重试[-1]'
         ]);
@@ -43,10 +38,7 @@ class TvUserController extends Controller
         if ($sign != strtolower($token)) {
             return $this->outErrorResultApi(500, '参数错误[1]');
         } else {
-            $params['group_id'] = DGroup::DEFAULT_ID;
-            unset($params['t']);
-            unset($params['token']);
-            $user   = TvUser::firstOrCreate(['mac' => $mac], $params);
+            $user   = TvUser::firstOrCreate(['mac' => $mac], ['group_id' => DGroup::DEFAULT_ID]);
             $userId = $user->d_id;
             $result = [
                 'userid'           => Codec::encodeId($userId),
@@ -68,10 +60,29 @@ class TvUserController extends Controller
         $params = $this->validate($request, [
             'userid'  => 'required|string',
             'session' => 'required|string',
+            'device'  => 'required|string',
+            'romutc'  => 'required|string',
+            'romdes'  => 'nullable|string',
+            'pkgname' => 'required|string',
+            'vername' => 'required|string',
+            'vercode' => 'required|string',
         ], [
             '*' => '参数出错，请重试[-1]'
         ]);
         $userId = $params['userid'];
+        $tvUser = TvUser::find($userId);
+        if ($tvUser instanceof TvUser) {
+            $tvUser->device = $params['device'];
+            $tvUser->romutc = $params['romutc'];
+            if (!empty($params['romdes'])) {
+                $tvUser->romdes = $params['romdes'];
+            }
+            $tvUser->romutc  = $params['romutc'];
+            $tvUser->pkgname = $params['pkgname'];
+            $tvUser->vername = $params['vername'];
+            $tvUser->vercode = $params['vercode'];
+            $tvUser->save();
+        }
 
         $result         = [];
         $result['apps'] = $result['dels'] = $result['img'] = $result['bootv'] = [];
