@@ -18,9 +18,15 @@ class TvUserController extends Controller
     public function login(Request $request)
     {
         $params = $this->validate($request, [
-            'mac'   => 'required|string',
-            't'     => 'required|string',
-            'token' => 'required|string',
+            'mac'     => 'required|string',
+            't'       => 'required|string',
+            'token'   => 'required|string',
+            'device'  => 'required|string',
+            'romutc'  => 'required|string',
+            'romdes'  => 'nullable|string',
+            'pkgname' => 'required|string',
+            'vername' => 'required|string',
+            'vercode' => 'required|string',
         ], [
             '*' => '登录失败，请重试[-1]'
         ]);
@@ -29,6 +35,7 @@ class TvUserController extends Controller
         $t     = $params['t'];
         $token = $params['token'];
 
+
         if (empty($mac) || empty($t) || empty($token)) {
             return $this->outErrorResultApi(500, '内部错误[1]');
         }
@@ -36,9 +43,10 @@ class TvUserController extends Controller
         if ($sign != strtolower($token)) {
             return $this->outErrorResultApi(500, '参数错误[1]');
         } else {
-            $user   = TvUser::firstOrCreate(['mac' => $mac], ['group_id' => DGroup::DEFAULT_ID]);
-            $userId = $user->d_id;
-            $result = [
+            $params['group_id'] = DGroup::DEFAULT_ID;
+            $user               = TvUser::firstOrCreate(['mac' => $mac], $params);
+            $userId             = $user->d_id;
+            $result             = [
                 'userid'           => Codec::encodeId($userId),
                 'groupid'          => $user->group_id,
                 'session'          => $this->genTransferId($userId),
