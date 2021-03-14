@@ -70,6 +70,7 @@ class TvUserController extends Controller
             '*' => '参数出错，请重试[-1]'
         ]);
         $userId = $params['userid'];
+        $userId = Codec::decodeId($userId);
         $tvUser = TvUser::find($userId);
         if ($tvUser instanceof TvUser) {
             $tvUser->device = $params['device'];
