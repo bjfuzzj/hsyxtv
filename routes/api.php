@@ -30,8 +30,9 @@ Route::middleware(['api'])->group(function () {
     Route::get('/login', 'TvUserController@login');
     Route::get('/upgrade', 'TvUserController@upgrade');
     Route::get('/cache', 'TvUserController@cache');
-    // 收集formId
-    Route::get('collect_form_id', 'WxappController@collectFormId');
+    // 增加观看记录
+    Route::post('/add_watch_history', 'TvUserController@addWatchHistory');
+    Route::post('/del_watch_history', 'TvUserController@delWatchHistory');
 
 //    Route::prefix('wxapp')->group(function () {
 //        Route::post('/login', 'WxappController@login');
@@ -40,49 +41,11 @@ Route::middleware(['api'])->group(function () {
 //        Route::post('subscribe_message', 'WxappController@subscribeMessage');
 //    });
 
-    Route::prefix('product')->group(function () {
-        Route::get('/index', 'ProductController@index');
-        Route::get('/detail', 'ProductController@getDetail');
-        Route::get('/share_poster', 'ProductController@getSharePoster');
-    });
 
-    Route::prefix('order')->group(function () {
-        Route::post('/confirm', 'OrderController@confirm');
-        Route::post('/submit_pay', 'OrderController@submitAndPay');
-        Route::get('/list', 'OrderController@getOrderList');
-        Route::get('/detail', 'OrderController@getOrderDetail');
-        Route::get('/send_detail', 'OrderController@getOrderSendDetail');
-        Route::get('/logistics_num', 'OrderController@getOrderLogisticsNum');
-        Route::post('/add_logistics', 'OrderController@addOrderLogistics');
-        Route::post('/del_logistics', 'OrderController@delOrderLogistics');
-    });
+//    Route::prefix('pay')->group(function () {
+//        Route::post('/wx_pay', 'PayController@wxPay');
+//        Route::get('/success', 'PayController@paySuccess');
+//    });
 
-    Route::prefix('pay')->group(function () {
-        Route::post('/wx_pay', 'PayController@wxPay');
-        Route::get('/success', 'PayController@paySuccess');
-    });
-
-    Route::prefix('user')->group(function () {
-        Route::get('/index', 'UserController@index');
-        Route::get('/teams', 'UserController@getTeamList');
-        Route::get('/coupons', 'UserController@getCouponList');
-        Route::post('/replenish_idcard', 'UserController@replenishIdCard');
-        Route::post('/replenish_mobile', 'UserController@replenishMobile');
-    });
-
-    Route::prefix('income')->group(function () {
-        Route::get('/my', 'IncomeController@myIncome');
-        Route::get('/details', 'IncomeController@getDetailList');
-        Route::get('/show_cashout', 'IncomeController@showCashOut');
-        Route::post('/cashout', 'IncomeController@cashOut');
-        Route::get('/cashout_records', 'IncomeController@cashOutRecords');
-    });
-
-    Route::prefix('coupon')->group(function () {
-        Route::post('/receive', 'CouponController@receiveCoupon');
-        Route::get('/list', 'CouponController@getList');
-        Route::post('/send_detail', 'CouponController@sendDetail');
-        Route::post('/change_coupon', 'CouponController@changeCoupon');
-    });
 
 });

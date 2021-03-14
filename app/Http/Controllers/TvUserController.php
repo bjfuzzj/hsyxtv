@@ -41,7 +41,8 @@ class TvUserController extends Controller
             $user   = TvUser::firstOrCreate(['mac' => $mac], ['group_id' => DGroup::DEFAULT_ID]);
             $userId = $user->d_id;
             $result = [
-                'userid'           => Codec::encodeId($userId),
+
+                'userid'           => $userId,
                 'groupid'          => $user->group_id,
                 'session'          => $this->genTransferId($userId),
                 'portal'           => 'https://tv.yiqiqw.com/index.html',
@@ -71,7 +72,7 @@ class TvUserController extends Controller
             '*' => '参数出错，请重试[-1]'
         ]);
         $userId = $params['userid'];
-        $userId = Codec::decodeId($userId);
+//        $userId = Codec::decodeId($userId);
         $tvUser = TvUser::find($userId);
         if ($tvUser instanceof TvUser) {
             $tvUser->device = $params['device'];
