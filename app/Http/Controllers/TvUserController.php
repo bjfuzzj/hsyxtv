@@ -59,6 +59,7 @@ class TvUserController extends Controller
     {
         $params = $this->validate($request, [
             'userid'  => 'required|string',
+            'mac'     => 'nullable|string',
             'session' => 'required|string',
             'device'  => 'required|string',
             'romutc'  => 'required|string',
