@@ -88,7 +88,7 @@ class TvUserController extends Controller
         }
 
         $result         = [];
-        $result['apps'] = $result['dels'] = $result['img'] = $result['bootv'] = [];
+        $result['adds'] = $result['dels'] = $result['img'] = $result['bootv'] = [];
         $result['type'] = UpgradeConfig::DEL_TYPE_DEFAULT;
         $allConfigs     = UpgradeConfig::where('status', UpgradeConfig::STATUS_ONLINE)->get();
         foreach ($allConfigs as $config) {
