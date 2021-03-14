@@ -44,9 +44,11 @@ class TvUserController extends Controller
             return $this->outErrorResultApi(500, '参数错误[1]');
         } else {
             $params['group_id'] = DGroup::DEFAULT_ID;
-            $user               = TvUser::firstOrCreate(['mac' => $mac], $params);
-            $userId             = $user->d_id;
-            $result             = [
+            unset($params['t']);
+            unset($params['token']);
+            $user   = TvUser::firstOrCreate(['mac' => $mac], $params);
+            $userId = $user->d_id;
+            $result = [
                 'userid'           => Codec::encodeId($userId),
                 'groupid'          => $user->group_id,
                 'session'          => $this->genTransferId($userId),
