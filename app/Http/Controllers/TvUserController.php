@@ -95,7 +95,7 @@ class TvUserController extends Controller
             if ($config->isAddType()) {
                 $adds = @json_decode($config->content, 1);
                 if (!empty($adds)) {
-                    $result['apps'] = $adds;
+                    $result['adds'] = $adds;
                 }
             } elseif ($config->isDelType()) {
                 $dels = @json_decode($config->content, 1);
