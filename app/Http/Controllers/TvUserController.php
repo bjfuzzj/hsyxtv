@@ -10,6 +10,7 @@ use App\Helper\Codec;
 use Illuminate\Support\Facades\Log;
 use App\Models\TvUser;
 use App\Models\UpgradeConfig;
+use App\Models\WatchList;
 
 class TvUserController extends Controller
 {
@@ -240,6 +241,68 @@ class TvUserController extends Controller
 //        $incrId = IdGenter::getId();
         $incrId = str_pad($userId, 6, '0', STR_PAD_RIGHT);
         return substr($incrId, 0, 6) . date('YmdHis', time()) . $millisecond . mt_rand(1000, 9999) . mt_rand(10000, 99999);
+    }
+
+
+    public function addWatchHistory(Request $request)
+    {
+        $params = $this->validate($request, [
+            'userid'  => 'required|string',
+            'session' => 'required|string',
+            'codeid'  => 'required|string',
+        ], [
+            '*' => '参数出错，请重试[-1]'
+        ]);
+        $watch  = WatchList::where('userid', $params['userid'])->where('codeid', $params['codeid'])->first();
+        if ($watch instanceof WatchList) {
+            if ($watch->isDel()) {
+                $watch->setNormal();
+            }
+        }
+        return $this->outSuccessResultApi([]);
+    }
+
+    public function delWatchHistory(Request $request)
+    {
+        $params = $this->validate($request, [
+            'userid'  => 'required|string',
+            'session' => 'required|string',
+            'codeid'  => 'required|string',
+        ], [
+            '*' => '参数出错，请重试[-1]'
+        ]);
+        $watch  = WatchList::where('userid', $params['userid'])->where('codeid', $params['codeid'])->first();
+        if ($watch instanceof WatchList) {
+            if ($watch->isNormal()) {
+                $watch->setDel();
+            }
+        }
+        return $this->outSuccessResultApi([]);
+
+    }
+
+
+    public function getWatchHistory(Request $request)
+    {
+        $userId = $request->input('userid', 0);
+        $lastId = $request->input('lastId', 0);
+        $size   = $request->input('size', 20);
+        $query  = WatchList::where('isdel', WatchList::STATUS_NORMAL)->orderBy('d_id');
+        if ($lastId > 0) {
+            $query->where('d_id', '>', $lastId);
+        }
+        $queryRes  = $query->simplePaginate($size);
+        $resultRes = $queryRes->items();
+        $watchList = [];
+        foreach ($resultRes as $singleWatch) {
+
+        }
+
+        return $this->outSuccessResult([
+            'hasMore' => $queryRes->hasMorePages() ? 1 : 0,
+            'list'    => $watchList
+        ]);
+
     }
 
 
