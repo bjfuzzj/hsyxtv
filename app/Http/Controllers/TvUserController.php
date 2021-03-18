@@ -287,15 +287,26 @@ class TvUserController extends Controller
         $userId = $request->input('userid', 0);
         $lastId = $request->input('lastId', 0);
         $size   = $request->input('size', 20);
-        $query  = WatchList::where('isdel', WatchList::STATUS_NORMAL)->orderBy('d_id');
+        if (empty($userId)) {
+            return $this->outErrorResultApi(500, '内部错误[1]');
+        }
+        $query = WatchList::where('isdel', WatchList::STATUS_NORMAL)->orderBy('d_id');
         if ($lastId > 0) {
             $query->where('d_id', '>', $lastId);
         }
+
         $queryRes  = $query->simplePaginate($size);
         $resultRes = $queryRes->items();
         $watchList = [];
-        foreach ($resultRes as $singleWatch) {
 
+        //foreach ($resultRes as $singleWatch) {
+        for ($i = 0; $i < 10; $i++) {
+            $list           = [];
+            $list['title']  = '标题' . $i;
+            $list['url']    = 'https://tv.yiqiqw.com/show/rSv.html';
+            $list['imgsrc'] = 'https://v.static.yiqiqw.com/pic/7f5c0376021d2604849e98a93c9b0deb.jpeg';
+            $list['codeid'] = 'rSv';
+            $watchList[]    = $list;
         }
 
         return $this->outSuccessResult([
