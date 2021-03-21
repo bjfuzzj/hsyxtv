@@ -253,7 +253,7 @@ class TvUserController extends Controller
         ], [
             '*' => '参数出错，请重试[-1]'
         ]);
-        $watch  = WatchList::where('userid', $params['userid'])->where('codeid', $params['codeid'])->first();
+        $watch  = WatchList::where('userid', $params['userid'])->where('srcid', $params['codeid'])->first();
         if ($watch instanceof WatchList) {
             if ($watch->isDel()) {
                 $watch->setNormal();
@@ -271,7 +271,7 @@ class TvUserController extends Controller
         ], [
             '*' => '参数出错，请重试[-1]'
         ]);
-        $watch  = WatchList::where('userid', $params['userid'])->where('codeid', $params['codeid'])->first();
+        $watch  = WatchList::where('userid', $params['userid'])->where('srcid', $params['codeid'])->first();
         if ($watch instanceof WatchList) {
             if ($watch->isNormal()) {
                 $watch->setDel();
