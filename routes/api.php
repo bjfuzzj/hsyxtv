@@ -31,8 +31,8 @@ Route::middleware(['api'])->group(function () {
     Route::get('/upgrade', 'TvUserController@upgrade');
     Route::get('/cache', 'TvUserController@cache');
     // 增加观看记录
-    Route::post('/add_watch', 'TvUserController@addWatchHistory');
-    Route::post('/del_watch', 'TvUserController@delWatchHistory');
+    Route::get('/add_watch', 'TvUserController@addWatchHistory');
+    Route::get('/del_watch', 'TvUserController@delWatchHistory');
     Route::get('/get_watch', 'TvUserController@getWatchHistory');
 
 //    Route::prefix('wxapp')->group(function () {
