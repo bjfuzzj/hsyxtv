@@ -47,7 +47,10 @@ class MediaImport implements ToCollection, WithHeadingRow
 
 
         }
-        array_push($tvs, $newTv);
+        if ($isHeadTV) {
+            array_push($tvs, $newTv);
+        }
+
         //开始操作
 
         foreach ($tvs as $tv) {
