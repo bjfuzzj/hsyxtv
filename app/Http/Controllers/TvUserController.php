@@ -266,6 +266,7 @@ class TvUserController extends Controller
                 $watch         = new WatchList();
                 $watch->userid = $params['userid'];
                 $watch->srcid  = $params['codeid'];
+                $watch->isdel  = WatchList::STATUS_NORMAL;
                 $watch->save();
             }
         }
