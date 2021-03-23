@@ -247,9 +247,9 @@ class TvUserController extends Controller
     public function addWatchHistory(Request $request)
     {
         $params = $this->validate($request, [
-            'userid'  => 'required|string',
-            'session' => 'required|string',
-            'codeid'  => 'required|string',
+            'userid' => 'required|string',
+//            'session' => 'required|string',
+            'codeid' => 'required|string',
         ], [
             '*' => '参数出错，请重试[-1]'
         ]);
@@ -265,9 +265,9 @@ class TvUserController extends Controller
     public function delWatchHistory(Request $request)
     {
         $params = $this->validate($request, [
-            'userid'  => 'required|string',
-            'session' => 'required|string',
-            'codeid'  => 'required|string',
+            'userid' => 'required|string',
+//            'session' => 'required|string',
+            'codeid' => 'required|string',
         ], [
             '*' => '参数出错，请重试[-1]'
         ]);
