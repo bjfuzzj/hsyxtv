@@ -54,7 +54,7 @@ class MediaImport implements ToCollection, WithHeadingRow
             $createTv             = new Media();
             $createTv->name       = $tv['name'];
             $createTv->kind       = $tv['kind'];
-            $num                  = count($createTv['subs']);
+            $num                  = count($tv['subs']);
             $createTv->newest_num = $num;
             $createTv->total_num  = $num;
             $createTv->save();
@@ -62,7 +62,7 @@ class MediaImport implements ToCollection, WithHeadingRow
             $createTv->id_code = Codec::encodeId($d_id);
             $createTv->save();
 
-            foreach ($createTv['subs'] as $key => $subTv) {
+            foreach ($tv['subs'] as $key => $subTv) {
                 $subCreateTv           = new SubMedia();
                 $subCreateTv->media_id = $d_id;
                 $subCreateTv->name     = $subTv['sub_name'];
