@@ -58,7 +58,7 @@ class MediaImport implements ToCollection, WithHeadingRow
             $createTv->newest_num = $num;
             $createTv->total_num  = $num;
             $createTv->save();
-            $d_id              = $createTv->id;
+            $d_id              = $createTv->d_id;
             $createTv->id_code = Codec::encodeId($d_id);
             $createTv->save();
 
