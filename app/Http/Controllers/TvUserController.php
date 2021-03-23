@@ -260,6 +260,14 @@ class TvUserController extends Controller
             if ($watch->isDel()) {
                 $watch->setNormal();
             }
+        } else {
+            $tvUser = TvUser::find($params['userid']);
+            if ($tvUser instanceof TvUser) {
+                $watch         = new WatchList();
+                $watch->userid = $params['userid'];
+                $watch->srcid  = $params['codeid'];
+                $watch->save();
+            }
         }
         return $this->outSuccessResultApi([]);
     }
