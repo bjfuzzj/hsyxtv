@@ -12,6 +12,7 @@ use App\Models\TvUser;
 use App\Models\UpgradeConfig;
 use App\Models\WatchList;
 
+
 class TvUserController extends Controller
 {
 
@@ -246,6 +247,7 @@ class TvUserController extends Controller
 
     public function addWatchHistory(Request $request)
     {
+        Log::info('addwatch===>' . print_r($request->all(), 1));
         $params = $this->validate($request, [
             'userid' => 'required|string',
 //            'session' => 'required|string',
@@ -264,6 +266,7 @@ class TvUserController extends Controller
 
     public function delWatchHistory(Request $request)
     {
+        Log::info('delwatch===>' . print_r($request->all(), 1));
         $params = $this->validate($request, [
             'userid' => 'required|string',
 //            'session' => 'required|string',
