@@ -60,6 +60,7 @@ class MediaImport implements ToCollection, WithHeadingRow
             $createTv->save();
             $d_id              = $createTv->d_id;
             $createTv->id_code = Codec::encodeId($d_id);
+            $createTv->url_1   = "/show/" . $createTv->id_code . ".html";
             $createTv->save();
 
             foreach ($tv['subs'] as $key => $subTv) {
