@@ -35,6 +35,7 @@ class MediaImport implements ToCollection, WithHeadingRow
                 $sub['sub_name']  = $row['sub_name'];
                 $sub['number']    = $row['number'];
                 $sub['md5']       = $row['md5'];
+                $sub['kong']      = $row['kong'];
                 array_push($newTv['subs'], $sub);
                 $isHeadTV = true;
             } else {
@@ -42,10 +43,9 @@ class MediaImport implements ToCollection, WithHeadingRow
                 $sub['sub_name'] = $row['sub_name'];
                 $sub['number']   = $row['number'];
                 $sub['md5']      = $row['md5'];
+                $sub['kong']     = $row['kong'];
                 array_push($newTv['subs'], $sub);
             }
-
-
         }
         if ($isHeadTV) {
             array_push($tvs, $newTv);
@@ -71,13 +71,17 @@ class MediaImport implements ToCollection, WithHeadingRow
                 $subCreateTv->media_id = $d_id;
                 $subCreateTv->name     = $subTv['sub_name'];
                 $subCreateTv->md5      = $subTv['md5'];
-                $sourceId              = trim($subTv['number'], '.ts');
+
+                $info                  = explode('.', $subTv['number']);
+                $sourceId              = $info[0];
+                $extension             = $info[1];
+                $kong                  = $subTv['kong'];
                 $subCreateTv->sourceid = $sourceId;
                 $subCreateTv->now_num  = ($key + 1);
                 $subCreateTv->save();
                 $idCode               = Codec::encodeId($subCreateTv->d_id);
                 $subCreateTv->id_code = $idCode;
-                $subCreateTv->url     = 'https://v.static.yiqiqw.com/hsyx/' . $idCode . ".ts";
+                $subCreateTv->url     = 'https://v.static.yiqiqw.com/hsyx/' . $kong . '/' . $idCode . "." . $extension;
                 $subCreateTv->save();
             }
 
