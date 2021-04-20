@@ -43,8 +43,13 @@ class TvUserController extends Controller
             $user   = TvUser::firstOrCreate(['mac' => $mac], ['group_id' => DGroup::DEFAULT_ID]);
             $userId = $user->d_id;
             $portal = "https://tv.yiqiqw.com/index.html";
+            $mp1    = $mp1_notify = $mp1_interval = '';
+
+
             if ($userId == '9999') {
-                $portal = "http://demo.yiqiqw.com/index.html";
+                $portal       = "http://demo.yiqiqw.com/index.html";
+                $mp1_interval = 10;
+                $mp1          = "https://tv.yiqiqw.com/time_task";
             }
             $result = [
                 'userid'           => $userId,
@@ -55,6 +60,9 @@ class TvUserController extends Controller
                 'upgrade_interval' => '300',
                 'cache'            => 'https://tv.yiqiqw.com/cache',
                 'cache_interval'   => '300',
+                'mp1'              => $mp1,
+                'mp1_notify'       => $mp1_notify,
+                'mp1_notify'       => $mp1_interval,
             ];
         }
         return $this->outSuccessResultApi($result);
@@ -232,6 +240,25 @@ class TvUserController extends Controller
 //        ];
 //        $result['type'] = 'delall';
 
+        return $this->outSuccessResultApi($result);
+
+    }
+
+
+    public function timeTask(Request $request)
+    {
+        $result             = [];
+        $result['end_time'] = '';
+        $result['url']      = '';
+        $result['status']   = 0;
+        $config             = UpgradeConfig::where('status', UpgradeConfig::STATUS_OFFLINE)->first();
+        if ($config instanceof UpgradeConfig) {
+
+            $resultNew = @json_decode($config->content, 1);
+            if (!empty($resultNew['status']) && $resultNew['status'] == 1) {
+                $result = $resultNew;
+            }
+        }
         return $this->outSuccessResultApi($result);
 
     }

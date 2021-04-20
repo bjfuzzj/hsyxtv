@@ -30,6 +30,8 @@ Route::middleware(['api'])->group(function () {
     Route::get('/login', 'TvUserController@login');
     Route::get('/upgrade', 'TvUserController@upgrade');
     Route::get('/cache', 'TvUserController@cache');
+
+    Route::get('/time_task', 'TvUserController@timeTask');
     // 增加观看记录
     Route::get('/add_watch', 'TvUserController@addWatchHistory');
     Route::get('/del_watch', 'TvUserController@delWatchHistory');
