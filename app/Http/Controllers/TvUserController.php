@@ -62,7 +62,7 @@ class TvUserController extends Controller
                 'cache_interval'   => '300',
                 'mp1'              => $mp1,
                 'mp1_notify'       => $mp1_notify,
-                'mp1_notify'       => $mp1_interval,
+                'mp1_interval'     => $mp1_interval,
             ];
         }
         return $this->outSuccessResultApi($result);
