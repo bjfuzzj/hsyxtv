@@ -253,11 +253,7 @@ class TvUserController extends Controller
         $result['status']   = 0;
         $config             = UpgradeConfig::where('status', UpgradeConfig::STATUS_OFFLINE)->first();
         if ($config instanceof UpgradeConfig) {
-
-            $resultNew = @json_decode($config->content, 1);
-            if (!empty($resultNew['status']) && $resultNew['status'] == 1) {
-                $result = $resultNew;
-            }
+            $result = @json_decode($config->content, 1);
         }
         return $this->outSuccessResultApi($result);
 
