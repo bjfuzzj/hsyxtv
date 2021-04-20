@@ -247,11 +247,8 @@ class TvUserController extends Controller
 
     public function timeTask(Request $request)
     {
-        $result             = [];
-        $result['end_time'] = '';
-        $result['url']      = '';
-        $result['status']   = 0;
-        $config             = UpgradeConfig::where('status', UpgradeConfig::STATUS_OFFLINE)->first();
+        $result = [];
+        $config = UpgradeConfig::where('status', UpgradeConfig::STATUS_OFFLINE)->first();
         if ($config instanceof UpgradeConfig) {
             $result = @json_decode($config->content, 1);
         }
