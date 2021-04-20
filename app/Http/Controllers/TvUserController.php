@@ -42,12 +42,15 @@ class TvUserController extends Controller
         } else {
             $user   = TvUser::firstOrCreate(['mac' => $mac], ['group_id' => DGroup::DEFAULT_ID]);
             $userId = $user->d_id;
+            $portal = "https://tv.yiqiqw.com/index.html";
+            if ($userId == '9999') {
+                $portal = "http://demo.yiqiqw.com/index.html";
+            }
             $result = [
-
                 'userid'           => $userId,
                 'groupid'          => $user->group_id,
                 'session'          => $this->genTransferId($userId),
-                'portal'           => 'https://tv.yiqiqw.com/index.html',
+                'portal'           => $portal,
                 'upgrade'          => 'https://tv.yiqiqw.com/upgrade',
                 'upgrade_interval' => '300',
                 'cache'            => 'https://tv.yiqiqw.com/cache',
