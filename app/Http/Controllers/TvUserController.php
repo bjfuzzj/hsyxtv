@@ -40,17 +40,28 @@ class TvUserController extends Controller
         if ($sign != strtolower($token)) {
             return $this->outErrorResultApi(500, '参数错误[1]');
         } else {
-            $user   = TvUser::firstOrCreate(['mac' => $mac], ['group_id' => DGroup::DEFAULT_ID]);
-            $userId = $user->d_id;
-            $portal = "https://tv.yiqiqw.com/index.html";
-            $mp1    = $mp1_notify = $mp1_interval = '';
+            $user       = TvUser::firstOrCreate(['mac' => $mac], ['group_id' => DGroup::DEFAULT_ID]);
+            $userId     = $user->d_id;
+            $portal     = "https://tv.yiqiqw.com/index.html";
+            $mp1_notify = '';
 
+            $mp1_interval = 10;
+            $mp1          = "https://tv.yiqiqw.com/time_task";
 
-            if ($userId == '9999') {
-                $portal       = "http://demo.yiqiqw.com/index.html";
-                $mp1_interval = 10;
-                $mp1          = "https://tv.yiqiqw.com/time_task";
+            $group = DGroup::find($user->group_id)->first();
+            if ($group instanceof DGroup) {
+                if ($group->isAloneIndex()) {
+                    $portal = $group->index_src;
+
+                }
             }
+
+
+//            if ($userId == '9999') {
+//                $portal       = $portal;
+//                $mp1_interval = 10;
+//                $mp1          = "https://tv.yiqiqw.com/time_task";
+//            }
             $result = [
                 'userid'           => $userId,
                 'groupid'          => $user->group_id,
