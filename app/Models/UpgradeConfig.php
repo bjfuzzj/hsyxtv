@@ -22,10 +22,16 @@ class UpgradeConfig extends Model
     const TYPE_IMG     = 3; //开机图
     const TYPE_VIDEO   = 4; //开机视频
     const TYPE_DEL_ALL = 5; //删除类型
+    const TYPE_INDEX   = 6; //登录字段配置
+    const TYPE_NOTICE  = 7; //消息通知配置
 
     const UPDATED_AT = 'createdatetime';
     const CREATED_AT = 'savedatetime';
 
+    public function isIndexType()
+    {
+        return self::TYPE_INDEX == $this->type;
+    }
 
     public function isAddType()
     {

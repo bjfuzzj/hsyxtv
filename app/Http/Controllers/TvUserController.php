@@ -47,6 +47,17 @@ class TvUserController extends Controller
 
             $mp1_interval = 10;
             $mp1          = "https://tv.yiqiqw.com/time_task";
+            $mode         = 'normal';
+            $mix_ad_time  = 30;
+
+
+            $config = UpgradeConfig::where('status', UpgradeConfig::STATUS_ONLINE)->where('type', UpgradeConfig::TYPE_INDEX)->first();
+            if ($config instanceof UpgradeConfig) {
+                $indexData   = @json_decode($config->content, 1);
+                $mode        = $indexData['mode'];
+                $mix_ad_time = $indexData['mix_ad_time'];
+            }
+
 
             $group = DGroup::find($user->group_id)->first();
             if ($group instanceof DGroup) {
@@ -74,6 +85,8 @@ class TvUserController extends Controller
                 'mp1'              => $mp1,
                 'mp1_notify'       => $mp1_notify,
                 'mp1_interval'     => $mp1_interval,
+                'mode'             => $mode,
+                'mix_ad_time'      => $mix_ad_time,
             ];
         }
         return $this->outSuccessResultApi($result);
