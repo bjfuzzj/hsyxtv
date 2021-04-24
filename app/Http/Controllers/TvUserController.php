@@ -51,8 +51,7 @@ class TvUserController extends Controller
 
 
             //查看分组
-//            $group = DGroup::find($user->group_id)->first();
-            $group = DGroup::where('d_id', $user->group_id)->first();
+            $group = DGroup::find($user->group_id);
             if ($group instanceof DGroup) {
                 if ($group->isAloneIndex()) {
                     $portal = $group->index_src;
