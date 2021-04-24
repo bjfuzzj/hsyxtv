@@ -2,9 +2,9 @@
 
 namespace App\Console\Commands;
 
-use App\Models\Order;
-use App\Models\OrderLogistics;
 use Illuminate\Console\Command;
+use App\Models\TvUser;
+use App\Models\DGroup;
 
 
 class changeOlStatus extends Command
@@ -14,7 +14,7 @@ class changeOlStatus extends Command
      *
      * @var string
      */
-    protected $signature = 'script:changeolstatus';
+    protected $signature = 'script:test';
 
     /**
      * The console command description.
@@ -40,15 +40,10 @@ class changeOlStatus extends Command
      */
     public function handle()
     {
-        $orders = Order::with(['logistics' => function ($query) {
-            $query->withTrashed();
-        }])->get();
-        foreach ($orders as $order) {
-            $logisticList = $order->logistics;
-            foreach ($logisticList as $firstLogistic) {
-                $firstLogistic->setDefault();
-                break;
-            }
-        }
+        $id     = 2;
+        $dgroup = DGroup::find($id);
+        var_dump($dgroup);
+
+
     }
 }
