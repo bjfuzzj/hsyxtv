@@ -49,25 +49,22 @@ class TvUserController extends Controller
             $mode         = 'normal';
             $mix_ad_time  = 30;
 
-
-//            $config = UpgradeConfig::where('status', UpgradeConfig::STATUS_ONLINE)->where('type', UpgradeConfig::TYPE_INDEX)->first();
-//            if ($config instanceof UpgradeConfig) {
-//                $indexData   = @json_decode($config->content, 1);
-//                $mode        = $indexData['mode'];
-//                $mix_ad_time = $indexData['mix_ad_time'];
-//            }
+            Log::info(print_r($user, 1));
 
             //查看分组
             $group = DGroup::find($user->group_id)->first();
             if ($group instanceof DGroup) {
+                Log::info(print_r($group, 1));
                 if ($group->isAloneIndex()) {
+                    Log::info('===========');
                     $portal = $group->index_src;
+                    Log::info($group->index_src);
                 }
                 $mode        = $group->mode;
                 $mix_ad_time = $group->mix_ad_time;
             }
 
-            
+
             $result = [
                 'userid'           => $userId,
                 'groupid'          => $user->group_id,
