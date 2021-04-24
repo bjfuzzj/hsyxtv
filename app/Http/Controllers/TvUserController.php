@@ -40,39 +40,34 @@ class TvUserController extends Controller
         if ($sign != strtolower($token)) {
             return $this->outErrorResultApi(500, '参数错误[1]');
         } else {
-            $user       = TvUser::firstOrCreate(['mac' => $mac], ['group_id' => DGroup::DEFAULT_ID]);
-            $userId     = $user->d_id;
-            $portal     = "https://tv.yiqiqw.com/index.html";
-            $mp1_notify = '';
-
+            $user         = TvUser::firstOrCreate(['mac' => $mac], ['group_id' => DGroup::DEFAULT_ID]);
+            $userId       = $user->d_id;
+            $portal       = "https://tv.yiqiqw.com/index.html";
+            $mp1_notify   = '';
             $mp1_interval = 10;
             $mp1          = "https://tv.yiqiqw.com/time_task";
             $mode         = 'normal';
             $mix_ad_time  = 30;
 
 
-            $config = UpgradeConfig::where('status', UpgradeConfig::STATUS_ONLINE)->where('type', UpgradeConfig::TYPE_INDEX)->first();
-            if ($config instanceof UpgradeConfig) {
-                $indexData   = @json_decode($config->content, 1);
-                $mode        = $indexData['mode'];
-                $mix_ad_time = $indexData['mix_ad_time'];
-            }
+//            $config = UpgradeConfig::where('status', UpgradeConfig::STATUS_ONLINE)->where('type', UpgradeConfig::TYPE_INDEX)->first();
+//            if ($config instanceof UpgradeConfig) {
+//                $indexData   = @json_decode($config->content, 1);
+//                $mode        = $indexData['mode'];
+//                $mix_ad_time = $indexData['mix_ad_time'];
+//            }
 
-
+            //查看分组
             $group = DGroup::find($user->group_id)->first();
             if ($group instanceof DGroup) {
                 if ($group->isAloneIndex()) {
                     $portal = $group->index_src;
-
                 }
+                $mode        = $group->mode;
+                $mix_ad_time = $group->mix_ad_time;
             }
 
-
-//            if ($userId == '9999') {
-//                $portal       = $portal;
-//                $mp1_interval = 10;
-//                $mp1          = "https://tv.yiqiqw.com/time_task";
-//            }
+            
             $result = [
                 'userid'           => $userId,
                 'groupid'          => $user->group_id,
