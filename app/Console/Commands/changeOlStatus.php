@@ -40,9 +40,12 @@ class changeOlStatus extends Command
      */
     public function handle()
     {
-        $id     = 2;
-        $dgroup = DGroup::find($id);
-        var_dump($dgroup);
+        $mac   = "F4:D9:C6:52:64:67";
+        $user  = TvUser::firstOrCreate(['mac' => $mac], ['group_id' => DGroup::DEFAULT_ID]);
+        $group = DGroup::find($user->group_id)->first();
+//        $id     = 2;
+//        $dgroup = DGroup::find($id);
+        var_dump($group);
 
 
     }
