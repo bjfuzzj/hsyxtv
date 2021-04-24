@@ -52,7 +52,8 @@ class TvUserController extends Controller
             Log::info(print_r($user, 1));
 
             //查看分组
-            $group = DGroup::find($user->group_id)->first();
+//            $group = DGroup::find($user->group_id)->first();
+            $group = DGroup::where('d_id', $user->group_id)->first();
             if ($group instanceof DGroup) {
                 Log::info(print_r($group, 1));
                 if ($group->isAloneIndex()) {
