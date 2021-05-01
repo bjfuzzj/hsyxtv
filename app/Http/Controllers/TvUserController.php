@@ -88,7 +88,7 @@ class TvUserController extends Controller
             'mac'     => 'nullable|string',
             'session' => 'required|string',
             'device'  => 'required|string',
-            'romutc'  => 'required|string',
+            'romutc'  => 'nullable|string',
             'romdes'  => 'nullable|string',
             'pkgname' => 'required|string',
             'vername' => 'required|string',
