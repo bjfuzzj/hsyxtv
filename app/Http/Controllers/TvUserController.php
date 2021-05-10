@@ -259,10 +259,24 @@ class TvUserController extends Controller
 
     public function timeTask(Request $request)
     {
+        $params = $this->validate($request, [
+            'userid'  => 'required|string',
+        ], [
+            '*' => '参数出错，请重试[-1]'
+        ]);
+        $userId = $params['userid'];
+        $user = TvUser::find($userId);
         $result = [];
-        $config = UpgradeConfig::where('status', UpgradeConfig::STATUS_OFFLINE)->first();
-        if ($config instanceof UpgradeConfig) {
-            $result = @json_decode($config->content, 1);
+        if(!$user instanceof TvUser){
+            return $this->outErrorResultApi(500, '内部错误[1]');
+        }
+        //查看分组
+        $group = DGroup::find($user->group_id);
+        if ($group instanceof DGroup) {
+            $content = trim($group->content);
+            if(!empty($content)){
+                $result = @json_decode($group->content, 1);
+            }
         }
         return $this->outSuccessResultApi($result);
 
