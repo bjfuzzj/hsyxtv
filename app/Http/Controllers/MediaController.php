@@ -2,7 +2,7 @@
 /*
  * @Author: your name
  * @Date: 2021-05-07 20:13:46
- * @LastEditTime: 2021-05-22 13:38:55
+ * @LastEditTime: 2021-05-22 13:44:31
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /tv/app/Http/Controllers/MediaController.php
@@ -29,7 +29,7 @@ class MediaController extends Controller
         foreach($medias as $media){
             $temMedia['id_code'] = $media->id_code;
             $temMedia['name'] = $media->name;
-            $temMedia['url_1'] = $media->url_1;
+            $temMedia['url_1'] = 'https://tv.yiqiqw.com/'.$media->url_1;
             $temMedia['poster_vertical'] = $media->poster_vertical;
             $result[] = $temMedia;
             
