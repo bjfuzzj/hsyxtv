@@ -2,7 +2,7 @@
 /*
  * @Author: your name
  * @Date: 2021-05-07 20:13:46
- * @LastEditTime: 2021-05-22 13:07:53
+ * @LastEditTime: 2021-05-22 13:30:33
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /tv/app/Http/Controllers/MediaController.php
@@ -17,8 +17,8 @@ class MediaController extends Controller
 {
     public function getList(Request $request)
     {
-        $ids = $request->input('ids',0);
-        if (empty($id)) {
+        $ids = $request->input('ids',[]);
+        if (empty($ids)) {
             return $this->outErrorResultApi(500, '内部错误[1]');
         }
         $medias = Media::find($ids);
