@@ -238,6 +238,7 @@ return [
     'api_domain'   => env('API_DOMAIN', ''),
     'h5_domain'    => env('H5_DOMAIN', ''),
     'admin_domain' => env('ADMIN_DOMAIN', ''),
+    'frontapi_domain' => env('FRONT_API_DOMAIN', ''),
 
     //接口 LOGIN_KEY 配置
     'login_key'    => env('LOGIN_KEY', ''),

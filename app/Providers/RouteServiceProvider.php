@@ -2,7 +2,7 @@
 /*
  * @Author: your name
  * @Date: 2020-12-02 18:06:10
- * @LastEditTime: 2020-12-03 11:55:25
+ * @LastEditTime: 2021-05-22 12:53:03
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /paota/ptweb/app/Providers/RouteServiceProvider.php
@@ -46,7 +46,8 @@ class RouteServiceProvider extends ServiceProvider
         $this->mapApiRoutes();
         //$this->mapAdminRoutes();
         //$this->mapWebRoutes();
-        //
+        $this->mapFrontApiRoutes();
+        
     }
 
     // /**
@@ -87,5 +88,15 @@ class RouteServiceProvider extends ServiceProvider
             ->domain(config('app.admin_domain'))
             ->namespace($this->namespace)
             ->group(base_path('routes/admin.php'));
+    }
+
+
+    protected function mapFrontApiRoutes()
+    {
+        Route::middleware('api')
+            ->domain(config('app.frontapi_domain'))
+            ->middleware('api')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/frontapi.php'));
     }
 }
