@@ -60,8 +60,9 @@ class TvUserController extends Controller
                 $mode        = $group->mode;
                 $mix_ad_time = $group->mix_ad_time;
             }
-            $expireTime = Carbon::createFromTimeString($user->expire);
-            $expire = $expireTime->timestamp . str_limit($expireTime->micro, 3, '');
+            $expireTime = Carbon::parse($user->expire);
+            // $expire = $expireTime->timestamp . str_limit($expireTime->micro, 3, '');
+            $expire = $expireTime->timestamp . '000';
             $result = [
                 'userid'           => $userId,
                 'groupid'          => $user->group_id,
