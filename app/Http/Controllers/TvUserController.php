@@ -62,7 +62,7 @@ class TvUserController extends Controller
             }
             $expireTime = Carbon::parse($user->expire);
             // $expire = $expireTime->timestamp . str_limit($expireTime->micro, 3, '');
-            $expire = $expireTime->timestamp . '000';
+            $expire = $expireTime->timestamp;
             $result = [
                 'userid'           => $userId,
                 'groupid'          => $user->group_id,
