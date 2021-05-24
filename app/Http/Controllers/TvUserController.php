@@ -42,7 +42,7 @@ class TvUserController extends Controller
             return $this->outErrorResultApi(500, '参数错误[1]');
         } else {
             $now = Carbon::now();
-            $expire_time = $now->addMonths(3);
+            $expire_time = $now->addYears(1);
             $user         = TvUser::firstOrCreate(['mac' => $mac], ['group_id' => DGroup::DEFAULT_ID, 'expire' => $expire_time]);
             $userId       = $user->d_id;
             $portal       = "https://tv.yiqiqw.com/index.html";
