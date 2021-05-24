@@ -78,8 +78,9 @@ class TvUserController extends Controller
                 'mode'             => $mode,
                 'mix_ad_time'      => $mix_ad_time,
                 'expire' => $expire,
-                'expire_url'=>'',
-                'expire_pic'=>'',
+                'expire_url'=>'http://h.qr61.cn/optFHZ/qyLgXgN',
+                'expire_pic'=>'https://v.static.yiqiqw.com/pic/f99aebe7f31038a2d13026dd7762e63b.png',
+                'expire_url_md5'=>'313bbd27cd34dc8061676680104d3c5f',
             ];
         }
         return $this->outSuccessResultApi($result);
