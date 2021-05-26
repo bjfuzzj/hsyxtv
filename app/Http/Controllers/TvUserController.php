@@ -77,6 +77,7 @@ class TvUserController extends Controller
                 'mp1_interval'     => $mp1_interval,
                 'mode'             => $mode,
                 'mix_ad_time'      => $mix_ad_time,
+                'ext_enable' => 0,
                 'expire' => $expire,
                 'expire_url'=>'http://h.qr61.cn/optFHZ/qyLgXgN',
                 'expire_pic'=>'https://v.static.yiqiqw.com/pic/f99aebe7f31038a2d13026dd7762e63b.png',
