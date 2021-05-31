@@ -2,7 +2,7 @@
 /*
  * @Author: your name
  * @Date: 2021-06-01 00:20:20
- * @LastEditTime: 2021-06-01 00:24:51
+ * @LastEditTime: 2021-06-01 00:37:25
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /tv/app/Console/Commands/SyncMedia.php
@@ -56,6 +56,7 @@ class SyncMedia extends Command
                 $new = new VMedia();
                 $new->vid_code= $code;
                 $new->vmedia_id=$mediaId;
+                $new->url_1='vshow/'.$code.'.html';
                 $new->save();
             }
         }
