@@ -104,13 +104,15 @@ class TvUserController extends Controller
             '*' => '参数出错，请重试[-1]'
         ]);
         $userId = $params['userid'];
-        //        $userId = Codec::decodeId($userId);
         $tvUser = TvUser::find($userId);
         if ($tvUser instanceof TvUser) {
             $tvUser->device = $params['device'];
             $tvUser->romutc = $params['romutc'];
             if (!empty($params['romdes'])) {
                 $tvUser->romdes = $params['romdes'];
+                if($params['romdes'] == 'rk3399_all-eng 7.1.2 NHG47K eng.gxg.20210528.19191'){
+                    $tvUser->group_id = 7;
+                }
             }
             $tvUser->romutc  = $params['romutc'];
             $tvUser->pkgname = $params['pkgname'];
