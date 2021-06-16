@@ -7,6 +7,7 @@ use App\Models\DGroup;
 use Illuminate\Http\Request;
 use App\Models\Idgenter;
 use App\Helper\Codec;
+use App\Models\AdTheme;
 use Illuminate\Support\Facades\Log;
 use App\Models\TvUser;
 use App\Models\UpgradeConfig;
@@ -282,12 +283,32 @@ class TvUserController extends Controller
         }
         //查看分组
         $group = DGroup::find($user->group_id);
-        if ($group instanceof DGroup) {
-            $content = trim($group->content);
-            if (!empty($content)) {
-                $result = @json_decode($group->content, 1);
+        if($group instanceof DGroup){
+            if(!empty($group->content)){
+                $content = trim($group->content);
+                if (!empty($content)) {
+                    $result = @json_decode($group->content, 1);
+                }
+            }else{
+                //优先取广告机内容
+                if(!empty($group->theme_id)){
+                    $adTheme = AdTheme::find($group->theme_id);
+                    if($adTheme instanceof AdTheme){
+                        $content = trim($adTheme->content);
+                        if (!empty($content)) {
+                            $result = @json_decode($adTheme->content, 1);
+                        }
+                    }
+                }
             }
         }
+
+        // if ($group instanceof DGroup) {
+        //     $content = trim($group->content);
+        //     if (!empty($content)) {
+        //         $result = @json_decode($group->content, 1);
+        //     }
+        // }
         return $this->outSuccessResultApi($result);
     }
 
