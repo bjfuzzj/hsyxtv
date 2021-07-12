@@ -2,7 +2,7 @@
 /*
  * @Author: your name
  * @Date: 2021-05-07 20:13:46
- * @LastEditTime: 2021-07-12 10:04:05
+ * @LastEditTime: 2021-07-12 10:13:56
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /tv/app/Http/Controllers/MediaController.php
@@ -23,7 +23,9 @@ class MediaController extends Controller
         if (empty($ids)) {
             return $this->outErrorResultApi(500, '内部错误[1]');
         }
-        $medias = Media::find($ids);
+        // $idsStr = @join(',',$ids);
+        // $medias = Media::find($ids);
+        $medias = Media::whereIn('d_id',$ids)->orderByRaw('FIELD(d_id, '.implode(", " , $ids).')')->get();
         if($medias->isEmpty()){
             return $this->outErrorResultApi(500, '内部错误[2]');
         }
