@@ -2,7 +2,7 @@
 /*
  * @Author: your name
  * @Date: 2021-05-07 20:13:46
- * @LastEditTime: 2021-07-12 10:13:56
+ * @LastEditTime: 2021-07-12 10:17:12
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /tv/app/Http/Controllers/MediaController.php
@@ -19,7 +19,7 @@ class MediaController extends Controller
     public function getList(Request $request)
     {
         $ids = $request->input('ids',[]);
-        Log::info(print_r($ids,1));
+        // Log::info(print_r($ids,1));
         if (empty($ids)) {
             return $this->outErrorResultApi(500, '内部错误[1]');
         }
@@ -31,7 +31,7 @@ class MediaController extends Controller
         }
         $result = [];
         foreach($medias as $media){
-            Log::info($media->d_id);
+            // Log::info($media->d_id);
             $temMedia['id_code'] = $media->id_code;
             $temMedia['name'] = $media->name;
             $temMedia['actor'] = $media->actor;
