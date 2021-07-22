@@ -2,7 +2,7 @@
 /*
  * @Author: your name
  * @Date: 2021-05-07 20:13:46
- * @LastEditTime: 2021-07-22 10:50:31
+ * @LastEditTime: 2021-07-22 14:38:58
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /tv/app/Http/Controllers/MediaController.php
@@ -12,8 +12,10 @@ namespace App\Http\Controllers;
 
 use App\Models\Media;
 use App\Models\SubMedia;
+use EasyWeChat\Kernel\Messages\Media as MessagesMedia;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\DB;
 
 class MediaController extends Controller
 {
@@ -77,6 +79,23 @@ class MediaController extends Controller
             
         }
         return $this->outSuccessResultApi($result);
+    }
+
+
+    public function getRecommend(Request $request)
+    {
+        $id = $request->input('id',0);
+        $limit = $request->input('limit',6);
+        $media = Media::find($id);
+        if(!$media instanceof Media){
+            return $this->outErrorResultApi(500, '内部错误[2]');
+        }
+        $type = $media->type ?? '';
+        #sql:select   {名称},{海报竖图},{id编码},  url, createdatetime from {媒资库} where published='y' and d_id>=(SELECT floor(RAND() * (SELECT MAX(d_id) FROM {媒资库}))) ORDER BY d_id LIMIT 6;
+        $sql = "select * from media where published='y' and d_id!={$id} and  type = {$type} and d_id >=(SELECT floor(RAND() * (SELECT MAX(d_id) FROM media where type={$type} and d_id!={$id} ))) ORDER BY d_id LIMIT $limit";
+        $medias = DB::select($sql);
+        return $this->outSuccessResultApi($medias);
+        
     }
 
 

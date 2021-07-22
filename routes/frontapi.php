@@ -2,7 +2,7 @@
 /*
  * @Author: your name
  * @Date: 2020-12-02 18:06:10
- * @LastEditTime: 2021-07-21 22:58:09
+ * @LastEditTime: 2021-07-22 11:34:00
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /paota/ptweb/routes/api.php
@@ -22,4 +22,5 @@
 Route::middleware(['api'])->prefix('media')->group(function () {
         Route::post('getList', 'MediaController@getList');
         Route::get('getDetail', 'MediaController@getDetail');
+        Route::get('getRecommend', 'MediaController@getRecommend');
 });
