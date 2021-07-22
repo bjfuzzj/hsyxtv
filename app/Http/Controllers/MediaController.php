@@ -2,7 +2,7 @@
 /*
  * @Author: your name
  * @Date: 2021-05-07 20:13:46
- * @LastEditTime: 2021-07-22 16:39:34
+ * @LastEditTime: 2021-07-22 18:34:16
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /tv/app/Http/Controllers/MediaController.php
@@ -38,15 +38,29 @@ class MediaController extends Controller
         foreach($medias as $media){
             //普法
             if($media['type'] == 1){
-                $pageName = "./detail-1.php?id={$media['d_id']}";
+                if($source == 'v'){
+                    $pageName = "./vdetail-1.php?id={$media['d_id']}";
+                }else{
+                    $pageName = "./detail-1.php?id={$media['d_id']}";
+                }
             }
             //教育
             elseif($media['type'] == 3){
-                $pageName = "./detail-1.php?id={$media['d_id']}";
+                if($source == 'v'){
+                    $pageName = "./vdetail-1.php?id={$media['d_id']}";
+                }else{
+                    $pageName = "./detail-1.php?id={$media['d_id']}";
+                }
+                
             }
             //2 党建
             else{
-                $pageName = "https://tv.yiqiqw.com/show/{$media['id_code']}.html";
+                if($source == 'v'){
+                    $pageName = "https://tv.yiqiqw.com/vshow/{$media['id_code']}.html";
+                }else{
+                    $pageName = "https://tv.yiqiqw.com/show/{$media['id_code']}.html";
+                }
+                
             }
 
             
