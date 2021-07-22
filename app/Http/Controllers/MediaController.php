@@ -2,7 +2,7 @@
 /*
  * @Author: your name
  * @Date: 2021-05-07 20:13:46
- * @LastEditTime: 2021-07-22 15:22:09
+ * @LastEditTime: 2021-07-22 16:39:34
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /tv/app/Http/Controllers/MediaController.php
@@ -22,7 +22,9 @@ class MediaController extends Controller
     public function getList(Request $request)
     {
         $ids = $request->input('ids',[]);
-        // Log::info(print_r($ids,1));
+        $source = $request->input('source','h');
+
+
         if (empty($ids)) {
             return $this->outErrorResultApi(500, '内部错误[1]');
         }
@@ -34,7 +36,6 @@ class MediaController extends Controller
         }
         $result = [];
         foreach($medias as $media){
-            // Log::info($media->d_id);
             //普法
             if($media['type'] == 1){
                 $pageName = "./detail-1.php?id={$media['d_id']}";
@@ -102,6 +103,9 @@ class MediaController extends Controller
     {
         $id = $request->input('id',0);
         $limit = $request->input('limit',6);
+        $source = $request->input('source','h');
+
+        
         $media = Media::find($id);
         if(!$media instanceof Media){
             return $this->outErrorResultApi(500, '内部错误[2]');
@@ -112,17 +116,31 @@ class MediaController extends Controller
         $medias = DB::select($sql);
 
         foreach($medias as &$media){
+
               //普法
             if($media->type == 1){
-                $pageName = "./detail-1.php?id={$media->d_id}";
+                if($source == 'v'){
+                    $pageName = "./vdetail-1.php?id={$media->d_id}";
+                }else{
+                    $pageName = "./detail-1.php?id={$media->d_id}";
+                }
             }
             //教育
             elseif($media->type == 3){
-                $pageName = "./detail-1.php?id={$media->d_id}";
+                if($source == 'v'){
+                    $pageName = "./vdetail-1.php?id={$media->d_id}";
+                }else{
+                    $pageName = "./detail-1.php?id={$media->d_id}";
+                }
             }
             //2 党建
             else{
-                $pageName = "https://tv.yiqiqw.com/show/{$media->id_code}.html";
+                if($source == 'v'){
+                    $pageName = "https://tv.yiqiqw.com/vshow/{$media->id_code}.html";
+                }else{
+                    $pageName = "https://tv.yiqiqw.com/show/{$media->id_code}.html";
+                }
+                
             }
             $media->page_name = $pageName;
         }
