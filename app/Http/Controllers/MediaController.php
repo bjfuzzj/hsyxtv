@@ -2,7 +2,7 @@
 /*
  * @Author: your name
  * @Date: 2021-05-07 20:13:46
- * @LastEditTime: 2021-07-22 15:16:51
+ * @LastEditTime: 2021-07-22 15:20:01
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /tv/app/Http/Controllers/MediaController.php
@@ -110,6 +110,22 @@ class MediaController extends Controller
         #sql:select   {名称},{海报竖图},{id编码},  url, createdatetime from {媒资库} where published='y' and d_id>=(SELECT floor(RAND() * (SELECT MAX(d_id) FROM {媒资库}))) ORDER BY d_id LIMIT 6;
         $sql = "select * from media where published='y' and d_id!={$id} and  type = {$type} and d_id >=(SELECT floor(RAND() * (SELECT MAX(d_id) FROM media where type={$type} and d_id!={$id} ))) ORDER BY d_id LIMIT $limit";
         $medias = DB::select($sql);
+
+        foreach($medias as &$media){
+              //普法
+            if($media['type'] == 1){
+                $pageName = "./detail-1.php?id={$media['d_id']}";
+            }
+            //教育
+            elseif($media['type'] == 3){
+                $pageName = "./detail-1.php?id={$media['d_id']}";
+            }
+            //2 党建
+            else{
+                $pageName = "https://tv.yiqiqw.com/show/{$media['id_code']}.html";
+            }
+            $media->page_name = $pageName;
+        }
         return $this->outSuccessResultApi($medias);
         
     }
