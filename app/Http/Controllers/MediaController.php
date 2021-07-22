@@ -2,7 +2,7 @@
 /*
  * @Author: your name
  * @Date: 2021-05-07 20:13:46
- * @LastEditTime: 2021-07-22 14:46:00
+ * @LastEditTime: 2021-07-22 15:16:51
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /tv/app/Http/Controllers/MediaController.php
@@ -35,12 +35,28 @@ class MediaController extends Controller
         $result = [];
         foreach($medias as $media){
             // Log::info($media->d_id);
+            //普法
+            if($media['type'] == 1){
+                $pageName = "./detail-1.php?id={$media['d_id']}";
+            }
+            //教育
+            elseif($media['type'] == 3){
+                $pageName = "./detail-1.php?id={$media['d_id']}";
+            }
+            //2 党建
+            else{
+                $pageName = "https://tv.yiqiqw.com/show/{$media['id_code']}.html";
+            }
+
+            
             $temMedia['id_code'] = $media->id_code;
             $temMedia['name'] = $media->name;
             $temMedia['actor'] = $media->actor;
             $temMedia['director'] = $media->director;
             $temMedia['total_num'] = $media->total_num;
             $temMedia['intro'] = $media->intro;
+            $temMedia['type'] = $media->type;
+            $temMedia['page_name'] = $pageName;
             $temMedia['url_1'] = 'https://tv.yiqiqw.com/'.$media->url_1;
             $temMedia['poster_vertical'] = $media->poster_vertical;
             $result[] = $temMedia;
