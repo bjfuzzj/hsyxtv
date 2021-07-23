@@ -2,7 +2,7 @@
 /*
  * @Author: your name
  * @Date: 2021-05-07 20:13:46
- * @LastEditTime: 2021-07-22 18:34:16
+ * @LastEditTime: 2021-07-23 14:23:54
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /tv/app/Http/Controllers/MediaController.php
@@ -16,6 +16,8 @@ use EasyWeChat\Kernel\Messages\Media as MessagesMedia;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\DB;
+use App\Models\TvUser;
+use App\Models\WatchList;
 
 class MediaController extends Controller
 {
@@ -112,7 +114,7 @@ class MediaController extends Controller
         return $this->outSuccessResultApi($result);
     }
 
-
+    //猜你喜欢数据
     public function getRecommend(Request $request)
     {
         $id = $request->input('id',0);
@@ -131,6 +133,58 @@ class MediaController extends Controller
 
         foreach($medias as &$media){
 
+              //普法
+            if($media->type == 1){
+                if($source == 'v'){
+                    $pageName = "./vdetail-1.php?id={$media->d_id}";
+                }else{
+                    $pageName = "./detail-1.php?id={$media->d_id}";
+                }
+            }
+            //教育
+            elseif($media->type == 3){
+                if($source == 'v'){
+                    $pageName = "./vdetail-1.php?id={$media->d_id}";
+                }else{
+                    $pageName = "./detail-1.php?id={$media->d_id}";
+                }
+            }
+            //2 党建
+            else{
+                if($source == 'v'){
+                    $pageName = "https://tv.yiqiqw.com/vshow/{$media->id_code}.html";
+                }else{
+                    $pageName = "https://tv.yiqiqw.com/show/{$media->id_code}.html";
+                }
+                
+            }
+            $media->page_name = $pageName;
+        }
+        return $this->outSuccessResultApi($medias);
+        
+    }
+
+
+
+
+
+
+    //用户观看记录
+    public function getWatchList(Request $request)
+    {
+        $userId = $request->input('user_id',0);
+        $source = $request->input('source','h');
+
+
+        
+        $tvUser = TvUser::find($userId);
+        if(!$tvUser instanceof TvUser){
+            return $this->outErrorResultApi(500, '内部错误[2]');
+        }
+        $sql = "select a.d_id,a.srcid,b.name,b.id_code,b.url_1,b.poster_vertical,b.type from watchlist a  inner join media b on a.srcid=b.d_id and a.userid = '".$userId."' and a.isdel=0";
+        $medias = DB::select($sql);
+
+        foreach($medias as &$media){
               //普法
             if($media->type == 1){
                 if($source == 'v'){
