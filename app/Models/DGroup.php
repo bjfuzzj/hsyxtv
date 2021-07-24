@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class DGroup extends Model
 {
     const DEFAULT_ID = 1;
+    const HUBEI_GROUP_ID = 23;
     protected $table      = "dgroup";
     protected $primaryKey = 'd_id';
     protected $guarded    = [];

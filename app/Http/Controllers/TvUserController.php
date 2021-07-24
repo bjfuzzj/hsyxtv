@@ -25,6 +25,7 @@ class TvUserController extends Controller
             'mac'   => 'required|string',
             't'     => 'required|string',
             'token' => 'required|string',
+            'v'     => 'nullable|string',
 
         ], [
             '*' => '登录失败，请重试[-1]'
@@ -33,6 +34,7 @@ class TvUserController extends Controller
         $mac   = $params['mac'];
         $t     = $params['t'];
         $token = $params['token'];
+        $v = $params['v'] ?? '';
 
 
         if (empty($mac) || empty($t) || empty($token)) {
@@ -44,7 +46,12 @@ class TvUserController extends Controller
         } else {
             $now = Carbon::now();
             $expire_time = $now->addYears(1);
-            $user         = TvUser::firstOrCreate(['mac' => $mac], ['group_id' => DGroup::DEFAULT_ID, 'expire' => $expire_time]);
+            if(!empty($v) && strpos($v,'6.0') !== false ){
+                $user     = TvUser::firstOrCreate(['mac' => $mac], ['group_id' => DGroup::HUBEI_GROUP_ID, 'expire' => $expire_time,'vername'=>$v]);
+            }else{
+                $user     = TvUser::firstOrCreate(['mac' => $mac], ['group_id' => DGroup::DEFAULT_ID, 'expire' => $expire_time]);
+            }
+            
             $userId       = $user->d_id;
             $portal       = "https://tv.yiqiqw.com/index.html";
             $mp1_notify   = '';
@@ -62,7 +69,6 @@ class TvUserController extends Controller
                 $mix_ad_time = $group->mix_ad_time;
             }
             $expireTime = Carbon::parse($user->expire);
-            // $expire = $expireTime->timestamp . str_limit($expireTime->micro, 3, '');
             $expire = $expireTime->timestamp;
             $result = [
                 'userid'           => $userId,
