@@ -92,7 +92,7 @@ class TestMQTT extends Command
             Log::info('链接成功=====topic=>'.$topic);
             Log::info(print_r($mqtt,1));
             $res = $mqtt->publish($topic, $msg, 0);
-            Log::info(print_r($res,1));
+            Log::info(print_r($mqtt,1));
             $mqtt->close();    //发送后关闭链接
         } else {
             Log::debug(json_encode($mqtt, '320'));
