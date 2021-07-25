@@ -91,7 +91,7 @@ class TestMQTT extends Command
         if ($mqtt->connect(true, null, $username, $password)) {
             Log::info('链接成功=====topic=>'.$topic);
             Log::info(print_r($mqtt,1));
-            $res = $mqtt->publish($topic, $msg, 0);
+            $res = $mqtt->publish($topic, $msg, 1);
             Log::info(print_r($mqtt,1));
             $mqtt->close();    //发送后关闭链接
         } else {
