@@ -74,7 +74,7 @@ class TestMQTT extends Command
             ]
         ];
 
-        $this->sendEmqxMsg("SYSORDER", json_encode($msg_info, 320)); 
+        $this->sendEmqxMsg("SYSORDER/#", json_encode($msg_info, 320)); 
     }
 
 
