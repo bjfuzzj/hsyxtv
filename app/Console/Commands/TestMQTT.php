@@ -38,8 +38,10 @@ class TestMQTT extends Command
      */
     public function handle()
     {
-        $msg_info = ['url'=>'https://tv.yiqiqw.com/v_image/home_page/bg.jpg'];
 
+        $result = [];
+        $result['code'] = 200;
+        $result['msg'] = 200;
 
         $msg_info = [
             [
@@ -74,7 +76,9 @@ class TestMQTT extends Command
             ]
         ];
 
-        $this->sendEmqxMsg("SYSORDER", json_encode($msg_info, 320)); 
+        $result['data'] = $msg_info;
+
+        $this->sendEmqxMsg("SYSORDER", json_encode($result, 320)); 
     }
 
 
