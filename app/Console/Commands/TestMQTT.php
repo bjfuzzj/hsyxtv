@@ -89,6 +89,7 @@ class TestMQTT extends Command
         $mqtt = new phpMQTT($server, $port, $client_id);
         //如果创建链接成功
         if ($mqtt->connect(true, null, $username, $password)) {
+            Log::info('链接成功==>topic='.$topic);
             $res = $mqtt->publish($topic, $msg, 0);
             $mqtt->close();    //发送后关闭链接
         } else {
