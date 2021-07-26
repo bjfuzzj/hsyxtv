@@ -2,7 +2,7 @@
 /*
  * @Author: your name
  * @Date: 2021-05-07 20:13:46
- * @LastEditTime: 2021-07-23 14:23:54
+ * @LastEditTime: 2021-07-26 14:49:49
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /tv/app/Http/Controllers/MediaController.php
@@ -51,7 +51,7 @@ class MediaController extends Controller
                 if($source == 'v'){
                     $pageName = "./vdetail-1.php?id={$media['d_id']}";
                 }else{
-                    $pageName = "./detail-1.php?id={$media['d_id']}";
+                    $pageName = "./detail-2.php?id={$media['d_id']}";
                 }
                 
             }
