@@ -2,7 +2,7 @@
 /*
  * @Author: your name
  * @Date: 2021-05-07 20:13:46
- * @LastEditTime: 2021-07-26 14:49:49
+ * @LastEditTime: 2021-07-26 14:53:34
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /tv/app/Http/Controllers/MediaController.php
@@ -38,12 +38,12 @@ class MediaController extends Controller
         }
         $result = [];
         foreach($medias as $media){
-            //普法
+            //1 教育 2 党教 3 普法
             if($media['type'] == 1){
                 if($source == 'v'){
                     $pageName = "./vdetail-1.php?id={$media['d_id']}";
                 }else{
-                    $pageName = "./detail-1.php?id={$media['d_id']}";
+                    $pageName = "./detail-2.php?id={$media['d_id']}";
                 }
             }
             //教育
@@ -51,7 +51,7 @@ class MediaController extends Controller
                 if($source == 'v'){
                     $pageName = "./vdetail-1.php?id={$media['d_id']}";
                 }else{
-                    $pageName = "./detail-2.php?id={$media['d_id']}";
+                    $pageName = "./detail-1.php?id={$media['d_id']}";
                 }
                 
             }
@@ -133,15 +133,16 @@ class MediaController extends Controller
 
         foreach($medias as &$media){
 
-              //普法
+            //1 教育 2 党教 3 普法
+              //1 教育
             if($media->type == 1){
                 if($source == 'v'){
                     $pageName = "./vdetail-1.php?id={$media->d_id}";
                 }else{
-                    $pageName = "./detail-1.php?id={$media->d_id}";
+                    $pageName = "./detail-2.php?id={$media->d_id}";
                 }
             }
-            //教育
+            //普法
             elseif($media->type == 3){
                 if($source == 'v'){
                     $pageName = "./vdetail-1.php?id={$media->d_id}";
