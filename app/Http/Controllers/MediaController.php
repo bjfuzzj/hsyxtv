@@ -2,7 +2,7 @@
 /*
  * @Author: your name
  * @Date: 2021-05-07 20:13:46
- * @LastEditTime: 2021-07-26 14:55:03
+ * @LastEditTime: 2021-07-29 10:09:33
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /tv/app/Http/Controllers/MediaController.php
@@ -175,6 +175,7 @@ class MediaController extends Controller
     {
         $userId = $request->input('user_id',0);
         $source = $request->input('source','h');
+        $type = $request->input('type','1');
 
 
         
@@ -182,7 +183,7 @@ class MediaController extends Controller
         if(!$tvUser instanceof TvUser){
             return $this->outErrorResultApi(500, '内部错误[2]');
         }
-        $sql = "select a.d_id,a.srcid,b.name,b.id_code,b.url_1,b.poster_vertical,b.type from watchlist a  inner join media b on a.srcid=b.d_id and a.userid = '".$userId."' and a.isdel=0";
+        $sql = "select a.d_id,a.srcid,b.name,b.id_code,b.url_1,b.poster_vertical,b.type from watchlist a  inner join media b on a.srcid=b.d_id and a.userid = '".$userId."' and a.isdel=0 and b.type='".$type."'";
         $medias = DB::select($sql);
 
         foreach($medias as &$media){
