@@ -2,7 +2,7 @@
 /*
  * @Author: your name
  * @Date: 2021-05-07 20:13:46
- * @LastEditTime: 2021-07-29 10:09:33
+ * @LastEditTime: 2021-07-29 10:27:05
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /tv/app/Http/Controllers/MediaController.php
@@ -183,7 +183,7 @@ class MediaController extends Controller
         if(!$tvUser instanceof TvUser){
             return $this->outErrorResultApi(500, '内部错误[2]');
         }
-        $sql = "select a.d_id,a.srcid,b.name,b.id_code,b.url_1,b.poster_vertical,b.type from watchlist a  inner join media b on a.srcid=b.d_id and a.userid = '".$userId."' and a.isdel=0 and b.type='".$type."'";
+        $sql = "select b.d_id,a.srcid,b.name,b.id_code,b.url_1,b.poster_vertical,b.type from watchlist a  inner join media b on a.srcid=b.d_id and a.userid = '".$userId."' and a.isdel=0 and b.type='".$type."'";
         $medias = DB::select($sql);
 
         foreach($medias as &$media){
@@ -196,7 +196,7 @@ class MediaController extends Controller
                     $pageName = "./detail-2.php?id={$media->d_id}";
                 }
             }
-            //教育
+            //普法
             elseif($media->type == 3){
                 if($source == 'v'){
                     $pageName = "./vdetail-1.php?id={$media->d_id}";
