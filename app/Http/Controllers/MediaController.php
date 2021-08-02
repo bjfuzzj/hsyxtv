@@ -2,7 +2,7 @@
 /*
  * @Author: your name
  * @Date: 2021-05-07 20:13:46
- * @LastEditTime: 2021-08-02 21:50:22
+ * @LastEditTime: 2021-08-02 22:27:28
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /tv/app/Http/Controllers/MediaController.php
@@ -149,45 +149,75 @@ class MediaController extends Controller
         $id = $request->input('id',0);
         $limit = $request->input('limit',6);
         $source = $request->input('source','h');
+        $indexName = $request->input('indexName','');
 
         
         $media = Media::find($id);
         if(!$media instanceof Media){
             return $this->outErrorResultApi(500, '内部错误[2]');
         }
+        $vpage = $page =  "";
+        //竖屏
+        if($source == 'v'){
+            $vdetail = VDetail::where('indexname',$indexName)->first();
+            $vpage = "";
+            if($vdetail instanceof VDetail){
+                $vpage = $vdetail->url_1;
+            }
+        } else {
+            $detail = Detail::where('indexname',$indexName)->first();
+            $page = '';
+            if($detail instanceof Detail){
+                $page = $detail->url_1;
+            }
+        }
+
+
         $type = $media->type ?? 0;
         #sql:select   {名称},{海报竖图},{id编码},  url, createdatetime from {媒资库} where published='y' and d_id>=(SELECT floor(RAND() * (SELECT MAX(d_id) FROM {媒资库}))) ORDER BY d_id LIMIT 6;
         $sql = "select * from media where published='y' and d_id!={$id} and  type = {$type} and d_id >=(SELECT floor(RAND() * (SELECT MAX(d_id) FROM media where type={$type} and d_id!={$id} ))) ORDER BY d_id LIMIT $limit";
         $medias = DB::select($sql);
 
         foreach($medias as &$media){
-
-            //1 教育 2 党教 3 普法
-              //1 教育
-            if($media->type == 1){
-                if($source == 'v'){
-                    $pageName = "./vdetail-2.php?id={$media->d_id}";
-                }else{
-                    $pageName = "./detail-2.php?id={$media->d_id}";
-                }
-            }
-            //普法
-            elseif($media->type == 3){
-                if($source == 'v'){
-                    $pageName = "./vdetail-1.php?id={$media->d_id}";
-                }else{
-                    $pageName = "./detail-1.php?id={$media->d_id}";
-                }
-            }
-            //2 党建
-            else{
-                if($source == 'v'){
+            if($source == 'v'){
+                if(empty($vpage)){
                     $pageName = "https://tv.yiqiqw.com/vshow/{$media->id_code}.html";
                 }else{
-                    $pageName = "https://tv.yiqiqw.com/show/{$media->id_code}.html";
+                    $pageName = $vpage."?id={$media->d_id}";
                 }
-                
+            } else {
+                if(empty($page)){
+                    $pageName = "https://tv.yiqiqw.com/show/{$media->id_code}.html";
+                }else{
+                    $pageName = $page."?id={$media->d_id}";
+                }
             }
+            // //1 教育 2 党教 3 普法
+            //   //1 教育
+            // if($media->type == 1){
+            //     if($source == 'v'){
+            //         $pageName = "./vdetail-2.php?id={$media->d_id}";
+            //     }else{
+            //         $pageName = "./detail-2.php?id={$media->d_id}";
+            //     }
+            // }
+            // //普法
+            // elseif($media->type == 3){
+            //     if($source == 'v'){
+            //         $pageName = "./vdetail-1.php?id={$media->d_id}";
+            //     }else{
+            //         $pageName = "./detail-1.php?id={$media->d_id}";
+            //     }
+            // }
+            // //2 党建
+            // else{
+            //     if($source == 'v'){
+            //         $pageName = "https://tv.yiqiqw.com/vshow/{$media->id_code}.html";
+            //     }else{
+            //         $pageName = "https://tv.yiqiqw.com/show/{$media->id_code}.html";
+            //     }
+                
+            // }
             $media->page_name = $pageName;
         }
         return $this->outSuccessResultApi($medias);
@@ -205,8 +235,6 @@ class MediaController extends Controller
         $userId = $request->input('user_id',0);
         $source = $request->input('source','h');
         $type = $request->input('type','1');
-
-
         
         $tvUser = TvUser::find($userId);
         if(!$tvUser instanceof TvUser){
