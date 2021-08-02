@@ -2,7 +2,7 @@
 /*
  * @Author: your name
  * @Date: 2021-05-07 20:13:46
- * @LastEditTime: 2021-07-29 10:27:05
+ * @LastEditTime: 2021-08-02 21:50:22
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /tv/app/Http/Controllers/MediaController.php
@@ -18,6 +18,8 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\DB;
 use App\Models\TvUser;
 use App\Models\WatchList;
+use App\Models\Detail;
+use App\Models\VDetail;
 
 class MediaController extends Controller
 {
@@ -25,45 +27,72 @@ class MediaController extends Controller
     {
         $ids = $request->input('ids',[]);
         $source = $request->input('source','h');
-
+        $indexName = $request->input('indexName','');
 
         if (empty($ids)) {
             return $this->outErrorResultApi(500, '内部错误[1]');
         }
-        // $idsStr = @join(',',$ids);
-        // $medias = Media::find($ids);
         $medias = Media::whereIn('d_id',$ids)->orderByRaw('FIELD(d_id, '.implode(", " , $ids).')')->get();
         if($medias->isEmpty()){
             return $this->outErrorResultApi(500, '内部错误[2]');
         }
+        //竖屏
+        if($source == 'v'){
+            $vdetail = VDetail::where('indexname',$indexName)->first();
+            $vpage = "";
+            if($vdetail instanceof VDetail){
+                $vpage = $vdetail->url_1;
+            }
+        } else {
+            $detail = Detail::where('indexname',$indexName)->first();
+            $page = '';
+            if($detail instanceof Detail){
+                $page = $detail->url_1;
+            }
+        }
+
         $result = [];
         foreach($medias as $media){
-            //1 教育 2 党教 3 普法
-            if($media['type'] == 1){
-                if($source == 'v'){
-                    $pageName = "./vdetail-2.php?id={$media['d_id']}";
-                }else{
-                    $pageName = "./detail-2.php?id={$media['d_id']}";
-                }
-            }
-            //教育
-            elseif($media['type'] == 3){
-                if($source == 'v'){
-                    $pageName = "./vdetail-1.php?id={$media['d_id']}";
-                }else{
-                    $pageName = "./detail-1.php?id={$media['d_id']}";
-                }
-                
-            }
-            //2 党建
-            else{
-                if($source == 'v'){
+            if($source == 'v'){
+                if(empty($vpage)){
                     $pageName = "https://tv.yiqiqw.com/vshow/{$media['id_code']}.html";
                 }else{
-                    $pageName = "https://tv.yiqiqw.com/show/{$media['id_code']}.html";
+                    $pageName = $vpage."?id={$media['d_id']}";
                 }
-                
+            } else {
+                if(empty($page)){
+                    $pageName = "https://tv.yiqiqw.com/show/{$media['id_code']}.html";
+                }else{
+                    $pageName = $page."?id={$media['d_id']}";
+                }
             }
+            
+            //1 教育 2 党教 3 普法
+            // if($media['type'] == 1){
+            //     if($source == 'v'){
+            //         $pageName = "./vdetail-2.php?id={$media['d_id']}";
+            //     }else{
+            //         $pageName = "./detail-2.php?id={$media['d_id']}";
+            //     }
+            // }
+            // //教育
+            // elseif($media['type'] == 3){
+            //     if($source == 'v'){
+            //         $pageName = "./vdetail-1.php?id={$media['d_id']}";
+            //     }else{
+            //         $pageName = "./detail-1.php?id={$media['d_id']}";
+            //     }
+                
+            // }
+            // //2 党建
+            // else{
+            //     if($source == 'v'){
+            //         $pageName = "https://tv.yiqiqw.com/vshow/{$media['id_code']}.html";
+            //     }else{
+            //         $pageName = "https://tv.yiqiqw.com/show/{$media['id_code']}.html";
+            //     }
+                
+            // }
 
             
             $temMedia['id_code'] = $media->id_code;

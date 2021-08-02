@@ -42,7 +42,6 @@ class TestMQTT extends Command
         $result = [];
         $result['code'] = 200;
         $result['msg'] = 200;
-
         $msg_info = [
             [
                 'id'=>'2234567890',
@@ -77,7 +76,6 @@ class TestMQTT extends Command
         ];
 
         $result['data'] = $msg_info;
-
         $this->sendEmqxMsg("SYSORDER", json_encode($result, 320)); 
     }
 

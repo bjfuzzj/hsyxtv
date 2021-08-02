@@ -13,6 +13,7 @@ use App\Models\TvUser;
 use App\Models\UpgradeConfig;
 use App\Models\WatchList;
 use Illuminate\Support\Carbon;
+use App\Models\Detail;
 
 
 class TvUserController extends Controller
@@ -381,6 +382,7 @@ class TvUserController extends Controller
         $userId = $request->input('userid', 0);
         $lastId = $request->input('lastId', 0);
         $size   = $request->input('size', 20);
+        $indexName = $request->input('indexName', '');
         if (empty($userId)) {
             return $this->outErrorResultApi(500, '内部错误[1]');
         }
