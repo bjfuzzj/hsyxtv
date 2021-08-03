@@ -2,7 +2,7 @@
 /*
  * @Author: your name
  * @Date: 2021-05-07 20:13:46
- * @LastEditTime: 2021-08-02 22:27:28
+ * @LastEditTime: 2021-08-03 15:39:29
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /tv/app/Http/Controllers/MediaController.php
@@ -235,40 +235,74 @@ class MediaController extends Controller
         $userId = $request->input('user_id',0);
         $source = $request->input('source','h');
         $type = $request->input('type','1');
+        $indexName = $request->input('indexName','');
         
         $tvUser = TvUser::find($userId);
         if(!$tvUser instanceof TvUser){
             return $this->outErrorResultApi(500, '内部错误[2]');
         }
+
+
+        $vpage = $page =  "";
+        //竖屏
+        if($source == 'v'){
+            $vdetail = VDetail::where('indexname',$indexName)->first();
+            $vpage = "";
+            if($vdetail instanceof VDetail){
+                $vpage = $vdetail->url_1;
+            }
+        } else {
+            $detail = Detail::where('indexname',$indexName)->first();
+            $page = '';
+            if($detail instanceof Detail){
+                $page = $detail->url_1;
+            }
+        }
+        
+
         $sql = "select b.d_id,a.srcid,b.name,b.id_code,b.url_1,b.poster_vertical,b.type from watchlist a  inner join media b on a.srcid=b.d_id and a.userid = '".$userId."' and a.isdel=0 and b.type='".$type."'";
         $medias = DB::select($sql);
 
         foreach($medias as &$media){
               
               //1 教育  == 2  2 党教   3 普法  == 1
-            if($media->type == 1){
-                if($source == 'v'){
-                    $pageName = "./vdetail-2.php?id={$media->d_id}";
-                }else{
-                    $pageName = "./detail-2.php?id={$media->d_id}";
-                }
-            }
-            //普法
-            elseif($media->type == 3){
-                if($source == 'v'){
-                    $pageName = "./vdetail-1.php?id={$media->d_id}";
-                }else{
-                    $pageName = "./detail-1.php?id={$media->d_id}";
-                }
-            }
-            //2 党建
-            else{
-                if($source == 'v'){
+            // if($media->type == 1){
+            //     if($source == 'v'){
+            //         $pageName = "./vdetail-2.php?id={$media->d_id}";
+            //     }else{
+            //         $pageName = "./detail-2.php?id={$media->d_id}";
+            //     }
+            // }
+            // //普法
+            // elseif($media->type == 3){
+            //     if($source == 'v'){
+            //         $pageName = "./vdetail-1.php?id={$media->d_id}";
+            //     }else{
+            //         $pageName = "./detail-1.php?id={$media->d_id}";
+            //     }
+            // }
+            // //2 党建
+            // else{
+            //     if($source == 'v'){
+            //         $pageName = "https://tv.yiqiqw.com/vshow/{$media->id_code}.html";
+            //     }else{
+            //         $pageName = "https://tv.yiqiqw.com/show/{$media->id_code}.html";
+            //     }
+                
+            // }
+
+            if($source == 'v'){
+                if(empty($vpage)){
                     $pageName = "https://tv.yiqiqw.com/vshow/{$media->id_code}.html";
                 }else{
-                    $pageName = "https://tv.yiqiqw.com/show/{$media->id_code}.html";
+                    $pageName = $vpage."?id={$media->d_id}";
                 }
-                
+            } else {
+                if(empty($page)){
+                    $pageName = "https://tv.yiqiqw.com/show/{$media->id_code}.html";
+                }else{
+                    $pageName = $page."?id={$media->d_id}";
+                }
             }
             $media->page_name = $pageName;
         }
