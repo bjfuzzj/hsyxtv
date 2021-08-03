@@ -14,7 +14,7 @@ use App\Models\UpgradeConfig;
 use App\Models\WatchList;
 use Illuminate\Support\Carbon;
 use App\Models\Detail;
-
+use App\Models\Media;
 
 class TvUserController extends Controller
 {
@@ -367,7 +367,16 @@ class TvUserController extends Controller
         ], [
             '*' => '参数出错，请重试[-1]'
         ]);
-        $watch  = WatchList::where('userid', $params['userid'])->where('srcid', $params['codeid'])->first();
+        $codeId = $params['codeid'];
+        if(is_numeric($params['codeid'])){
+            $media = Media::find($params['codeid']);
+            if($media instanceof Media){
+                $codeId = $media->id_code;
+            }
+        }
+        // $codeid = is_numeric($params['codeid'])
+
+        $watch  = WatchList::where('userid', $params['userid'])->where('srcid', $codeId)->first();
         if ($watch instanceof WatchList) {
             if ($watch->isNormal()) {
                 $watch->setDel();
