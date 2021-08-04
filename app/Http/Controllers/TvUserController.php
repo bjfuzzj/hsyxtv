@@ -368,20 +368,28 @@ class TvUserController extends Controller
             '*' => '参数出错，请重试[-1]'
         ]);
         $codeId = $params['codeid'];
-        if(is_numeric($params['codeid'])){
-            $media = Media::find($params['codeid']);
-            if($media instanceof Media){
-                $codeId = $media->id_code;
-            }
-        }
         // $codeid = is_numeric($params['codeid'])
-
         $watch  = WatchList::where('userid', $params['userid'])->where('srcid', $codeId)->first();
         if ($watch instanceof WatchList) {
             if ($watch->isNormal()) {
                 $watch->setDel();
             }
         }
+
+        if(is_numeric($params['codeid'])){
+            $media = Media::find($params['codeid']);
+            if($media instanceof Media){
+                $codeId = $media->id_code;
+            }
+            $watch  = WatchList::where('userid', $params['userid'])->where('srcid', $codeId)->first();
+            if ($watch instanceof WatchList) {
+                if ($watch->isNormal()) {
+                    $watch->setDel();
+                }
+            }
+        }
+
+
         return $this->outSuccessResultApi([]);
     }
 
