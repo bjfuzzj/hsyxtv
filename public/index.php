@@ -1,4 +1,12 @@
 <?php
+/*
+ * @Author: your name
+ * @Date: 2021-03-08 13:50:19
+ * @LastEditTime: 2021-08-04 09:52:41
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: /tv/public/index.php
+ */
 
 /**
  * Laravel - A PHP Framework For Web Artisans
@@ -6,7 +14,11 @@
  * @package  Laravel
  * @author   Taylor Otwell <taylor@laravel.com>
  */
-
+header('Access-Control-Allow-Origin:*');
+// 响应类型
+header('Access-Control-Allow-Methods:*');
+// 响应头设置
+header('Access-Control-Allow-Headers:x-requested-with,content-type');
 define('LARAVEL_START', microtime(true));
 
 /*
