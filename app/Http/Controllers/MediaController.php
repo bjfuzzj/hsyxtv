@@ -2,7 +2,7 @@
 /*
  * @Author: your name
  * @Date: 2021-05-07 20:13:46
- * @LastEditTime: 2021-08-03 15:39:29
+ * @LastEditTime: 2021-08-04 10:38:44
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /tv/app/Http/Controllers/MediaController.php
@@ -234,7 +234,7 @@ class MediaController extends Controller
     {
         $userId = $request->input('user_id',0);
         $source = $request->input('source','h');
-        $type = $request->input('type','1');
+        $type = $request->input('type',' ');
         $indexName = $request->input('indexName','');
         
         $tvUser = TvUser::find($userId);
