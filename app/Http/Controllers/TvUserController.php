@@ -387,6 +387,17 @@ class TvUserController extends Controller
                     $watch->setDel();
                 }
             }
+        } else {
+            $media = Media::where('id_code',$params['codeid'])->first();
+            if($media instanceof Media){
+                $codeId = $media->d_id;
+            }
+            $watch  = WatchList::where('userid', $params['userid'])->where('srcid', $codeId)->first();
+            if ($watch instanceof WatchList) {
+                if ($watch->isNormal()) {
+                    $watch->setDel();
+                }
+            }
         }
 
 
