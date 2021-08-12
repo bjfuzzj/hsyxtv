@@ -2,7 +2,7 @@
 /*
  * @Author: your name
  * @Date: 2020-12-02 18:06:10
- * @LastEditTime: 2021-05-22 12:53:03
+ * @LastEditTime: 2021-08-11 22:40:18
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /paota/ptweb/app/Providers/RouteServiceProvider.php
@@ -44,7 +44,7 @@ class RouteServiceProvider extends ServiceProvider
     public function map()
     {
         $this->mapApiRoutes();
-        //$this->mapAdminRoutes();
+        $this->mapAdminRoutes();
         //$this->mapWebRoutes();
         $this->mapFrontApiRoutes();
         
