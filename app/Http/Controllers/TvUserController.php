@@ -64,6 +64,14 @@ class TvUserController extends Controller
             $mp1          = "https://tv.yiqiqw.com/time_task";
             $mode         = 'normal';
             $mix_ad_time  = 600;
+
+            //更新 salt - passwd
+            if(empty($user->salt) && empty($user->passwd)) {
+                $user->salt = $salt;
+                $user->passwd = $passwd;
+                $user->save();
+            }
+
             //查看分组
             $group = DGroup::find($user->group_id);
             if ($group instanceof DGroup) {
