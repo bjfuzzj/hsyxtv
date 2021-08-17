@@ -47,10 +47,14 @@ class TvUserController extends Controller
         } else {
             $now = Carbon::now();
             $expire_time = $now->addYears(1);
+            $salt = $this->getSalt();
+            $passwd = env('DEFAULT_PASS','');
+            $passwd = md5($passwd.$salt);
+
             if(!empty($v) && strpos($v,'6.0') !== false ){
-                $user     = TvUser::firstOrCreate(['mac' => $mac], ['group_id' => DGroup::HUBEI_GROUP_ID, 'expire' => $expire_time,'vername'=>$v]);
+                $user     = TvUser::firstOrCreate(['mac' => $mac], ['group_id' => DGroup::HUBEI_GROUP_ID, 'expire' => $expire_time,'vername'=>$v,'salt'=>$salt,'passwd'=>$passwd]);
             }else{
-                $user     = TvUser::firstOrCreate(['mac' => $mac], ['group_id' => DGroup::DEFAULT_ID, 'expire' => $expire_time]);
+                $user     = TvUser::firstOrCreate(['mac' => $mac], ['group_id' => DGroup::DEFAULT_ID, 'expire' => $expire_time,'salt'=>$salt,'passwd'=>$passwd]);
             }
             
             $userId       = $user->d_id;
@@ -437,5 +441,11 @@ class TvUserController extends Controller
             'hasMore' => $queryRes->hasMorePages() ? 1 : 0,
             'list'    => $watchList
         ]);
+    }
+
+
+    private function getSalt()
+    {
+        return substr(md5(mt_rand()), 0, 8);
     }
 }
