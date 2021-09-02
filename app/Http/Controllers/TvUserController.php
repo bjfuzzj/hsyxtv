@@ -295,7 +295,7 @@ class TvUserController extends Controller
         ]);
         $userId = $params['userid'];
         $user = TvUser::find($userId);
-        $result = [];
+        $result = $shutDown = [];
         if (!$user instanceof TvUser) {
             return $this->outErrorResultApi(500, '内部错误[1]');
         }
@@ -306,6 +306,10 @@ class TvUserController extends Controller
                 $content = trim($group->content);
                 if (!empty($content)) {
                     $result = @json_decode($group->content, 1);
+                }
+                $shutDown = $group->shutdown ?? [];
+                if(!empty($shutDown)){
+                    $shutDown = @json_decode($group->shutdown, 1);
                 }
             }else{
                 //优先取广告机内容
@@ -327,7 +331,8 @@ class TvUserController extends Controller
         //         $result = @json_decode($group->content, 1);
         //     }
         // }
-        return $this->outSuccessResultApi($result);
+        return response()->json(['code' => 200, 'msg' => '','shutdown'=>$shutDown, 'data' => $result]);
+        // return $this->outSuccessResultApi($result);
     }
 
     public function genTransferId($userId)
