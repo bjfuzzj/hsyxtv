@@ -320,6 +320,10 @@ class TvUserController extends Controller
                         if (!empty($content)) {
                             $result = @json_decode($adTheme->content, 1);
                         }
+                        $shutDown = $adTheme->shutdown ?? [];
+                        if(!empty($shutDown)){
+                            $shutDown = @json_decode($adTheme->shutdown, 1);
+                        }
                     }
                 }
             }
