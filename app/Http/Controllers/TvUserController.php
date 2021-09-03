@@ -226,35 +226,62 @@ class TvUserController extends Controller
         ], [
             '*' => '参数出错，请重试[-1]'
         ]);
-        $userId         = $params['userid'];
+        $userId = $params['userid'];
+        $user   = TvUser::find($userId);
+        if (!$user instanceof TvUser) {
+            return $this->outErrorResultApi(500, '内部错误[1]');
+        }
+
         $result         = [];
         $result['adds'] = $result['dels'] = [];
         $result['type'] = CacheConfig::DEL_TYPE_DEFAULT;
-
-        $allConfigs = CacheConfig::where('status', CacheConfig::STATUS_ONLINE)->get();
-        foreach ($allConfigs as $config) {
-            if ($config->isAddType()) {
-                $adds = @json_decode($config->content, 1);
-                if (!empty($adds)) {
-                    $result['adds'] = $adds;
+         //查看分组
+        $group = DGroup::find($user->group_id);
+        if($group instanceof DGroup){
+            if(!empty($group->cacheconfig)){
+                $content = trim($group->cacheconfig);
+                if (!empty($content)) {
+                    $result = @json_decode($group->cacheconfig, 1);
                 }
-            } elseif ($config->isDelType()) {
-                $dels = @json_decode($config->content, 1);
-                if (!empty($dels)) {
-                    $result['dels'] = $dels;
-                }
-            } elseif ($config->isDelAllType()) {
-                $delTypeStr = trim($config->content);
-                if (!empty($delTypeStr)) {
-                    $result['type'] = $delTypeStr;
-                }
-            } elseif ($config->isLimitType()) {
-                $limitStr = trim($config->content);
-                if (!empty($limitStr)) {
-                    $result['limit'] = $limitStr;
+            }else{
+                //优先取广告机内容
+                if(!empty($group->theme_id)){
+                    $adTheme = AdTheme::find($group->theme_id);
+                    if($adTheme instanceof AdTheme){
+                        $content = trim($adTheme->cacheconfig);
+                        if (!empty($content)) {
+                            $result = @json_decode($adTheme->cacheconfig, 1);
+                        }
+                    }
                 }
             }
         }
+        return $this->outSuccessResultApi($result);
+
+        // $allConfigs = CacheConfig::where('status', CacheConfig::STATUS_ONLINE)->get();
+        // foreach ($allConfigs as $config) {
+        //     if ($config->isAddType()) {
+        //         $adds = @json_decode($config->content, 1);
+        //         if (!empty($adds)) {
+        //             $result['adds'] = $adds;
+        //         }
+        //     } elseif ($config->isDelType()) {
+        //         $dels = @json_decode($config->content, 1);
+        //         if (!empty($dels)) {
+        //             $result['dels'] = $dels;
+        //         }
+        //     } elseif ($config->isDelAllType()) {
+        //         $delTypeStr = trim($config->content);
+        //         if (!empty($delTypeStr)) {
+        //             $result['type'] = $delTypeStr;
+        //         }
+        //     } elseif ($config->isLimitType()) {
+        //         $limitStr = trim($config->content);
+        //         if (!empty($limitStr)) {
+        //             $result['limit'] = $limitStr;
+        //         }
+        //     }
+        // }
 
         //        $result['adds'] = [
         //            [
