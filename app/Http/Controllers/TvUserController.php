@@ -335,9 +335,10 @@ class TvUserController extends Controller
                     $result = @json_decode($group->content, 1);
                 }
                 $shutDown = $group->shutdown ?? [];
-                Log::info(print_r($group,1));
+                
                 if(!empty($shutDown)){
                     $shutDown = @json_decode($group->shutdown, 1);
+                    Log::info(print_r($shutDown,1));
                 }
             }else{
                 //优先取广告机内容
