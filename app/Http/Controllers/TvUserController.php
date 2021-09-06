@@ -337,6 +337,7 @@ class TvUserController extends Controller
                 $shutDown = $group->shutdown ?? [];
                 
                 if(!empty($shutDown)){
+                    Log::info(print_r($group->shutdown,1));
                     $shutDown = @json_decode($group->shutdown, 1);
                     Log::info(print_r($shutDown,1));
                 }
