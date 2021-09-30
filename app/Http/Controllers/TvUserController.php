@@ -395,6 +395,11 @@ class TvUserController extends Controller
         ], [
             '*' => '参数出错，请重试[-1]'
         ]);
+
+
+        if(strpos($params['codeid'],'?') !== false ){
+            $params['codeid'] = substr($params['codeid'],0,strpos($params['codeid'],'?'));
+        }
         $watch  = WatchList::where('userid', $params['userid'])->where('srcid', $params['codeid'])->first();
         if ($watch instanceof WatchList) {
             if ($watch->isDel()) {
