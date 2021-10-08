@@ -2,7 +2,7 @@
 /*
  * @Author: your name
  * @Date: 2021-05-07 20:13:46
- * @LastEditTime: 2021-08-04 10:40:45
+ * @LastEditTime: 2021-10-08 15:11:05
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /tv/app/Http/Controllers/MediaController.php
@@ -260,7 +260,8 @@ class MediaController extends Controller
         }
         
 
-        $sql = "select b.d_id,a.srcid,b.name,b.id_code,b.url_1,b.poster_vertical,b.type from watchlist a  inner join media b on a.srcid=b.d_id and a.userid = '".$userId."' and a.isdel=0 and b.type='".$type."'";
+        // $sql = "select b.d_id,a.srcid,b.name,b.id_code,b.url_1,b.poster_vertical,b.type from watchlist a  inner join media b on a.srcid=b.d_id and a.userid = '".$userId."' and a.isdel=0 and b.type='".$type."'";
+        $sql = "select b.d_id,a.srcid,b.name,b.id_code,b.url_1,b.poster_vertical,b.type from watchlist a  inner join media b on a.srcid=b.d_id and a.userid = '".$userId."' and a.isdel=0";
         $medias = DB::select($sql);
 
         foreach($medias as &$media){
