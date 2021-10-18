@@ -58,13 +58,13 @@ class TvUserController extends Controller
             if (!empty($sn))
             {
                 if(!empty($v) && strpos($v,'6.0') !== false ) {
-                    $user     = TvUser::firstOrCreate(['sn' => $sn], ['group_id' => DGroup::HUBEI_GROUP_ID, 'expire' => $expire_time,'vername'=>$v,'salt'=>$salt,'passwd'=>$passwd]);
+                    $user     = TvUser::firstOrCreate(['sn' => $sn], ['mac' => $mac,'group_id' => DGroup::HUBEI_GROUP_ID, 'expire' => $expire_time,'vername'=>$v,'salt'=>$salt,'passwd'=>$passwd]);
                 } else if(!empty($v) && strpos($v,'8.') !== false ) {
                     //医友云横屏 8.*
-                    $user     = TvUser::firstOrCreate(['sn' => $sn], ['group_id' => 42, 'expire' => $expire_time,'vername'=>$v,'salt'=>$salt,'passwd'=>$passwd]);
+                    $user     = TvUser::firstOrCreate(['sn' => $sn], ['mac' => $mac,'group_id' => 42, 'expire' => $expire_time,'vername'=>$v,'salt'=>$salt,'passwd'=>$passwd]);
                 }
                 else {
-                    $user     = TvUser::firstOrCreate(['sn' => $sn], ['group_id' => DGroup::DEFAULT_ID, 'expire' => $expire_time,'salt'=>$salt,'passwd'=>$passwd]);
+                    $user     = TvUser::firstOrCreate(['sn' => $sn], ['mac' => $mac,'group_id' => DGroup::DEFAULT_ID, 'expire' => $expire_time,'salt'=>$salt,'passwd'=>$passwd]);
                 }
             }
             //无 sn 的话如何处理
