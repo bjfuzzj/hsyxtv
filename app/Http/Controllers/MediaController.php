@@ -2,7 +2,7 @@
 /*
  * @Author: your name
  * @Date: 2021-05-07 20:13:46
- * @LastEditTime: 2021-10-12 20:09:18
+ * @LastEditTime: 2021-10-20 23:50:29
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /tv/app/Http/Controllers/MediaController.php
@@ -57,13 +57,13 @@ class MediaController extends Controller
                 if(empty($vpage)){
                     $pageName = "https://tv.yiqiqw.com/vshow/{$media['id_code']}.html";
                 }else{
-                    $pageName = $vpage."?id={$media['d_id']}";
+                    $pageName = $vpage."?id={$media->d_id}";
                 }
             } else {
                 if(empty($page)){
                     $pageName = "https://tv.yiqiqw.com/show/{$media['id_code']}.html";
                 }else{
-                    $pageName = $page."?id={$media['d_id']}";
+                    $pageName = $page."?id={$media->d_id}";
                 }
             }
             
@@ -96,6 +96,7 @@ class MediaController extends Controller
 
             
             $temMedia['id_code'] = $media->id_code;
+            $temMedia['id'] = $media->d_id;
             $temMedia['name'] = $media->name;
             $temMedia['actor'] = $media->actor;
             $temMedia['director'] = $media->director;
