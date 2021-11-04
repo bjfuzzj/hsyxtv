@@ -2,7 +2,7 @@
 /*
  * @Author: your name
  * @Date: 2021-05-07 20:13:46
- * @LastEditTime: 2021-11-04 20:25:41
+ * @LastEditTime: 2021-11-04 20:46:37
  * @LastEditors: bjfuzzj
  * @Description: In User Settings Edit
  * @FilePath: /tv/app/Http/Controllers/MediaController.php
@@ -122,6 +122,11 @@ class MediaController extends Controller
         $subMedia = SubMedia::find($id);
         if(!$subMedia instanceof SubMedia){
             return $this->outErrorResultApi(500, '内部错误[2]');
+        }
+        $subMedia = $subMedia->toArray();
+        $media = Media::find($subMedia['media_id']);
+        if($media instanceof Media){
+            $subMedia['sub_id_code'] = $media->id_code;
         }
         return $this->outSuccessResultApi($subMedia);
     }
