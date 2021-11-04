@@ -2,8 +2,8 @@
 /*
  * @Author: your name
  * @Date: 2021-05-07 20:13:46
- * @LastEditTime: 2021-10-20 23:50:29
- * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2021-11-04 20:25:41
+ * @LastEditors: bjfuzzj
  * @Description: In User Settings Edit
  * @FilePath: /tv/app/Http/Controllers/MediaController.php
  */
@@ -110,6 +110,20 @@ class MediaController extends Controller
             
         }
         return $this->outSuccessResultApi($result);
+    }
+
+
+    public function getSubDetail(Request $request)
+    {
+        $id = $request->input('id',0);
+        if (empty($id)) {
+            return $this->outErrorResultApi(500, '内部错误[1]');
+        }
+        $subMedia = SubMedia::find($id);
+        if(!$subMedia instanceof SubMedia){
+            return $this->outErrorResultApi(500, '内部错误[2]');
+        }
+        return $this->outSuccessResultApi($subMedia);
     }
 
     public function getDetail(Request $request)
