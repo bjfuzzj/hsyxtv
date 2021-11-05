@@ -2,7 +2,7 @@
 /*
  * @Author: your name
  * @Date: 2021-05-07 20:13:46
- * @LastEditTime: 2021-11-05 11:32:02
+ * @LastEditTime: 2021-11-05 14:59:17
  * @LastEditors: bjfuzzj
  * @Description: In User Settings Edit
  * @FilePath: /tv/app/Http/Controllers/MediaController.php
@@ -135,7 +135,7 @@ class MediaController extends Controller
     {
         $id = $request->input('id',0);
         $num = $request->input('num',0);
-        if (empty($id) || $num) {
+        if (empty($id) || empty($num)) {
             return $this->outErrorResultApi(500, '内部错误[1]');
         }
         $subMedia = SubMedia::where('media_id',$id)->where('now_num',$num)->first();
