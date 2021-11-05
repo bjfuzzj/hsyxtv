@@ -2,7 +2,7 @@
 /*
  * @Author: your name
  * @Date: 2021-05-07 20:13:46
- * @LastEditTime: 2021-11-04 20:46:37
+ * @LastEditTime: 2021-11-05 11:32:02
  * @LastEditors: bjfuzzj
  * @Description: In User Settings Edit
  * @FilePath: /tv/app/Http/Controllers/MediaController.php
@@ -128,6 +128,25 @@ class MediaController extends Controller
         if($media instanceof Media){
             $subMedia['sub_id_code'] = $media->id_code;
         }
+        return $this->outSuccessResultApi($subMedia);
+    }
+
+    public function getSubDetailByNum(Request $request)
+    {
+        $id = $request->input('id',0);
+        $num = $request->input('num',0);
+        if (empty($id) || $num) {
+            return $this->outErrorResultApi(500, '内部错误[1]');
+        }
+        $subMedia = SubMedia::where('media_id',$id)->where('now_num',$num)->first();
+        if(!$subMedia instanceof SubMedia){
+            return $this->outErrorResultApi(500, '内部错误[2]');
+        }
+        $subMedia = $subMedia->toArray();
+        // $media = Media::find($subMedia['media_id']);
+        // if($media instanceof Media){
+        //     $subMedia['sub_id_code'] = $media->id_code;
+        // }
         return $this->outSuccessResultApi($subMedia);
     }
 
