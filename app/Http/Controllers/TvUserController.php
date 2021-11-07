@@ -62,6 +62,9 @@ class TvUserController extends Controller
                 } else if(!empty($v) && strpos($v,'8.') !== false ) {
                     //医友云横屏 8.*
                     $user     = TvUser::firstOrCreate(['sn' => $sn], ['mac' => $mac,'group_id' => 42, 'expire' => $expire_time,'vername'=>$v,'salt'=>$salt,'passwd'=>$passwd]);
+                } else if(!empty($v) && strpos($v,'9.') !== false ) {
+                    //深圳天威 8.*
+                    $user     = TvUser::firstOrCreate(['sn' => $sn], ['mac' => $mac,'group_id' => 50, 'expire' => $expire_time,'vername'=>$v,'salt'=>$salt,'passwd'=>$passwd]);
                 }
                 else {
                     $user     = TvUser::firstOrCreate(['sn' => $sn], ['mac' => $mac,'group_id' => DGroup::DEFAULT_ID, 'expire' => $expire_time,'salt'=>$salt,'passwd'=>$passwd]);
@@ -75,6 +78,10 @@ class TvUserController extends Controller
                 }else if(!empty($v) && strpos($v,'8.') !== false ){
                     //医友云横屏 8.*
                     $user     = TvUser::firstOrCreate(['mac' => $mac], ['group_id' => 42, 'expire' => $expire_time,'vername'=>$v,'salt'=>$salt,'passwd'=>$passwd]);
+                }
+                else if(!empty($v) && strpos($v,'9.') !== false ){
+                    //深圳天威 9.*
+                    $user     = TvUser::firstOrCreate(['mac' => $mac], ['group_id' => 50, 'expire' => $expire_time,'vername'=>$v,'salt'=>$salt,'passwd'=>$passwd]);
                 }
                 else{
                     $user     = TvUser::firstOrCreate(['mac' => $mac], ['group_id' => DGroup::DEFAULT_ID, 'expire' => $expire_time,'salt'=>$salt,'passwd'=>$passwd]);
