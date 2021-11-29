@@ -2,7 +2,7 @@
 /*
  * @Author: your name
  * @Date: 2021-05-07 20:13:46
- * @LastEditTime: 2021-11-29 13:03:52
+ * @LastEditTime: 2021-11-29 13:07:54
  * @LastEditors: bjfuzzj
  * @Description: In User Settings Edit
  * @FilePath: /tv/app/Http/Controllers/MediaController.php
@@ -31,21 +31,32 @@ class MediaController extends Controller
         $page = $request->input('page',1);
         $size = $request->input('size',10);
 
+        $page = (int)$page;
         $size = (int)$size;
         if($size>=20) $size = 20;
 
-        
+
         
         // $size = 6;
         if(empty($search_name) || !ctype_alnum($search_name) || !is_numeric($category_id))
         {
             return $this->outErrorResultApi(500, '内部错误[1]');
         }
+  
+
         $result = [];
         if(!empty($category_id)){
-            $madiaList = Media::where('search_name','like',$search_name.'%')->get();
+
             $result = [];
-            foreach($madiaList as $media){
+            $query = Media::where('search_name','like',$search_name.'%');
+    
+            $queryRes  = $query->simplePaginate($size);
+            $resultRes = $queryRes->items();
+
+
+            // $madiaList = Media::where('search_name','like',$search_name.'%')->get();
+            
+            foreach($resultRes as $media){
                 $temMedia = [];
                 $pageName = "https://tv.yiqiqw.com/show/{$media['id_code']}.html";
                 $temMedia['id_code'] = $media->id_code;
@@ -56,7 +67,12 @@ class MediaController extends Controller
                 $temMedia['search_name'] = $media->search_name;
                 $result[] = $temMedia;
             }
+            return $this->outSuccessResultApi([
+                'hasMore' => $queryRes->hasMorePages() ? 1 : 0,
+                'list'    => $result
+            ]);
         }
+        
         return $this->outSuccessResultApi($result);
     }
 
