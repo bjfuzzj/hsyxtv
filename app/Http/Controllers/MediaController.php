@@ -2,7 +2,7 @@
 /*
  * @Author: your name
  * @Date: 2021-05-07 20:13:46
- * @LastEditTime: 2021-11-29 16:13:58
+ * @LastEditTime: 2021-11-29 16:15:21
  * @LastEditors: bjfuzzj
  * @Description: In User Settings Edit
  * @FilePath: /tv/app/Http/Controllers/MediaController.php
@@ -50,7 +50,8 @@ class MediaController extends Controller
             $result = [];
             $query = Media::where('search_name','like',$search_name.'%');
     
-            $queryRes  = $query->simplePaginate($size);
+            // $queryRes  = $query->simplePaginate($size);
+            $queryRes  = $query->paginate($size);
             $resultRes = $queryRes->items();
 
 
