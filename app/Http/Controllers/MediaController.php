@@ -2,7 +2,7 @@
 /*
  * @Author: your name
  * @Date: 2021-05-07 20:13:46
- * @LastEditTime: 2021-11-05 14:59:17
+ * @LastEditTime: 2021-11-29 12:48:46
  * @LastEditors: bjfuzzj
  * @Description: In User Settings Edit
  * @FilePath: /tv/app/Http/Controllers/MediaController.php
@@ -23,6 +23,34 @@ use App\Models\VDetail;
 
 class MediaController extends Controller
 {
+
+    public function search(Request $request)
+    {
+        $search_name = $request->input('search_name','');
+        $category_id = $request->input('category_id',0);
+        if(empty($search_name) || !ctype_alnum($search_name) || !is_numeric($category_id))
+        {
+            return $this->outErrorResultApi(500, '内部错误[1]');
+        }
+        $result = [];
+        if(!empty($category_id)){
+            $madiaList = Media::where('search_name','like',$search_name.'%')->get();
+            $result = [];
+            foreach($madiaList as $media){
+                $temMedia = [];
+                $pageName = "https://tv.yiqiqw.com/show/{$media['id_code']}.html";
+                $temMedia['id_code'] = $media->id_code;
+                $temMedia['id'] = $media->d_id;
+                $temMedia['name'] = $media->name;
+                $temMedia['page_name'] = $pageName;
+                $temMedia['url_1'] = 'https://tv.yiqiqw.com/'.$media->url_1;
+                $temMedia['poster_vertical'] = $media->poster_vertical;
+                $result[] = $temMedia;
+            }
+        }
+        return $this->outSuccessResultApi($result);
+    }
+
     public function getList(Request $request)
     {
         $ids = $request->input('ids',[]);
@@ -55,13 +83,13 @@ class MediaController extends Controller
         foreach($medias as $media){
             if($source == 'v'){
                 if(empty($vpage)){
-                    $pageName = "https://tv.yiqiqw.com/vshow/{$media['id_code']}.html";
+                    $pageName = "https://tv.yiqiqw.com/vshow/{$media->id_code}.html";
                 }else{
                     $pageName = $vpage."?id={$media->d_id}";
                 }
             } else {
                 if(empty($page)){
-                    $pageName = "https://tv.yiqiqw.com/show/{$media['id_code']}.html";
+                    $pageName = "https://tv.yiqiqw.com/show/{$media->id_code}.html";
                 }else{
                     $pageName = $page."?id={$media->d_id}";
                 }
@@ -111,6 +139,9 @@ class MediaController extends Controller
         }
         return $this->outSuccessResultApi($result);
     }
+
+
+
 
 
     public function getSubDetail(Request $request)

@@ -2,10 +2,10 @@
 /*
  * @Author: your name
  * @Date: 2020-12-02 18:06:10
- * @LastEditTime: 2021-01-16 23:12:33
- * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2021-11-29 12:38:53
+ * @LastEditors: bjfuzzj
  * @Description: In User Settings Edit
- * @FilePath: /paota/ptweb/routes/api.php
+ * @FilePath: /tv/routes/api.php
  */
 
 /*
@@ -36,6 +36,9 @@ Route::middleware(['api'])->group(function () {
     Route::get('/add_watch', 'TvUserController@addWatchHistory');
     Route::get('/del_watch', 'TvUserController@delWatchHistory');
     Route::get('/get_watch', 'TvUserController@getWatchHistory');
+
+    Route::post('/search', 'MediaController@search');
+    
 
 //    Route::prefix('wxapp')->group(function () {
 //        Route::post('/login', 'WxappController@login');
