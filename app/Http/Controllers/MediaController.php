@@ -2,7 +2,7 @@
 /*
  * @Author: your name
  * @Date: 2021-05-07 20:13:46
- * @LastEditTime: 2021-11-29 12:51:25
+ * @LastEditTime: 2021-11-29 13:03:52
  * @LastEditors: bjfuzzj
  * @Description: In User Settings Edit
  * @FilePath: /tv/app/Http/Controllers/MediaController.php
@@ -28,6 +28,15 @@ class MediaController extends Controller
     {
         $search_name = $request->input('search_name','');
         $category_id = $request->input('category_id',0);
+        $page = $request->input('page',1);
+        $size = $request->input('size',10);
+
+        $size = (int)$size;
+        if($size>=20) $size = 20;
+
+        
+        
+        // $size = 6;
         if(empty($search_name) || !ctype_alnum($search_name) || !is_numeric($category_id))
         {
             return $this->outErrorResultApi(500, '内部错误[1]');
