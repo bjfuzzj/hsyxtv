@@ -2,7 +2,7 @@
 /*
  * @Author: your name
  * @Date: 2021-05-07 20:13:46
- * @LastEditTime: 2021-11-29 12:48:46
+ * @LastEditTime: 2021-11-29 12:51:25
  * @LastEditors: bjfuzzj
  * @Description: In User Settings Edit
  * @FilePath: /tv/app/Http/Controllers/MediaController.php
@@ -43,8 +43,8 @@ class MediaController extends Controller
                 $temMedia['id'] = $media->d_id;
                 $temMedia['name'] = $media->name;
                 $temMedia['page_name'] = $pageName;
-                $temMedia['url_1'] = 'https://tv.yiqiqw.com/'.$media->url_1;
                 $temMedia['poster_vertical'] = $media->poster_vertical;
+                $temMedia['search_name'] = $media->search_name;
                 $result[] = $temMedia;
             }
         }
