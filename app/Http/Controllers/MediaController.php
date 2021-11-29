@@ -2,7 +2,7 @@
 /*
  * @Author: your name
  * @Date: 2021-05-07 20:13:46
- * @LastEditTime: 2021-11-29 13:07:54
+ * @LastEditTime: 2021-11-29 13:10:15
  * @LastEditors: bjfuzzj
  * @Description: In User Settings Edit
  * @FilePath: /tv/app/Http/Controllers/MediaController.php
@@ -69,6 +69,7 @@ class MediaController extends Controller
             }
             return $this->outSuccessResultApi([
                 'hasMore' => $queryRes->hasMorePages() ? 1 : 0,
+                'page'     => $page,
                 'list'    => $result
             ]);
         }
