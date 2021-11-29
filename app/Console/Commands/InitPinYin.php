@@ -2,7 +2,7 @@
 /*
  * @Author: bjfuzzj
  * @Date: 2021-11-29 12:07:55
- * @LastEditTime: 2021-11-29 12:18:08
+ * @LastEditTime: 2021-11-29 12:22:19
  * @LastEditors: bjfuzzj
  * @Description: 
  * @FilePath: /tv/app/Console/Commands/InitPinYin.php
@@ -22,7 +22,7 @@ class InitPinYin extends Command
      *
      * @var string
      */
-    protected $signature = 'command:name';
+    protected $signature = 'script:initPY';
 
     /**
      * The console command description.
