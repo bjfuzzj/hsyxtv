@@ -2,7 +2,7 @@
 /*
  * @Author: bjfuzzj
  * @Date: 2021-11-29 12:07:55
- * @LastEditTime: 2021-11-29 12:22:19
+ * @LastEditTime: 2021-11-29 12:24:23
  * @LastEditors: bjfuzzj
  * @Description: 
  * @FilePath: /tv/app/Console/Commands/InitPinYin.php
@@ -52,9 +52,11 @@ class InitPinYin extends Command
         $allMedias = Media::all();
         foreach($allMedias as $media)
         {
-            if(!isset($media->search_name) || empty($media->search_name))
+            //if(!isset($media->search_name) || empty($media->search_name))
+            if(!empty($media->search_name))
             {
-                $newName = $pinyin->abbr($media->name, PINYIN_KEEP_ENGLISH);
+                // $newName = $pinyin->abbr($media->name, PINYIN_KEEP_ENGLISH);
+                $newName = strtoupper($pinyin->abbr($media->name,PINYIN_KEEP_NUMBER));
                 $media->search_name = $newName;
                 $media->save();
             }
