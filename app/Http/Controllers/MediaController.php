@@ -2,7 +2,7 @@
 /*
  * @Author: your name
  * @Date: 2021-05-07 20:13:46
- * @LastEditTime: 2021-11-29 16:15:21
+ * @LastEditTime: 2021-12-11 11:14:10
  * @LastEditors: bjfuzzj
  * @Description: In User Settings Edit
  * @FilePath: /tv/app/Http/Controllers/MediaController.php
@@ -400,7 +400,8 @@ class MediaController extends Controller
                 }
             } else {
                 if(empty($page)){
-                    $pageName = "https://tv.yiqiqw.com/show/{$media->id_code}.html";
+                    //$pageName = "https://tv.yiqiqw.com/show/{$media->id_code}.html";
+                    $pageName = "./detail.php?id={$media->d_id}";
                 }else{
                     $pageName = $page."?id={$media->d_id}";
                 }
