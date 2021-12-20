@@ -2,7 +2,7 @@
 /*
  * @Author: your name
  * @Date: 2021-05-07 20:13:46
- * @LastEditTime: 2021-12-11 12:16:38
+ * @LastEditTime: 2021-12-20 16:21:47
  * @LastEditors: bjfuzzj
  * @Description: In User Settings Edit
  * @FilePath: /tv/app/Http/Controllers/MediaController.php
@@ -19,7 +19,9 @@ use Illuminate\Support\Facades\DB;
 use App\Models\TvUser;
 use App\Models\WatchList;
 use App\Models\Detail;
+use App\Models\LanMu;
 use App\Models\VDetail;
+use App\Models\ZhiBo;
 
 class MediaController extends Controller
 {
@@ -414,5 +416,99 @@ class MediaController extends Controller
     }
 
 
+     //获取首页模块数据
+     public function getIndexModule(Request $request)
+     {
+        $result = [];
+        $categoryData = [];
+        $moduleList = LanMu::where('status',LanMu::STATUS_ONLINE)->orderBy('shunxu','asc')->get();
+        $i = 0;
+        foreach($moduleList as $module){
+            $first = [];
+            $first = $this->getFirst($module);
+            $module_date = [];
+            $module_date['first'] = $first;
+            $module_date['other'] = [];
+            $module_date['other'] = $this->getOther($module);
+            $categoryData[$i] = $module_date;
+        }
+        return $this->outSuccessResultApi($categoryData);
+     }
+
+     private function getOther($module) {
+        $other = [];
+        $tj_one_ids = $module->tj_one_ids??[];
+        $tj_two_ids = $module->tj_one_ids??[];
+
+        if(!empty($tj_one_ids)){
+            $tj_one_ids = @explode(',',$module->tj_one_ids) ?? [];
+            $oneData= [];
+            $oneData['title'] = $module->tj_one;
+            $oneData['data'] = [];
+            $medias = Media::whereIn('d_id',$tj_one_ids)->orderByRaw('FIELD(d_id, '.implode(", " , $tj_one_ids).')')->get();
+            if(!$medias->isEmpty()){
+                foreach($medias as $media) {
+                    $temp = [];
+                    $temp['type'] = 'poster';
+                    $temp['openType'] = 'self';
+                    $temp['openUrl'] = "./detail.php?id={$media->d_id}";
+                    $temp['posterUrl'] = $media->vertical_url??'';
+                    $temp['name'] = $media->name??'';
+                    array_push($oneData['data'],$temp);
+                }
+            }
+            array_push($other,$oneData);
+        }
+
+        if(!empty($tj_two_ids)){
+            $tj_two_ids = @explode(',',$module->tj_two_ids) ?? [];
+            $twoData= [];
+            $twoData['title'] = $module->tj_two;
+            $twoData['data'] = [];
+            
+            $medias = Media::whereIn('d_id',$tj_two_ids)->orderByRaw('FIELD(d_id, '.implode(", " , $tj_two_ids).')')->get();
+            if(!$medias->isEmpty()){
+                foreach($medias as $media) {
+                    $temp = [];
+                    $temp['type'] = 'poster';
+                    $temp['openType'] = 'self';
+                    $temp['openUrl'] = "./detail.php?id={$media->d_id}";
+                    $temp['posterUrl'] = $media->vertical_url??'';
+                    $temp['name'] = $media->name??'';
+                    array_push($twoData['data'],$temp);
+                }
+            }
+            array_push($other,$twoData);
+        }
+        return $other;
+    }
+
+    private function getFirst($module){
+        $first = [];
+        for ($i=0;$i<8;$i++) {
+            $ilink = 'link_'.($i+1);
+            $ipic = 'pic_'.($i+1);
+
+            if($module->type == 'play'){
+                $first[$i]['type'] = 'play';
+                $first[$i]['playUrl'] = '';
+                $zhiBoId = $module->pindaoid ?? 0;
+                $zhibo = ZhiBo::find($zhiBoId);
+                if($zhibo instanceof ZhiBo){
+                    $first[$i]['playUrl'] = $zhibo->bfdizhi ?? '';
+                    $first[$i]['openUrl'] =  "./play_live_page-{$zhibo->d_id}.html";
+                }
+                $first[$i]['posterUrl'] = '';
+            } else {
+                $first[$i]['type'] = 'poster';
+                $first[$i]['playUrl'] = '';
+                $first[$i]['posterUrl'] = $module->$ipic ?? '';
+                $first[$i]['openUrl'] = $module->$ilink ?? '';
+            }
+            $first[$i]['openType'] = 'self';
+            $first[$i]['name'] = '';
+        }
+        return $first;
+    }
     
 }

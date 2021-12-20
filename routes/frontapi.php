@@ -26,4 +26,5 @@ Route::middleware(['api'])->prefix('media')->group(function () {
         Route::get('getSubDetailByNum', 'MediaController@getSubDetailByNum');
         Route::get('getRecommend', 'MediaController@getRecommend');
         Route::post('getWatchList', 'MediaController@getWatchList');
+        Route::post('getIndexModule', 'MediaController@getIndexModule');
 });
