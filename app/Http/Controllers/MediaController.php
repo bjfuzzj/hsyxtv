@@ -2,7 +2,7 @@
 /*
  * @Author: your name
  * @Date: 2021-05-07 20:13:46
- * @LastEditTime: 2021-12-21 15:15:29
+ * @LastEditTime: 2021-12-21 15:36:50
  * @LastEditors: bjfuzzj
  * @Description: In User Settings Edit
  * @FilePath: /tv/app/Http/Controllers/MediaController.php
@@ -489,8 +489,8 @@ class MediaController extends Controller
     private function getFirst($module){
         $first = [];
         for ($i=0;$i<8;$i++) {
-            $ilink = 'link_'.($i+1);
-            $ipic = 'pic_'.($i+1);
+            $ilink = 'link_'.($i);
+            $ipic = 'pic_'.($i);
 
             if($i==0 && $module->type == 'play'){
                 $first[$i]['type'] = 'play';
