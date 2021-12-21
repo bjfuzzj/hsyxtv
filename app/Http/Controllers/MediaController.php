@@ -2,7 +2,7 @@
 /*
  * @Author: your name
  * @Date: 2021-05-07 20:13:46
- * @LastEditTime: 2021-12-21 15:12:02
+ * @LastEditTime: 2021-12-21 15:15:29
  * @LastEditors: bjfuzzj
  * @Description: In User Settings Edit
  * @FilePath: /tv/app/Http/Controllers/MediaController.php
@@ -492,7 +492,7 @@ class MediaController extends Controller
             $ilink = 'link_'.($i+1);
             $ipic = 'pic_'.($i+1);
 
-            if($module->type == 'play'){
+            if($i==0 && $module->type == 'play'){
                 $first[$i]['type'] = 'play';
                 $first[$i]['playUrl'] = '';
                 $zhiBoId = $module->pindaoid ?? 0;
