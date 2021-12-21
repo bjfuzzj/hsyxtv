@@ -2,7 +2,7 @@
 /*
  * @Author: your name
  * @Date: 2021-05-07 20:13:46
- * @LastEditTime: 2021-12-21 15:46:10
+ * @LastEditTime: 2021-12-21 15:54:45
  * @LastEditors: bjfuzzj
  * @Description: In User Settings Edit
  * @FilePath: /tv/app/Http/Controllers/MediaController.php
@@ -509,7 +509,7 @@ class MediaController extends Controller
                 $first[$i]['openUrl'] = $module->$ilink ?? '';
             }
             $first[$i]['openType'] = 'self';
-            $first[$i]['name'] = '';
+            $first[$i]['name'] = $module->name??'';
         }
         return $first;
     }
