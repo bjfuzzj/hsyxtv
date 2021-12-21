@@ -2,7 +2,7 @@
 /*
  * @Author: your name
  * @Date: 2021-05-07 20:13:46
- * @LastEditTime: 2021-12-21 14:58:28
+ * @LastEditTime: 2021-12-21 15:12:02
  * @LastEditors: bjfuzzj
  * @Description: In User Settings Edit
  * @FilePath: /tv/app/Http/Controllers/MediaController.php
@@ -431,7 +431,7 @@ class MediaController extends Controller
             $module_date['other'] = [];
             $module_date['other'] = $this->getOther($module);
             $categoryData[$i] = $module_date;
-
+            $i++;
             Log::info(print_r($module_date,1));
         }
         
