@@ -2,7 +2,7 @@
 /*
  * @Author: your name
  * @Date: 2021-05-07 20:13:46
- * @LastEditTime: 2021-12-21 15:36:50
+ * @LastEditTime: 2021-12-21 15:38:05
  * @LastEditors: bjfuzzj
  * @Description: In User Settings Edit
  * @FilePath: /tv/app/Http/Controllers/MediaController.php
@@ -476,7 +476,7 @@ class MediaController extends Controller
                     $temp['type'] = 'poster';
                     $temp['openType'] = 'self';
                     $temp['openUrl'] = "./detail.php?id={$media->d_id}";
-                    $temp['posterUrl'] = $media->vertical_url??'';
+                    $temp['posterUrl'] = $media->poster_vertical??'';
                     $temp['name'] = $media->name??'';
                     array_push($twoData['data'],$temp);
                 }
