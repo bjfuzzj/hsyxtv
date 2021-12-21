@@ -88,7 +88,7 @@ return [
             'url'            => env('DATABASE_URL'),
             'host'           => env('DB_HOST', '127.0.0.1'),
             'port'           => env('DB_PORT', '3306'),
-            'database'       => env('DB_WEB_43', 'web_47_1'),
+            'database'       => env('DB_WEB_47', 'web_47_1'),
             'username'       => env('DB_USERNAME', 'forge'),
             'password'       => env('DB_PASSWORD', ''),
             'unix_socket'    => env('DB_SOCKET', ''),
