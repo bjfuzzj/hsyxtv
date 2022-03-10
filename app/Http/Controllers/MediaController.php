@@ -2,7 +2,7 @@
 /*
  * @Author: your name
  * @Date: 2021-05-07 20:13:46
- * @LastEditTime: 2021-12-21 15:54:45
+ * @LastEditTime: 2022-03-10 12:10:13
  * @LastEditors: bjfuzzj
  * @Description: In User Settings Edit
  * @FilePath: /tv/app/Http/Controllers/MediaController.php
@@ -217,7 +217,17 @@ class MediaController extends Controller
     public function getDetail(Request $request)
     {
         $id = $request->input('id',0);
-        // Log::info(print_r($ids,1));
+        $userId = $request->input('user_id',0);
+
+        $isWhite = 0;
+
+        // if(!empty($userId)){
+        //     $tvUser = TvUser::find($userId);
+        //     if($tvUser instanceof TvUser)
+        //     {
+
+        //     }
+        // }
         if (empty($id)) {
             return $this->outErrorResultApi(500, '内部错误[1]');
         }

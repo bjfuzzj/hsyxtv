@@ -74,6 +74,7 @@ class TvUserController extends Controller
             else
             {
                 if(!empty($v) && strpos($v,'6.0') !== false ){
+                    Log::info(print_r($request->all(),1));
                     $user     = TvUser::firstOrCreate(['mac' => $mac], ['group_id' => DGroup::HUBEI_GROUP_ID, 'expire' => $expire_time,'vername'=>$v,'salt'=>$salt,'passwd'=>$passwd]);
                 }else if(!empty($v) && strpos($v,'8.') !== false ){
                     //医友云横屏 8.*
