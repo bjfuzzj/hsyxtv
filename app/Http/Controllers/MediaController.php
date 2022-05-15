@@ -2,7 +2,7 @@
 /*
  * @Author: your name
  * @Date: 2021-05-07 20:13:46
- * @LastEditTime: 2022-03-10 12:10:13
+ * @LastEditTime: 2022-05-15 10:29:46
  * @LastEditors: bjfuzzj
  * @Description: In User Settings Edit
  * @FilePath: /tv/app/Http/Controllers/MediaController.php
@@ -289,7 +289,16 @@ class MediaController extends Controller
         $type = $media->type ?? 0;
         #sql:select   {名称},{海报竖图},{id编码},  url, createdatetime from {媒资库} where published='y' and d_id>=(SELECT floor(RAND() * (SELECT MAX(d_id) FROM {媒资库}))) ORDER BY d_id LIMIT 6;
         $sql = "select * from media where published='y' and d_id!={$id} and  type = {$type} and d_id >=(SELECT floor(RAND() * (SELECT MAX(d_id) FROM media where type={$type} and d_id!={$id} ))) ORDER BY d_id LIMIT $limit";
+
+
+        //如果是教育分类的话，要去掉下线的媒资。（作业帮要去掉北京教育局的内容）
+        if($type == Media::TYPE_1){
+            $sql = "select * from media where published='y' and d_id!={$id} and  type = {$type} and online_status=0 and d_id >=(SELECT floor(RAND() * (SELECT MAX(d_id) FROM media where type={$type} and d_id!={$id} and online_status=0 ))) ORDER BY d_id LIMIT $limit";
+        }
+
         $medias = DB::select($sql);
+
+        
 
         foreach($medias as &$media){
             if($source == 'v'){
