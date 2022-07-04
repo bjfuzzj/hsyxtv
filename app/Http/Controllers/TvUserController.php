@@ -112,6 +112,7 @@ class TvUserController extends Controller
                 $user->save();
             }
 
+            $portal = 'http://dxy.yiqiqw.com/lanmu-1.html';
             //查看分组
             $group = DGroup::find($user->group_id);
             if ($group instanceof DGroup) {
