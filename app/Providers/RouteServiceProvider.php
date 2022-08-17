@@ -2,10 +2,10 @@
 /*
  * @Author: your name
  * @Date: 2020-12-02 18:06:10
- * @LastEditTime: 2021-08-11 22:40:18
- * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2022-08-17 11:57:12
+ * @LastEditors: bjfuzzj
  * @Description: In User Settings Edit
- * @FilePath: /paota/ptweb/app/Providers/RouteServiceProvider.php
+ * @FilePath: /tv/app/Providers/RouteServiceProvider.php
  */
 
 namespace App\Providers;
@@ -57,13 +57,13 @@ class RouteServiceProvider extends ServiceProvider
     //  *
     //  * @return void
     //  */
-    // protected function mapWebRoutes()
-    // {
-    //     Route::middleware('web')
-    //          ->domain(config('app.h5_domain'))
-    //          ->namespace($this->namespace)
-    //          ->group(base_path('routes/web.php'));
-    // }
+    protected function mapWebRoutes()
+    {
+        Route::middleware('web')
+             ->domain(config('app.h5_domain'))
+             ->namespace($this->namespace)
+             ->group(base_path('routes/web.php'));
+    }
 
     /**
      * Define the "api" routes for the application.

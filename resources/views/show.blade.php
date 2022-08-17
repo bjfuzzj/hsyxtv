@@ -1,16 +1,7 @@
-<!--
- * @Author: bjfuzzj
- * @Date: 2021-03-08 13:50:19
- * @LastEditTime: 2022-08-17 13:15:05
- * @LastEditors: bjfuzzj
- * @Description: 
- * @FilePath: /tv/resources/views/index.html
- * 寻找内心的安静
--->
 <html style="height: 100%;">
 <head>
 <meta name="viewport" content="width=device-width, minimum-scale=0.1">
-<title>图片展示</title>
+<title>激活二维码展示</title>
 </head>
 
 <style type="text/css">

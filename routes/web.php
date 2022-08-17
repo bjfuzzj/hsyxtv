@@ -2,10 +2,10 @@
 /*
  * @Author: your name
  * @Date: 2020-12-02 18:06:10
- * @LastEditTime: 2020-12-03 14:22:12
- * @LastEditors: your name
+ * @LastEditTime: 2022-08-17 12:47:43
+ * @LastEditors: bjfuzzj
  * @Description: In User Settings Edit
- * @FilePath: /paota/ptweb/routes/web.php
+ * @FilePath: /tv/routes/web.php
  */
 
 /*
@@ -21,5 +21,5 @@
 
 // 授权登录之后
 Route::middleware(['web'])->group(function () {
-    //Route::get('/', 'IndexController@index')->name('home');
+    Route::get('/show', 'IndexController@show')->name('show');
 });

@@ -87,8 +87,8 @@ class TvUserController extends Controller
                     //深圳天威 9.*
                     $user     = TvUser::firstOrCreate(['mac' => $mac], ['group_id' => 50, 'expire' => $expire_time,'vername'=>$v,'salt'=>$salt,'passwd'=>$passwd]);
                 }else if(!empty($v) && strpos($v,'10.') !== false ) {
-                    //内蒙 10.*
-                    $user     = TvUser::firstOrCreate(['mac' => $mac], ['group_id' => DGroup::DEFAULT_ID, 'expire' => $expire_time,'vername'=>$v,'salt'=>$salt,'passwd'=>$passwd,'note'=>'内蒙']);
+                    //内蒙-20220817 变达飞 10.*
+                    $user     = TvUser::firstOrCreate(['mac' => $mac], ['group_id' => DGroup::DEFAULT_ID, 'expire' => $expire_time,'vername'=>$v,'salt'=>$salt,'passwd'=>$passwd,'note'=>'达飞']);
                 }
                 else{
                     $user     = TvUser::firstOrCreate(['mac' => $mac], ['group_id' => DGroup::DEFAULT_ID, 'expire' => $expire_time,'salt'=>$salt,'passwd'=>$passwd]);
@@ -124,6 +124,15 @@ class TvUserController extends Controller
             }
             $expireTime = Carbon::parse($user->expire);
             $expire = $expireTime->timestamp;
+
+
+
+
+            //达飞 10.0 版本的判断，如果用户名称为空，则跳转到 公众号二维码页面
+            if(!empty($v) && strpos($v,'10.') !== false && empty($user->username) ){
+                $portal = "https://web.yiqiqw.com/show"
+            }
+
             $result = [
                 'userid'           => $userId,
                 'groupid'          => $user->group_id,
