@@ -2,7 +2,7 @@
 /*
  * @Author: your name
  * @Date: 2020-12-02 18:06:10
- * @LastEditTime: 2022-08-17 11:57:12
+ * @LastEditTime: 2022-08-17 13:51:02
  * @LastEditors: bjfuzzj
  * @Description: In User Settings Edit
  * @FilePath: /tv/app/Providers/RouteServiceProvider.php
@@ -45,7 +45,7 @@ class RouteServiceProvider extends ServiceProvider
     {
         $this->mapApiRoutes();
         $this->mapAdminRoutes();
-        //$this->mapWebRoutes();
+        $this->mapWebRoutes();
         $this->mapFrontApiRoutes();
         
     }
