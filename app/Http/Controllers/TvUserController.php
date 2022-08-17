@@ -573,6 +573,22 @@ class TvUserController extends Controller
         return $this->outSuccessResultApi(['id'=>$params['userid']]);
     }
 
+
+    public function getUserInfo(Request $request)
+    {
+        $params = $this->validate($request, [
+            'userid'  => 'required|integer',
+        ], [
+            '.*' => '查询数据失败[-1]',
+        ]);
+        $tvUser = TvUser::find($params['userid']);
+        if(false === $tvUser instanceof TvUser){
+            return $this->outErrorResult(-1, '用户不存在');
+        }
+        $username = $tvUser->username??'';
+        return $this->outSuccessResultApi(['userid'=>$params['userid'],'username'=>$username]);
+    }
+
     private function getSalt()
     {
         return substr(md5(mt_rand()), 0, 8);

@@ -2,7 +2,7 @@
 /*
  * @Author: your name
  * @Date: 2020-12-02 18:06:10
- * @LastEditTime: 2022-08-17 20:46:04
+ * @LastEditTime: 2022-08-17 21:17:44
  * @LastEditors: bjfuzzj
  * @Description: In User Settings Edit
  * @FilePath: /tv/routes/api.php
@@ -39,8 +39,10 @@ Route::middleware(['api'])->group(function () {
 
     Route::get('/search', 'MediaController@search');
 
-    
+    //更新用户名称
     Route::post('/do_update', 'TvUserController@doUpdate');
+    //获取用户信息
+    Route::post('/user_info', 'TvUserController@getUserInfo');
 
 //    Route::prefix('wxapp')->group(function () {
 //        Route::post('/login', 'WxappController@login');
