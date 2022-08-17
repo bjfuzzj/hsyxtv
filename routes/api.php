@@ -2,7 +2,7 @@
 /*
  * @Author: your name
  * @Date: 2020-12-02 18:06:10
- * @LastEditTime: 2021-11-29 13:04:44
+ * @LastEditTime: 2022-08-17 20:46:04
  * @LastEditors: bjfuzzj
  * @Description: In User Settings Edit
  * @FilePath: /tv/routes/api.php
@@ -38,7 +38,9 @@ Route::middleware(['api'])->group(function () {
     Route::get('/get_watch', 'TvUserController@getWatchHistory');
 
     Route::get('/search', 'MediaController@search');
+
     
+    Route::post('/do_update', 'TvUserController@doUpdate');
 
 //    Route::prefix('wxapp')->group(function () {
 //        Route::post('/login', 'WxappController@login');

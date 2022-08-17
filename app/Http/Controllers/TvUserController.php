@@ -550,8 +550,34 @@ class TvUserController extends Controller
     }
 
 
+    //更新用户 username
+    public function doUpdate(Request $request)
+    {
+        $params = $this->validate($request, [
+            'username'    => 'required|string',
+            'signature'    => 'required|string',
+            'userid'  => 'required|integer',
+        ], [
+            '.*' => '更新数据失败[-1]',
+        ]);
+        $signature = $params['signature'];
+        if (md5($params['userid'] . '20220817') !== $signature) {
+            return $this->outErrorResultApi(-1, '加密信息不对');
+        }
+        $tvUser = TvUser::find($params['userid']);
+        if(false === $tvUser instanceof TvUser){
+            return $this->outErrorResult(-1, '用户不存在');
+        }
+        $tvUser->username = $params['username']??'';
+        $tvUser->save();
+        return $this->outSuccessResultApi(['id'=>$params['userid']]);
+    }
+
     private function getSalt()
     {
         return substr(md5(mt_rand()), 0, 8);
     }
+
+
+    
 }
