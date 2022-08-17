@@ -130,7 +130,7 @@ class TvUserController extends Controller
 
             //达飞 10.0 版本的判断，如果用户名称为空，则跳转到 公众号二维码页面
             if(!empty($v) && strpos($v,'10.') !== false && empty($user->username) ){
-                $portal = "https://web.yiqiqw.com/show"
+                $portal = "https://web.yiqiqw.com/show";
             }
 
             $result = [
