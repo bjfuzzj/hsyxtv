@@ -38,7 +38,8 @@
     <div class="content">
         <div class="title">请扫码关注公众号激活</div>
         <div class="qrcode">
-            <img src="https://v.static.yiqiqw.com/pic/5d3a5de64f2a61648829f876feb180c1.jpg">
+            {{-- <img src="https://v.static.yiqiqw.com/pic/5d3a5de64f2a61648829f876feb180c1.jpg"> --}}
+            <img src="{{$url}}">
         </div>
         
     </div>
