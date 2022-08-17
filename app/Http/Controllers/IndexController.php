@@ -2,7 +2,7 @@
 /*
  * @Author: bjfuzzj
  * @Date: 2022-08-17 12:39:36
- * @LastEditTime: 2022-08-17 14:24:19
+ * @LastEditTime: 2022-08-17 14:40:47
  * @LastEditors: bjfuzzj
  * @Description: 
  * @FilePath: /tv/app/Http/Controllers/IndexController.php
@@ -28,7 +28,7 @@ class IndexController extends Controller
         $sendParams['qrCode'] = 'dfuser_'.$params['userid'];
         $sendParams['signature'] = md5($sendParams['qrCode'] . '20220817');
         $sendParams['temporary'] = 1;
-        $res = RemoteRequest::post('https://dxy.quwango/getQrcode',$sendParams);
+        $res = RemoteRequest::post('https://dxy.quwango.com/getQrcode',$sendParams);
         Log::info(print_r($res,1));
         
         return view('show');
