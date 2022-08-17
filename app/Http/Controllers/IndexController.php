@@ -2,7 +2,7 @@
 /*
  * @Author: bjfuzzj
  * @Date: 2022-08-17 12:39:36
- * @LastEditTime: 2022-08-17 12:50:50
+ * @LastEditTime: 2022-08-17 13:59:10
  * @LastEditors: bjfuzzj
  * @Description: 
  * @FilePath: /tv/app/Http/Controllers/IndexController.php
@@ -15,7 +15,7 @@ use Illuminate\Http\Request;
 
 class IndexController extends Controller
 {
-    public function show(Request $request)
+    public function showCode(Request $request)
     {
         // $params = $this->validate($request, [
         //     'mac'   => 'required|string',

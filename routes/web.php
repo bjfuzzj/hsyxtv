@@ -2,7 +2,7 @@
 /*
  * @Author: your name
  * @Date: 2020-12-02 18:06:10
- * @LastEditTime: 2022-08-17 12:47:43
+ * @LastEditTime: 2022-08-17 13:58:58
  * @LastEditors: bjfuzzj
  * @Description: In User Settings Edit
  * @FilePath: /tv/routes/web.php
@@ -21,5 +21,5 @@
 
 // 授权登录之后
 Route::middleware(['web'])->group(function () {
-    Route::get('/show', 'IndexController@show')->name('show');
+    Route::get('/showCode', 'IndexController@showCode')->name('showCode');
 });
