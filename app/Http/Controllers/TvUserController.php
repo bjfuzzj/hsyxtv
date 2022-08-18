@@ -600,7 +600,16 @@ class TvUserController extends Controller
             return $this->outErrorResult(-1, '用户不存在');
         }
         $username = $tvUser->username??'';
-        return $this->outSuccessResultApi(['userid'=>$params['userid'],'username'=>$username]);
+        $res = [];
+        $res['userid'] = $params['userid'];
+        $res['username'] = $username;
+        $res['province'] = $tvUser->province??'';
+        $res['city'] = $tvUser->city??'';
+        $res['district'] = $tvUser->district??'';
+        $res['detail_addr'] = $tvUser->detail_addr??'';
+        $res['tel_no'] = $tvUser->tel_no??'';
+        $res['contact'] = $tvUser->contact??'';
+        return $this->outSuccessResultApi($res);
     }
 
     private function getSalt()
