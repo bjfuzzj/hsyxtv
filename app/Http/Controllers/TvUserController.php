@@ -554,12 +554,20 @@ class TvUserController extends Controller
     public function doUpdate(Request $request)
     {
         $params = $this->validate($request, [
-            'username'    => 'required|string',
-            'signature'    => 'required|string',
-            'userid'  => 'required|integer',
+            'username'       => 'required|string',
+            'signature'      => 'required|string',
+            'userid'         => 'required|integer',
+            'name'           => 'required|string',
+            'tel'            => 'required|string',
+            'province'       => 'required|string',
+            'city'           => 'required|string',
+            'district'       => 'required|string',
+            'address_detail' => 'required|string',
         ], [
             '.*' => '更新数据失败[-1]',
         ]);
+
+
         $signature = $params['signature'];
         if (md5($params['userid'] . '20220817') !== $signature) {
             return $this->outErrorResultApi(-1, '加密信息不对');
@@ -568,7 +576,13 @@ class TvUserController extends Controller
         if(false === $tvUser instanceof TvUser){
             return $this->outErrorResult(-1, '用户不存在');
         }
-        $tvUser->username = $params['username']??'';
+        $tvUser->username    = $params['username']??'';
+        $tvUser->province    = $params['province']??'';
+        $tvUser->city        = $params['city']??'';
+        $tvUser->district    = $params['district']??'';
+        $tvUser->detail_addr = $params['address_detail']??'';
+        $tvUser->tel_no      = $params['tel']??'';
+        $tvUser->contact     = $params['name']??'';
         $tvUser->save();
         return $this->outSuccessResultApi(['id'=>$params['userid']]);
     }
