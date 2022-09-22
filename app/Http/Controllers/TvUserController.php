@@ -149,7 +149,7 @@ class TvUserController extends Controller
                 'mix_ad_time'      => $mix_ad_time,
                 'ext_enable' => 0,
                 'expire' => $expire,
-                'expire_url'=>'https://v.static.yiqiqw.com/pic/1ac39556154b72dfdc363fe4f509e6e9.png',
+                'expire_url'=>'https://v.static.yiqiqw.com/pic/5f947b0fdb6b9bb655e0525745a85bf4.png',
                 // 'expire_pic'=>'',
                 // 'expire_pic_md5'=>'',
                 // 'expire_url'=>'http://h.qr61.cn/optFHZ/qyLgXgN',
