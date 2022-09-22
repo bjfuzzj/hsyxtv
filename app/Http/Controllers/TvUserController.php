@@ -153,7 +153,7 @@ class TvUserController extends Controller
                 // 'expire_pic'=>'',
                 // 'expire_pic_md5'=>'',
                 // 'expire_url'=>'http://h.qr61.cn/optFHZ/qyLgXgN',
-                'expire_pic'=>'http://v.static.yiqiqw.com/pic/f99aebe7f31038a2d13026dd7762e63b.png',
+                'expire_pic'=>'https://v.static.yiqiqw.com/pic/f99aebe7f31038a2d13026dd7762e63b.png',
                 'expire_pic_md5'=>'313bbd27cd34dc8061676680104d3c5f',
                 'mqtt'=>'tcp://39.97.164.69:1883',
                 'portal_v'=>''
