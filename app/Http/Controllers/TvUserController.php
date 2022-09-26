@@ -615,16 +615,17 @@ class TvUserController extends Controller
 
     public function hdNotify(Request $request)
     {
-        $params = $this->validate($request, [
-            'client'  => 'required|string',
-        ], [
-            '.*' => '查询数据失败[-1]',
-        ]);
+        Log::info(print_r($request->all()),1);
+        // $params = $this->validate($request, [
+        //     'client'  => 'required|string',
+        // ], [
+        //     '.*' => '查询数据失败[-1]',
+        // ]);
 
-        $client = $params['client'];
-        if($client == 'hn_haishiju'){
-            Log::info(print_r($request->all()),1);
-        }
+        // $client = $params['client'];
+        // if($client == 'hn_haishiju'){
+        //     Log::info(print_r($request->all()),1);
+        // }
         
     }
 
