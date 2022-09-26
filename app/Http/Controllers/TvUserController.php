@@ -615,7 +615,7 @@ class TvUserController extends Controller
 
     public function hdNotify(Request $request)
     {
-        Log::info(print_r($request->all()),1);
+        Log::info(print_r($request->all(),1));
         // $params = $this->validate($request, [
         //     'client'  => 'required|string',
         // ], [
