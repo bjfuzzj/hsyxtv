@@ -2,7 +2,7 @@
 /*
  * @Author: your name
  * @Date: 2020-12-02 18:06:10
- * @LastEditTime: 2022-08-17 21:17:44
+ * @LastEditTime: 2022-09-26 15:54:50
  * @LastEditors: bjfuzzj
  * @Description: In User Settings Edit
  * @FilePath: /tv/routes/api.php
@@ -43,6 +43,10 @@ Route::middleware(['api'])->group(function () {
     Route::post('/do_update', 'TvUserController@doUpdate');
     //获取用户信息
     Route::post('/user_info', 'TvUserController@getUserInfo');
+
+    //海口-海事局
+    Route::get('/hd_notify', 'TvUserController@hdNotify');
+
 
 //    Route::prefix('wxapp')->group(function () {
 //        Route::post('/login', 'WxappController@login');

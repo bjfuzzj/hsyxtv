@@ -230,43 +230,43 @@ class TvUserController extends Controller
             }
         }
 
-        //        $result['apps']  = [
-        //            [
-        //                'pkgName' => 'com.xlab.hello',
-        //                'clsName' => '.MainActivity',
-        //                'verName' => '1.1.100',
-        //                'verCode' => '100',
-        //                'md5'     => 'OAAFAFAFAQQ',
-        //                'url'     => 'https://tv.yiqiqw.com/apps/hello.apk',
-        //            ],
-        //            [
-        //                'pkgName' => 'com.xlab.world',
-        //                'clsName' => '.MainActivity',
-        //                'verName' => '6.2.100',
-        //                'verCode' => '200',
-        //                'md5'     => 'OAAFAFAFAAAAQ',
-        //                'url'     => 'https://tv.yiqiqw.com/apps/hello.apk',
-        //            ],
-        //        ];
-        //        $result['dels']  = [
-        //            [
-        //                'pkgName' => 'com.xlab.hello'
-        //            ],
-        //            [
-        //                'pkgName' => 'com.xlab.world'
-        //            ],
-        //        ];
-        //        $result['img']   = [
-        //            'imgdes' => 'ampere test key',
-        //            'imgutc' => '123456',
-        //            'md5'    => 'OAAFAFAFAAAAQ',
-        //            'url'    => 'https://tv.yiqiqw.com/apps/update.zip',
-        //        ];
-        //        $result['bootv'] = [
-        //            'md5' => 'OAAFAFAFAAAAQ',
-        //            'url' => 'https://tv.yiqiqw.com/apps/bootvide.mp4',
-        //        ];
-        //        $result['type']  = 'default';
+            //    $result['apps']  = [
+            //        [
+            //            'pkgName' => 'com.xlab.hello',
+            //            'clsName' => '.MainActivity',
+            //            'verName' => '1.1.100',
+            //            'verCode' => '100',
+            //            'md5'     => 'OAAFAFAFAQQ',
+            //            'url'     => 'https://tv.yiqiqw.com/apps/hello.apk',
+            //        ],
+            //        [
+            //            'pkgName' => 'com.xlab.world',
+            //            'clsName' => '.MainActivity',
+            //            'verName' => '6.2.100',
+            //            'verCode' => '200',
+            //            'md5'     => 'OAAFAFAFAAAAQ',
+            //            'url'     => 'https://tv.yiqiqw.com/apps/hello.apk',
+            //        ],
+            //    ];
+            //    $result['dels']  = [
+            //        [
+            //            'pkgName' => 'com.xlab.hello'
+            //        ],
+            //        [
+            //            'pkgName' => 'com.xlab.world'
+            //        ],
+            //    ];
+            //    $result['img']   = [
+            //        'imgdes' => 'ampere test key',
+            //        'imgutc' => '123456',
+            //        'md5'    => 'OAAFAFAFAAAAQ',
+            //        'url'    => 'https://tv.yiqiqw.com/apps/update.zip',
+            //    ];
+            //    $result['bootv'] = [
+            //        'md5' => 'OAAFAFAFAAAAQ',
+            //        'url' => 'https://tv.yiqiqw.com/apps/bootvide.mp4',
+            //    ];
+            //    $result['type']  = 'default';
 
         return $this->outSuccessResultApi($result);
     }
@@ -612,10 +612,28 @@ class TvUserController extends Controller
         return $this->outSuccessResultApi($res);
     }
 
+
+    public function hdNotify(Request $request)
+    {
+        $params = $this->validate($request, [
+            'client'  => 'required|string',
+        ], [
+            '.*' => '查询数据失败[-1]',
+        ]);
+
+        $client = $params['client'];
+        if($client == 'hn_haishiju'){
+            Log::info(print_r($request->all()),1);
+        }
+        
+    }
+
     private function getSalt()
     {
         return substr(md5(mt_rand()), 0, 8);
     }
+
+
 
 
     
