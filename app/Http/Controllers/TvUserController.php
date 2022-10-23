@@ -659,6 +659,28 @@ class TvUserController extends Controller
 
     private function getModuleOne()
     {
+        $result = [];
+        $result[] = [
+            "name"=>"党课36次",
+            "value"=>"36",
+            "series"=>"系列一",
+        ];
+        $result[] = [
+            "name"=>"党小组会38次",
+            "value"=>"38",
+            "series"=>"系列二",
+        ];
+        $result[] = [
+            "name"=>"党员大会16次",
+            "value"=>"16",
+            "series"=>"系列三",
+        ];
+        $result[] = [
+            "name"=>"支部委员会22次",
+            "value"=>"22",
+            "series"=>"系列四",
+        ];
+        return $result;
         
     }
 
