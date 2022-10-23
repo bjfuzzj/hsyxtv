@@ -659,6 +659,20 @@ class TvUserController extends Controller
 
     private function getModuleOne()
     {
+        
+    }
+
+    private function getModuleTwo()
+    {
+        $result = [];
+
+        return $result;
+
+    }
+
+
+    private function getModuleFive()
+    {
         $result = [];
         $result[] = [
             "name"=>"思想建设",
@@ -685,13 +699,6 @@ class TvUserController extends Controller
             "value"=>"16",
             "series"=>"系列五",
         ];
-        return $result;
-    }
-
-    private function getModuleTwo()
-    {
-        $result = [];
-        
         return $result;
 
     }
