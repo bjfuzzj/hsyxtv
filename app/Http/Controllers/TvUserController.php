@@ -631,9 +631,69 @@ class TvUserController extends Controller
         
     }
 
+
+
+    public function screen(Request $request)
+    {
+        $result = [];
+        $module = $request->input('module','');
+        if($module == 'module_1'){
+            $result = $this->getModuleOne();
+        }elseif($module == 'module_2'){
+            $result = $this->getModuleTwo();
+        }elseif($module == 'module_3'){
+            $result = $this->getModuleThree();
+        }elseif($module == 'module_4'){
+            $result = $this->getModuleFour();
+        }elseif($module == 'module_5'){
+            $result = $this->getModuleFive();
+        }
+        return response()->json($result);
+        
+    }
+
     private function getSalt()
     {
         return substr(md5(mt_rand()), 0, 8);
+    }
+
+    private function getModuleOne()
+    {
+        $result = [];
+        $result[] = [
+            "name"=>"思想建设",
+            "value"=>"25",
+            "series"=>"系列一",
+        ];
+        $result[] = [
+            "name"=>"组织建设",
+            "value"=>"25",
+            "series"=>"系列二",
+        ];
+        $result[] = [
+            "name"=>"作风建设",
+            "value"=>"23",
+            "series"=>"系列三",
+        ];
+        $result[] = [
+            "name"=>"制度建设",
+            "value"=>"11",
+            "series"=>"系列四",
+        ];
+        $result[] = [
+            "name"=>"反腐倡廉建设",
+            "value"=>"16",
+            "series"=>"系列五",
+        ];
+        return $result;
+    }
+
+    private function getModuleTwo()
+    {
+        $result = [];
+        
+        return $result;
+
     }
 
 

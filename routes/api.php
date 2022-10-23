@@ -2,7 +2,7 @@
 /*
  * @Author: your name
  * @Date: 2020-12-02 18:06:10
- * @LastEditTime: 2022-09-26 18:00:36
+ * @LastEditTime: 2022-10-23 21:33:21
  * @LastEditors: bjfuzzj
  * @Description: In User Settings Edit
  * @FilePath: /tv/routes/api.php
@@ -36,30 +36,17 @@ Route::middleware(['api'])->group(function () {
     Route::get('/add_watch', 'TvUserController@addWatchHistory');
     Route::get('/del_watch', 'TvUserController@delWatchHistory');
     Route::get('/get_watch', 'TvUserController@getWatchHistory');
-
     Route::get('/search', 'MediaController@search');
-
     //更新用户名称
     Route::post('/do_update', 'TvUserController@doUpdate');
     //获取用户信息
     Route::post('/user_info', 'TvUserController@getUserInfo');
 
-    //海口-海事局
+    Route::get('/screen', 'TvUserController@screen');
+    
+
+    //海口 - 海事局 - 硬件数据
     Route::post('/hd_notify', 'TvUserController@hdNotify');
-
-
-//    Route::prefix('wxapp')->group(function () {
-//        Route::post('/login', 'WxappController@login');
-//        Route::post('/auth', 'WxappController@doAuth');
-//        Route::post('/decrypt_data', 'WxappController@decryptData');
-//        Route::post('subscribe_message', 'WxappController@subscribeMessage');
-//    });
-
-
-//    Route::prefix('pay')->group(function () {
-//        Route::post('/wx_pay', 'PayController@wxPay');
-//        Route::get('/success', 'PayController@paySuccess');
-//    });
 
 
 });
