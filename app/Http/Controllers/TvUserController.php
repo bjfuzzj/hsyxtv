@@ -15,6 +15,7 @@ use App\Models\WatchList;
 use Illuminate\Support\Carbon;
 use App\Models\Detail;
 use App\Models\Media;
+use App\Models\TongJiData;
 
 class TvUserController extends Controller
 {
@@ -132,6 +133,9 @@ class TvUserController extends Controller
             if(!empty($v) && strpos($v,'10.') !== false && empty($user->username) ){
                 $portal = "https://web.yiqiqw.com/showCode";
             }
+
+            //登录行为加入统计
+            //TongJiData::addTongji(['user_id'=>$userId,'type'=>TongJiData::TYPE_1]);
 
             $result = [
                 'userid'           => $userId,
