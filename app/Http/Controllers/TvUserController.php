@@ -135,7 +135,7 @@ class TvUserController extends Controller
             }
 
             //登录行为加入统计
-            //TongJiData::addTongji(['user_id'=>$userId,'type'=>TongJiData::TYPE_1]);
+            TongJiData::addTongji(['user_id'=>$userId,'type'=>TongJiData::TYPE_1]);
 
             $result = [
                 'userid'           => $userId,
