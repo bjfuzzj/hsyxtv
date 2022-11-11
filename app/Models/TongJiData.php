@@ -2,7 +2,7 @@
 /*
  * @Author: bjfuzzj
  * @Date: 2022-11-02 23:48:55
- * @LastEditTime: 2022-11-03 00:03:43
+ * @LastEditTime: 2022-11-03 12:18:48
  * @LastEditors: bjfuzzj
  * @Description: 
  * @FilePath: /tv/app/Models/TongJiData.php
@@ -20,7 +20,7 @@ class TongJiData extends Model
     protected $guarded    = [];
 
     const TYPE_1 = 1;//登录行为
-    const TYPE_2 = 2;//
+    const TYPE_2 = 2;//观看视频
 
     const UPDATED_AT = 'createdatetime';
     const CREATED_AT = 'savedatetime';

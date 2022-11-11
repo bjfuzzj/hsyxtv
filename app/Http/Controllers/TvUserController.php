@@ -134,8 +134,12 @@ class TvUserController extends Controller
                 $portal = "https://web.yiqiqw.com/showCode";
             }
 
-            //登录行为加入统计
-            TongJiData::addTongji(['user_id'=>$userId,'type'=>TongJiData::TYPE_1]);
+            // 忽略武汉分组
+            if($user->group_id != DGroup::HUBEI_GROUP_ID){
+                //登录行为加入统计
+                TongJiData::addTongji(['user_id'=>$userId,'type'=>TongJiData::TYPE_1]);
+            }
+            
 
             $result = [
                 'userid'           => $userId,
