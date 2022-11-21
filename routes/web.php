@@ -2,7 +2,7 @@
 /*
  * @Author: your name
  * @Date: 2020-12-02 18:06:10
- * @LastEditTime: 2022-11-20 23:09:00
+ * @LastEditTime: 2022-11-21 15:30:04
  * @LastEditors: bjfuzzj
  * @Description: In User Settings Edit
  * @FilePath: /tv/routes/web.php
@@ -23,4 +23,5 @@
 Route::middleware(['web'])->group(function () {
     Route::get('/showCode', 'IndexController@showCode')->name('showCode');
     Route::get('/user/{tv_user_id}/liveIndex', 'IndexController@liveIndex')->name('liveIndex');
+    Route::get('/user/{tv_user_id}/liveCompany', 'IndexController@liveCompany')->name('liveCompany');
 });

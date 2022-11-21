@@ -2,7 +2,7 @@
 /*
  * @Author: bjfuzzj
  * @Date: 2022-08-17 12:39:36
- * @LastEditTime: 2022-11-21 15:21:39
+ * @LastEditTime: 2022-11-21 18:51:39
  * @LastEditors: bjfuzzj
  * @Description: 
  * @FilePath: /tv/app/Http/Controllers/IndexController.php
@@ -16,6 +16,8 @@ use App\Helper\RemoteRequest;
 use Illuminate\Support\Facades\Log;
 use App\Models\LiveLanMu;
 use App\Models\TvUser;
+use App\Models\UserModuleRecord;
+use App\Models\Media;
 
 class IndexController extends Controller
 {
@@ -40,7 +42,7 @@ class IndexController extends Controller
         return view('show', ['url' => $url]);
     }
 
-
+    //动态首页
     public function liveIndex(Request $request)
     {
         $tvUserId = $request->route('tv_user_id', 0);
@@ -54,9 +56,7 @@ class IndexController extends Controller
         if (!$liveIndex instanceof LiveLanMu) {
             abort(404);
         }
-        $this->setDefaultValue($liveIndex);
-
-
+        $this->setDefaultValue($liveIndex, $tvUserId);
         $resData = [];
         $resData['tv_user'] = $tvUser;
         $resData['liveIndex'] = $liveIndex;
@@ -65,14 +65,13 @@ class IndexController extends Controller
         //栏目边框
         $liveLanmuList = LiveLanMu::where('published', 'y')->where('status', LiveLanMu::STATUS_ONLINE)->where('typeindex', $liveIndex->typeindex)->orderBy('shunxu', 'asc')->get();
         $resData['lanmu_list'] = $liveLanmuList;
-
         //其他栏目的图片预加载
         $otherImages = [];
-        foreach($liveLanmuList as $liveLanmu){
-            if($liveLanmu->d_id > 1){
-                for($i= 1; $i<8; $i++){
-                    $temp_pic_url = 'pic_'.$i;
-                    if(!empty($liveLanmu->$temp_pic_url)){
+        foreach ($liveLanmuList as $liveLanmu) {
+            if ($liveLanmu->d_id > 1) {
+                for ($i = 1; $i < 8; $i++) {
+                    $temp_pic_url = 'pic_' . $i;
+                    if (!empty($liveLanmu->$temp_pic_url)) {
                         $otherImages[] = $liveLanmu->$temp_pic_url;
                     }
                 }
@@ -83,11 +82,59 @@ class IndexController extends Controller
     }
 
 
-    private function setDefaultValue(&$liveIndex)
+
+    //动态公司页，logo 进入后的页面
+    public function liveCompany(Request $request)
     {
+        $tvUserId = $request->route('tv_user_id', 0);
+        $tvUser = TvUser::find($tvUserId);
+        if (!$tvUser instanceof TvUser) {
+            abort(404);
+        }
+        //->where('source_type', UserModuleRecord::SOURCE_TYPE_LOGO)
+        //
+        $resData = [];
+        $videoList = [];
+        $mediaIds = [];
+        $bg = UserModuleRecord::DEFAULT_BG;
+        $moduleRes = UserModuleRecord::where('tv_user_id', $tvUserId)->get();
+        if(!$moduleRes->isEmpty()){
+            foreach($moduleRes as $userModule) {
+                if( UserModuleRecord::SOURCE_TYPE_BG == $userModule->source_type ){
+                    $bg = !empty($userModule->source_value) ? $userModule->source_value : $bg;
+                }elseif(UserModuleRecord::SOURCE_TYPE_VIDEO == $userModule->source_type){
+                    $sourceValue = $userModule->source_value;
+                    $sourceArray = @explode(',',$sourceValue);
+                    $tempVideo = [];
+                    $tempVideo['poster'] = $sourceArray[0];
+                    $tempVideo['meida_id'] = $sourceArray[1];
+                    $mediaIds[] = $sourceArray[1];
+                    $videoList[] = $tempVideo;
+                }
+            }
+        }
+        $titleList = Media::whereIn('d_id',$mediaIds)->pluck('name','d_id');
+        $resData['bg']         = $bg;
+        $resData['video_list'] = $videoList;
+        $resData['title_list'] = $titleList;
+        return view('live.company', ['resData' => $resData]);
+    }
+
+
+   
+    private function setDefaultValue(&$liveIndex,$tvUserId)
+    {
+        //logo
+        $module_pic = 'https://v.static.yiqiqw.com/pic/9582672d0487d65468a314cd1737b131.jpg';
+        $module_link = 'http://dxy.yiqiqw.com/ztxqy-10.html';
+        $moduleRes = UserModuleRecord::where('tv_user_id', $tvUserId)->where('source_type', UserModuleRecord::SOURCE_TYPE_LOGO)->first();
+        if ($moduleRes instanceof UserModuleRecord) {
+            $module_pic = $moduleRes->source_value;
+            $module_link = route('liveCompany', ['tv_user_id' => $tvUserId]);
+        }
         $liveIndex->logo_pic = isset($liveIndex->logo_pic) && !empty($liveIndex->logo_pic) ?  $liveIndex->logo_pic :  'https://v.static.yiqiqw.com/pic/f4fc235889cbcafa02b7b9dbf3b1996e.png';
-        $liveIndex->pic_1 = isset($liveIndex->pic_1) && !empty($liveIndex->pic_1) ?  $liveIndex->pic_1 :  'https://v.static.yiqiqw.com/pic/9582672d0487d65468a314cd1737b131.jpg';
-        $liveIndex->link_1 = isset($liveIndex->link_1) && !empty($liveIndex->link_1) ?  $liveIndex->link_1 :  'http://dxy.yiqiqw.com/ztxqy-10.html';
+        $liveIndex->pic_1 = $module_pic;
+        $liveIndex->link_1 = $module_link;
         $liveIndex->pic_2 = isset($liveIndex->pic_2) && !empty($liveIndex->pic_2) ?  $liveIndex->pic_2 :  'https://v.static.yiqiqw.com/pic/6a7bf331930e972385b9019de31d5269.jpg';
         $liveIndex->link_2 = isset($liveIndex->link_2) && !empty($liveIndex->link_2) ?  $liveIndex->link_2 :  'https://v.static.yiqiqw.com/pic/b2aaaa9dc89273bcdbf8df637d1b6dcf.jpg';
         $liveIndex->pic_3 = isset($liveIndex->pic_3) && !empty($liveIndex->pic_3) ?  $liveIndex->pic_3 :  'https://v.static.yiqiqw.com/pic/023486bc2c17c8a71fb64aae07001f51.jpg';
