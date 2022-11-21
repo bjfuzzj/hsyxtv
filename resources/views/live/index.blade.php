@@ -28,7 +28,7 @@
 
 <body class="player-live">
 
-    <img class="home-log" src="{{$redData['logo_pic']}}" />
+    <img class="home-log" src="{{$resData['logo_pic']}}" />
     <div id="top_bar_area" class="top-bar-area">
         <div class="top-btn-area" id="top-btn-area">
             <a id="top_btn__0" class="top-btn" href="javascript:openPage('./myhistory.php')">
