@@ -2,7 +2,7 @@
 /*
  * @Author: bjfuzzj
  * @Date: 2022-08-17 12:39:36
- * @LastEditTime: 2022-11-21 15:11:54
+ * @LastEditTime: 2022-11-21 15:21:39
  * @LastEditors: bjfuzzj
  * @Description: 
  * @FilePath: /tv/app/Http/Controllers/IndexController.php
@@ -72,7 +72,9 @@ class IndexController extends Controller
             if($liveLanmu->d_id > 1){
                 for($i= 1; $i<8; $i++){
                     $temp_pic_url = 'pic_'.$i;
-                    $otherImages[] = $liveLanmu->$temp_pic_url;
+                    if(!empty($liveLanmu->$temp_pic_url)){
+                        $otherImages[] = $liveLanmu->$temp_pic_url;
+                    }
                 }
             }
         }
