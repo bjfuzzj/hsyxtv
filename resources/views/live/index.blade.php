@@ -75,8 +75,8 @@
 
                
                 @for ($i = 1; $i < 8; $i++)
-                    <a id="rec_group_first__{{$i}}" class="rec-first-poster-{{$i-1}}" href="javascript:openPageOut('{{$resData['liveIndex']['link_$i']}}')">
-                    <img class="poster-img" src="{{$resData['liveIndex']['pic_$i']}}" alt="">
+                    <a id="rec_group_first__{{$i}}" class="rec-first-poster-{{$i-1}}" href="javascript:openPageOut('{{$resData['liveIndex']["link_$i"]}}')">
+                    <img class="poster-img" src="{{ $resData['liveIndex']["pic_$i"] }}" alt="">
                     </a>
                 @endfor
 
