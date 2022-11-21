@@ -75,9 +75,8 @@
 
                
                 @for ($i = 1; $i < 8; $i++)
-                    The current value is {{ $i }}
                     <a id="rec_group_first__{{$i}}" class="rec-first-poster-{{$i-1}}" href="javascript:openPageOut('{{$resData['liveIndex']['link_$i']}}')">
-                    <img class="poster-img" src="{{$resData['liveIndex']['pic_1']}}" alt="">
+                    <img class="poster-img" src="{{$resData['liveIndex']['pic_$i']}}" alt="">
                     </a>
                 @endfor
 
