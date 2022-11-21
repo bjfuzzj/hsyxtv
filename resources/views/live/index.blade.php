@@ -28,7 +28,7 @@
 
 <body class="player-live">
 
-    <img class="home-log" src="{{$resData.logo_pic}}" />
+    <img class="home-log" src="{{ $resData['logo_pic'] }}" />
     <div id="top_bar_area" class="top-bar-area">
         <div class="top-btn-area" id="top-btn-area">
             <a id="top_btn__0" class="top-btn" href="javascript:openPage('./myhistory.php')">
@@ -56,11 +56,14 @@
         <div id="time_show" class="time-show"></div>
     </div>
     <div id="category_area" class="category-area">
-        <a id="category_item__0" class="category-item" href="javascript:openPage('/lanmu-1.html')">首页</a><a
-            id="category_item__1" class="category-item" href="javascript:openPage('/lanmu-2.html')">乡村振兴</a><a
-            id="category_item__2" class="category-item" href="javascript:openPage('/lanmu-3.html')">党务管理</a><a
-            id="category_item__3" class="category-item" href="javascript:openPage('/lanmu-4.html')">直播入口</a><a
-            id="category_item__4" class="category-item" href="javascript:openPage('/lanmu-5.html')">党晓云介绍</a>
+        @foreach ($resData['lanmuList'] as $lanmu)
+            <a id="category_item__{{$loop->index}}" class="category-item" href="javascript:openPage('{{$lanmu->url_1}}')">{{$lanmu->name}}</a>
+        @endforeach
+        {{-- <a id="category_item__0" class="category-item" href="javascript:openPage('/lanmu-1.html')">首页</a>
+        <a id="category_item__1" class="category-item" href="javascript:openPage('/lanmu-2.html')">乡村振兴</a>
+        <a id="category_item__2" class="category-item" href="javascript:openPage('/lanmu-3.html')">党务管理</a>
+        <a id="category_item__3" class="category-item" href="javascript:openPage('/lanmu-4.html')">直播入口</a>
+        <a id="category_item__4" class="category-item" href="javascript:openPage('/lanmu-5.html')">党晓云介绍</a> --}}
     </div>
     <div class="rec-content-area">
         <div id="rec_move_area" class="rec-move-area">
@@ -71,32 +74,38 @@
                 </div>
                 <a id="rec_group_first__1" class="rec-first-poster-0"
                     href="javascript:openPage('http://dxy.yiqiqw.com/ztxqy-10.html')">
-                    <img class="poster-img" src="https://v.static.yiqiqw.com/pic/9582672d0487d65468a314cd1737b131.jpg" alt="">
+                    <img class="poster-img" src="https://v.static.yiqiqw.com/pic/9582672d0487d65468a314cd1737b131.jpg"
+                        alt="">
                 </a>
                 <a id="rec_group_first__2" class="rec-first-poster-1"
                     href="javascript:openPage('https://v.static.yiqiqw.com/pic/b2aaaa9dc89273bcdbf8df637d1b6dcf.jpg')">
-                    <img class="poster-img" src="https://v.static.yiqiqw.com/pic/6a7bf331930e972385b9019de31d5269.jpg" alt="">
+                    <img class="poster-img" src="https://v.static.yiqiqw.com/pic/6a7bf331930e972385b9019de31d5269.jpg"
+                        alt="">
                 </a>
                 <a id="rec_group_first__3" class="rec-first-poster-2"
                     href="javascript:openPage('https://v.static.yiqiqw.com/pic/0c7e2e3d108369714d25b9981c24324a.png')">
-                    <img class="poster-img" src="https://v.static.yiqiqw.com/pic/023486bc2c17c8a71fb64aae07001f51.jpg" alt="">
+                    <img class="poster-img" src="https://v.static.yiqiqw.com/pic/023486bc2c17c8a71fb64aae07001f51.jpg"
+                        alt="">
                 </a>
                 <a id="rec_group_first__4" class="rec-first-poster-3"
                     href="javascript:openPageOut('http://dxy.yiqiqw.com/fourzty-7.html')">
-                    <img class="poster-img" src="https://v.static.yiqiqw.com/pic/b248221efc42df3a948742ad613bbd1d.jpg" alt="">
+                    <img class="poster-img" src="https://v.static.yiqiqw.com/pic/b248221efc42df3a948742ad613bbd1d.jpg"
+                        alt="">
                 </a>
                 <a id="rec_group_first__5" class="rec-first-poster-4"
                     href="javascript:openPageOut('http://dxy.yiqiqw.com/fourzty-8.html')">
-                    <img class="poster-img" src="https://v.static.yiqiqw.com/pic/1d2d91afa63a68543ba6ad44fdc7aa25.jpg" alt="">
+                    <img class="poster-img" src="https://v.static.yiqiqw.com/pic/1d2d91afa63a68543ba6ad44fdc7aa25.jpg"
+                        alt="">
                 </a>
                 <a id="rec_group_first__6" class="rec-first-poster-5"
                     href="javascript:openPage('https://www.12371.cn/2022/10/17/ARTI1665990592023497.shtml')">
-                    <img class="poster-img" src="https://v.static.yiqiqw.com/pic/a47444bfbb4e9c34975784d3c665e30a.jpg" alt="">
+                    <img class="poster-img" src="https://v.static.yiqiqw.com/pic/a47444bfbb4e9c34975784d3c665e30a.jpg"
+                        alt="">
                 </a>
                 <a id="rec_group_first__7" class="rec-first-poster-6"
                     href="javascript:openPage('https://www.12371.cn/2022/10/19/ARTI1666182797421631.shtml')">
-                    <img class="poster-img"
-                        src="https://v.static.yiqiqw.com/pic/5e06d4c4ce2f2944a779aeb03630ce46.jpg" alt="">
+                    <img class="poster-img" src="https://v.static.yiqiqw.com/pic/5e06d4c4ce2f2944a779aeb03630ce46.jpg"
+                        alt="">
                 </a>
             </div>
         </div>
