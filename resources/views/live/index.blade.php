@@ -114,52 +114,9 @@
         </div>
     </div>
     <!--预加载背景用-->
-    <img src="https://v.static.yiqiqw.com/pic/33b5e533ef2df86337f6c6becbf152f0.png" style="display: none;">
-    <img src="https://v.static.yiqiqw.com/pic/b1c9e677f74f53173039b4e57f5ab6d0.jpg" style="display: none;">
-    <img src="https://v.static.yiqiqw.com/pic/af487888ed4de371c8a5917d0b6b2dae.png" style="display: none;">
-    <img src="https://v.static.yiqiqw.com/pic/3d1e83ca1116854d244f9b89388c8e2e.jpg" style="display: none;">
-    <img src="https://v.static.yiqiqw.com/pic/66615f9ccd61a59ffc84e0b58263bd71.jpg" style="display: none;">
-    <img src="https://v.static.yiqiqw.com/pic/2434e349e95e97ca27dad76ebb6db4b9.jpg" style="display: none;">
-    <img src="https://v.static.yiqiqw.com/pic/3bb80c999453374549bc51d8038f03b0.jpg" style="display: none;">
-    <img src="https://v.static.yiqiqw.com/pic/4bb9e05e1d394e01bf564589b327f0c2.jpg" style="display: none;">
-    <img src="https://v.static.yiqiqw.com/pic/e801c83575711739f38679d8ea823e87.jpg" style="display: none;">
-    <img src="https://v.static.yiqiqw.com/pic/96862488f39fe061e8038472d11b447f.jpg" style="display: none;">
-    <img src="https://v.static.yiqiqw.com/pic/23bdec16123a24efaa9cf013ba8851b3.jpg" style="display: none;">
-    <img src="https://v.static.yiqiqw.com/pic/23bdec16123a24efaa9cf013ba8851b3.jpg" style="display: none;">
-    <img src="https://v.static.yiqiqw.com/pic/5329219492a7fdcac84f70741377baa9.jpg" style="display: none;">
-    <img src="https://v.static.yiqiqw.com/pic/af487888ed4de371c8a5917d0b6b2dae.png" style="display: none;">
-    <img src="https://v.static.yiqiqw.com/pic/3d1e83ca1116854d244f9b89388c8e2e.jpg" style="display: none;">
-    <img src="" style="display: none;">
-    <img src="" style="display: none;">
-    <img src="" style="display: none;">
-    <img src="" style="display: none;">
-    <img src="" style="display: none;">
-    <img src="" style="display: none;">
-    <img src="" style="display: none;">
-    <img src="" style="display: none;">
-    <img src="" style="display: none;">
-    <img src="https://v.static.yiqiqw.com/pic/af487888ed4de371c8a5917d0b6b2dae.png" style="display: none;">
-    <img src="https://v.static.yiqiqw.com/pic/3d1e83ca1116854d244f9b89388c8e2e.jpg" style="display: none;">
-    <img src="" style="display: none;">
-    <img src="" style="display: none;">
-    <img src="" style="display: none;">
-    <img src="" style="display: none;">
-    <img src="" style="display: none;">
-    <img src="" style="display: none;">
-    <img src="" style="display: none;">
-    <img src="" style="display: none;">
-    <img src="" style="display: none;">
-    <img src="https://v.static.yiqiqw.com/pic/af487888ed4de371c8a5917d0b6b2dae.png" style="display: none;">
-    <img src="https://v.static.yiqiqw.com/pic/3d1e83ca1116854d244f9b89388c8e2e.jpg" style="display: none;">
-    <img src="" style="display: none;">
-    <img src="" style="display: none;">
-    <img src="" style="display: none;">
-    <img src="" style="display: none;">
-    <img src="" style="display: none;">
-    <img src="" style="display: none;">
-    <img src="" style="display: none;">
-    <img src="" style="display: none;">
-    <img src="" style="display: none;">
+    @foreach ($resData['other_images'] as $images)
+        <img src="{{$images}}" style="display: none;">
+    @endforeach
     <div id="log_box"></div>
 </body>
 

@@ -2,7 +2,7 @@
 /*
  * @Author: bjfuzzj
  * @Date: 2022-08-17 12:39:36
- * @LastEditTime: 2022-11-21 12:04:24
+ * @LastEditTime: 2022-11-21 15:11:54
  * @LastEditors: bjfuzzj
  * @Description: 
  * @FilePath: /tv/app/Http/Controllers/IndexController.php
@@ -66,6 +66,17 @@ class IndexController extends Controller
         $liveLanmuList = LiveLanMu::where('published', 'y')->where('status', LiveLanMu::STATUS_ONLINE)->where('typeindex', $liveIndex->typeindex)->orderBy('shunxu', 'asc')->get();
         $resData['lanmu_list'] = $liveLanmuList;
 
+        //其他栏目的图片预加载
+        $otherImages = [];
+        foreach($liveLanmuList as $liveLanmu){
+            if($liveLanmu->d_id > 1){
+                for($i= 1; $i<8; $i++){
+                    $temp_pic_url = 'pic_'.$i;
+                    $otherImages[] = $liveLanmu->$temp_pic_url;
+                }
+            }
+        }
+        $resData['other_images'] = $otherImages;
         return view('live.index', ['resData' => $resData]);
     }
 
