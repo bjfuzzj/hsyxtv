@@ -2,7 +2,7 @@
 /*
  * @Author: your name
  * @Date: 2020-12-02 18:06:10
- * @LastEditTime: 2022-11-21 15:30:04
+ * @LastEditTime: 2022-11-21 19:02:08
  * @LastEditors: bjfuzzj
  * @Description: In User Settings Edit
  * @FilePath: /tv/routes/web.php
@@ -22,6 +22,6 @@
 // 授权登录之后
 Route::middleware(['web'])->group(function () {
     Route::get('/showCode', 'IndexController@showCode')->name('showCode');
-    Route::get('/user/{tv_user_id}/liveIndex', 'IndexController@liveIndex')->name('liveIndex');
-    Route::get('/user/{tv_user_id}/liveCompany', 'IndexController@liveCompany')->name('liveCompany');
+    Route::get('/user/{tv_user_id}/liveindex', 'IndexController@liveIndex')->name('liveIndex');
+    Route::get('/user/{tv_user_id}/livecompany', 'IndexController@liveCompany')->name('liveCompany');
 });
