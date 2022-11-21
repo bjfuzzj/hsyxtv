@@ -2,7 +2,7 @@
 /*
  * @Author: bjfuzzj
  * @Date: 2022-08-17 12:39:36
- * @LastEditTime: 2022-11-21 10:52:01
+ * @LastEditTime: 2022-11-21 11:46:16
  * @LastEditors: bjfuzzj
  * @Description: 
  * @FilePath: /tv/app/Http/Controllers/IndexController.php
@@ -15,6 +15,7 @@ use Illuminate\Http\Request;
 use App\Helper\RemoteRequest;
 use Illuminate\Support\Facades\Log;
 use App\Models\LiveLanMu;
+use App\Models\TvUser;
 
 class IndexController extends Controller
 {
@@ -43,14 +44,21 @@ class IndexController extends Controller
     public function liveIndex(Request $request)
     {
         $tvUserId = $request->route('tv_user_id',0);
+        $tvUser = TvUser::find($tvUserId);
+        if(!$tvUser instanceof TvUser){
+            abort(400);
+        }
+        
+
         //首页
         $liveIndex = LiveLanMu::find(1);
         $resData = [];
+        $resData['tv_user'] = $tvUser;
         //logo
         $resData['logo_pic'] = $liveIndex->logo_pic??'https://v.static.yiqiqw.com/pic/f4fc235889cbcafa02b7b9dbf3b1996e.png';
         //栏目边框
         $liveLanmuList = LiveLanMu::where('published','y')->where('status',LiveLanMu::STATUS_ONLINE)->where('typeindex',$liveIndex->typeindex)->orderBy('shunxu','asc')->get();
-        $resData['lanmuList'] = $liveLanmuList;
+        $resData['lanmu_list'] = $liveLanmuList;
 
         return view('live.index',['resData'=>$resData]);
     }

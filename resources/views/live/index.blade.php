@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" href="/pubstatic/css/common.css?122">
     <link rel="stylesheet" href="/pubstatic/css/home_page.css?2021112504">
-    <title>栏目名称-首页</title>
+    <title>{{ $res['tv_user']['username'] }}-首页</title>
     <!-- Matomo -->
     <script>
         var _paq = window._paq = window._paq || [];
@@ -56,7 +56,7 @@
         <div id="time_show" class="time-show"></div>
     </div>
     <div id="category_area" class="category-area">
-        @foreach ($resData['lanmuList'] as $lanmu)
+        @foreach ($resData['lanmu_list'] as $lanmu)
             <a id="category_item__{{$loop->index}}" class="category-item" href="javascript:openPage('{{$lanmu->url_1}}')">{{$lanmu->name}}</a>
         @endforeach
         {{-- <a id="category_item__0" class="category-item" href="javascript:openPage('/lanmu-1.html')">首页</a>
@@ -79,33 +79,27 @@
                 </a>
                 <a id="rec_group_first__2" class="rec-first-poster-1"
                     href="javascript:openPage('https://v.static.yiqiqw.com/pic/b2aaaa9dc89273bcdbf8df637d1b6dcf.jpg')">
-                    <img class="poster-img" src="https://v.static.yiqiqw.com/pic/6a7bf331930e972385b9019de31d5269.jpg"
-                        alt="">
+                    <img class="poster-img" src="https://v.static.yiqiqw.com/pic/6a7bf331930e972385b9019de31d5269.jpg"alt="">
                 </a>
                 <a id="rec_group_first__3" class="rec-first-poster-2"
                     href="javascript:openPage('https://v.static.yiqiqw.com/pic/0c7e2e3d108369714d25b9981c24324a.png')">
-                    <img class="poster-img" src="https://v.static.yiqiqw.com/pic/023486bc2c17c8a71fb64aae07001f51.jpg"
-                        alt="">
+                    <img class="poster-img" src="https://v.static.yiqiqw.com/pic/023486bc2c17c8a71fb64aae07001f51.jpg" alt="">
                 </a>
                 <a id="rec_group_first__4" class="rec-first-poster-3"
                     href="javascript:openPageOut('http://dxy.yiqiqw.com/fourzty-7.html')">
-                    <img class="poster-img" src="https://v.static.yiqiqw.com/pic/b248221efc42df3a948742ad613bbd1d.jpg"
-                        alt="">
+                    <img class="poster-img" src="https://v.static.yiqiqw.com/pic/b248221efc42df3a948742ad613bbd1d.jpg" alt="">
                 </a>
                 <a id="rec_group_first__5" class="rec-first-poster-4"
                     href="javascript:openPageOut('http://dxy.yiqiqw.com/fourzty-8.html')">
-                    <img class="poster-img" src="https://v.static.yiqiqw.com/pic/1d2d91afa63a68543ba6ad44fdc7aa25.jpg"
-                        alt="">
+                    <img class="poster-img" src="https://v.static.yiqiqw.com/pic/1d2d91afa63a68543ba6ad44fdc7aa25.jpg" alt="">
                 </a>
                 <a id="rec_group_first__6" class="rec-first-poster-5"
                     href="javascript:openPage('https://www.12371.cn/2022/10/17/ARTI1665990592023497.shtml')">
-                    <img class="poster-img" src="https://v.static.yiqiqw.com/pic/a47444bfbb4e9c34975784d3c665e30a.jpg"
-                        alt="">
+                    <img class="poster-img" src="https://v.static.yiqiqw.com/pic/a47444bfbb4e9c34975784d3c665e30a.jpg" alt="">
                 </a>
                 <a id="rec_group_first__7" class="rec-first-poster-6"
                     href="javascript:openPage('https://www.12371.cn/2022/10/19/ARTI1666182797421631.shtml')">
-                    <img class="poster-img" src="https://v.static.yiqiqw.com/pic/5e06d4c4ce2f2944a779aeb03630ce46.jpg"
-                        alt="">
+                    <img class="poster-img" src="https://v.static.yiqiqw.com/pic/5e06d4c4ce2f2944a779aeb03630ce46.jpg" alt="">
                 </a>
             </div>
         </div>
