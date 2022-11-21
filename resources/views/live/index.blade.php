@@ -73,8 +73,8 @@
                         href="http://lvs.hunancatv.com:8060/live/CCTV-13_2000.m3u8?channelid=cl-chan_101_8a3ecebc-b630-4254-8531-b80c00711c46&token=u1%2FtkGu%2BGAY%2FG7jMRpZlxg%3D%3D&userid=310000010100006156&platform=8&location=074504&deviceid=310000010100006156&errorcode=0&resultCode=0000&sid=NBCF1ifjnD6LrAKz6k2juA%3D%3D&nonce=ta4Eh2LwdeAc&acl=1111&errorReason=&previewduration"></a>
                 </div>
                 <a id="rec_group_first__1" class="rec-first-poster-0"
-                    href="javascript:openPage('')">
-                    <img class="poster-img" src="" alt="">
+                    href="javascript:openPage('{{$resData['liveIndex']['link_1']}}')">
+                    <img class="poster-img" src="{{$resData['liveIndex']['pic_1']}}" alt="">
                 </a>
                 <a id="rec_group_first__2" class="rec-first-poster-1"
                     href="javascript:openPage('https://v.static.yiqiqw.com/pic/b2aaaa9dc89273bcdbf8df637d1b6dcf.jpg')">
@@ -154,7 +154,7 @@
 </body>
 
 </html>
-<script type="text/javascript" src="./pubstatic/js/common.js?20221016"></script>
+<script type="text/javascript" src="/pubstatic/js/common.js?20221016"></script>
 <script>
     var scrollTop = 0;
     var goPageCatch = {
