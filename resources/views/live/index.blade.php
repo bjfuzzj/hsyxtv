@@ -115,7 +115,10 @@
     </div>
     <!--预加载背景用-->
     @foreach ($resData['other_images'] as $images)
-        <img src="{{$images}}" style="display: none;">
+        @if (!empty($images))
+            <img src="{{$images}}" style="display: none;">
+        @endif
+        
     @endforeach
     <div id="log_box"></div>
 </body>
