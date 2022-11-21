@@ -1,11 +1,11 @@
 <?php
 /*
  * @Author: bjfuzzj
- * @Date: 2021-12-20 15:57:20
- * @LastEditTime: 2022-11-20 23:50:07
+ * @Date: 2022-11-20 23:52:48
+ * @LastEditTime: 2022-11-20 23:53:09
  * @LastEditors: bjfuzzj
  * @Description: 
- * @FilePath: /tv/app/Models/LanMu.php
+ * @FilePath: /tv/app/Models/LiveLanMu.php
  * 寻找内心的安静
  */
 
@@ -13,9 +13,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class LanMu extends Model
+class LiveLanMu extends Model
 {
-    protected $connection = 'mysql_web_47';
     protected $table      = "lanmu";
     protected $primaryKey = 'd_id';
     protected $guarded    = [];

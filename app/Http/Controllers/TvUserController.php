@@ -559,66 +559,66 @@ class TvUserController extends Controller
 
 
     //更新用户 username
-    public function doUpdate(Request $request)
-    {
-        $params = $this->validate($request, [
-            'username'       => 'required|string',
-            'signature'      => 'required|string',
-            'userid'         => 'required|integer',
-            'name'           => 'required|string',
-            'tel'            => 'required|string',
-            'province'       => 'required|string',
-            'city'           => 'required|string',
-            'district'       => 'required|string',
-            'address_detail' => 'required|string',
-        ], [
-            '.*' => '更新数据失败[-1]',
-        ]);
+    // public function doUpdate(Request $request)
+    // {
+    //     $params = $this->validate($request, [
+    //         'username'       => 'required|string',
+    //         'signature'      => 'required|string',
+    //         'userid'         => 'required|integer',
+    //         'name'           => 'required|string',
+    //         'tel'            => 'required|string',
+    //         'province'       => 'required|string',
+    //         'city'           => 'required|string',
+    //         'district'       => 'required|string',
+    //         'address_detail' => 'required|string',
+    //     ], [
+    //         '.*' => '更新数据失败[-1]',
+    //     ]);
 
 
-        $signature = $params['signature'];
-        if (md5($params['userid'] . '20220817') !== $signature) {
-            return $this->outErrorResultApi(-1, '加密信息不对');
-        }
-        $tvUser = TvUser::find($params['userid']);
-        if(false === $tvUser instanceof TvUser){
-            return $this->outErrorResult(-1, '用户不存在');
-        }
-        $tvUser->username    = $params['username']??'';
-        $tvUser->province    = $params['province']??'';
-        $tvUser->city        = $params['city']??'';
-        $tvUser->district    = $params['district']??'';
-        $tvUser->detail_addr = $params['address_detail']??'';
-        $tvUser->tel_no      = $params['tel']??'';
-        $tvUser->contact     = $params['name']??'';
-        $tvUser->save();
-        return $this->outSuccessResultApi(['id'=>$params['userid']]);
-    }
+    //     $signature = $params['signature'];
+    //     if (md5($params['userid'] . '20220817') !== $signature) {
+    //         return $this->outErrorResultApi(-1, '加密信息不对');
+    //     }
+    //     $tvUser = TvUser::find($params['userid']);
+    //     if(false === $tvUser instanceof TvUser){
+    //         return $this->outErrorResult(-1, '用户不存在');
+    //     }
+    //     $tvUser->username    = $params['username']??'';
+    //     $tvUser->province    = $params['province']??'';
+    //     $tvUser->city        = $params['city']??'';
+    //     $tvUser->district    = $params['district']??'';
+    //     $tvUser->detail_addr = $params['address_detail']??'';
+    //     $tvUser->tel_no      = $params['tel']??'';
+    //     $tvUser->contact     = $params['name']??'';
+    //     $tvUser->save();
+    //     return $this->outSuccessResultApi(['id'=>$params['userid']]);
+    // }
 
-
-    public function getUserInfo(Request $request)
-    {
-        $params = $this->validate($request, [
-            'userid'  => 'required|integer',
-        ], [
-            '.*' => '查询数据失败[-1]',
-        ]);
-        $tvUser = TvUser::find($params['userid']);
-        if(false === $tvUser instanceof TvUser){
-            return $this->outErrorResult(-1, '用户不存在');
-        }
-        $username = $tvUser->username??'';
-        $res = [];
-        $res['userid'] = $params['userid'];
-        $res['username'] = $username;
-        $res['province'] = $tvUser->province??'';
-        $res['city'] = $tvUser->city??'';
-        $res['district'] = $tvUser->district??'';
-        $res['detail_addr'] = $tvUser->detail_addr??'';
-        $res['tel_no'] = $tvUser->tel_no??'';
-        $res['contact'] = $tvUser->contact??'';
-        return $this->outSuccessResultApi($res);
-    }
+    // 已迁移至 dxy.quwango.com
+    // public function getUserInfo(Request $request)
+    // {
+    //     $params = $this->validate($request, [
+    //         'userid'  => 'required|integer',
+    //     ], [
+    //         '.*' => '查询数据失败[-1]',
+    //     ]);
+    //     $tvUser = TvUser::find($params['userid']);
+    //     if(false === $tvUser instanceof TvUser){
+    //         return $this->outErrorResult(-1, '用户不存在');
+    //     }
+    //     $username = $tvUser->username??'';
+    //     $res = [];
+    //     $res['userid'] = $params['userid'];
+    //     $res['username'] = $username;
+    //     $res['province'] = $tvUser->province??'';
+    //     $res['city'] = $tvUser->city??'';
+    //     $res['district'] = $tvUser->district??'';
+    //     $res['detail_addr'] = $tvUser->detail_addr??'';
+    //     $res['tel_no'] = $tvUser->tel_no??'';
+    //     $res['contact'] = $tvUser->contact??'';
+    //     return $this->outSuccessResultApi($res);
+    // }
 
 
     public function hdNotify(Request $request)
