@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" href="/pubstatic/css/common.css?122">
     <link rel="stylesheet" href="/pubstatic/css/home_page.css?2021112504">
-    <title>{{ $res['tv_user']['username'] }}-首页</title>
+    <title>{{ $resData['tv_user']['username'] }}-首页</title>
     <!-- Matomo -->
     <script>
         var _paq = window._paq = window._paq || [];
