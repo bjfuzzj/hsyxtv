@@ -36,9 +36,9 @@
 
             @foreach ($resData['video_list'] as $video)
                 <a id="video_list_item__{{$loop->index}}" class="video-item" 
-                    href="javascript:openPage('./detail.php?id={{$video->meida_id}}')">
+                    href="javascript:openPage('./detail.php?id={{$video['meida_id']}}')">
                     <img class="poster-img" src="{{$video->poster}}" alt="">
-                    <div class="video-item-name">{{$resData['title_list'][$video->meida_id]}}</div>
+                    <div class="video-item-name">{{$resData['title_list'][$video['meida_id']]}}</div>
                 </a> 
             @endforeach
         </div>
