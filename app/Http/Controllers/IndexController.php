@@ -2,7 +2,7 @@
 /*
  * @Author: bjfuzzj
  * @Date: 2022-08-17 12:39:36
- * @LastEditTime: 2022-11-21 18:51:39
+ * @LastEditTime: 2022-11-22 21:51:05
  * @LastEditors: bjfuzzj
  * @Description: 
  * @FilePath: /tv/app/Http/Controllers/IndexController.php
@@ -47,12 +47,15 @@ class IndexController extends Controller
     {
         $tvUserId = $request->route('tv_user_id', 0);
         $tvUser = TvUser::find($tvUserId);
+        Log::info('user_id==='.$tvUser);
+
         if (!$tvUser instanceof TvUser) {
             abort(404);
         }
         $tvUser->username = $tvUser->username ?? '首页';
         //首页模块
         $liveIndex = LiveLanMu::find(1);
+        Log::info(print_r($liveIndex,1));
         if (!$liveIndex instanceof LiveLanMu) {
             abort(404);
         }
