@@ -48,7 +48,7 @@
    
 
 
-<script type="text/javascript" src="./pubstatic/js/common.js?20221016"></script>
+<script type="text/javascript" src="/js/common.js?20221017"></script>
 <script>
 
     function openPage( url ){
