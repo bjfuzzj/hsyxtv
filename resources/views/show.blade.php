@@ -44,5 +44,56 @@
         
     </div>
 
+
+   
+
+
+<script type="text/javascript" src="./pubstatic/js/common.js?20221016"></script>
+<script>
+
+    function openPage( url ){
+        var pageParams = util.getUrlParamObj(location.href);
+        if(pageParams.params.userid){
+        if (url.indexOf("?") !=-1) {
+                url += '&userid='+pageParams.params.userid
+            }else{
+                url += '?userid='+pageParams.params.userid
+            }
+        }
+        if(pageParams.params.mac){
+        url += '&mac='+pageParams.params.mac
+        }
+        if(pageParams.params.ip){
+        url += '&ip='+pageParams.params.ip
+        }
+        if(pageParams.params.groupid){
+        url += '&groupid='+pageParams.params.groupid
+        }
+        if(pageParams.params.session){
+        url += '&session='+pageParams.params.session
+        }
+        window.location.href = url;
+    }
+
+    function checkUser(){
+        var pageParams = util.getUrlParamObj(location.href);
+        util.request("https://tv.yiqiqw.com/check_user", {
+        userid : pageParams.params.userid || "0",
+        }, function(res){
+            console.log(res);
+            if(res.code==200){
+                var url = res.data.url;
+                openPage(url);
+            }else{
+                setTimeout(() => {
+                    checkUser()
+                }, 2000);
+            }
+        });
+    }
+    checkUser();
+    
+</script>
+
 </body>
 </html>

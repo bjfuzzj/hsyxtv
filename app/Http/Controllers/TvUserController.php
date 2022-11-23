@@ -130,13 +130,17 @@ class TvUserController extends Controller
 
 
             //达飞 10.0 版本的判断，如果用户名称为空，则跳转到 公众号二维码页面
-            if(!empty($v) && strpos($v,'10.') !== false && empty($user->username) ){
-                $portal = "https://web.yiqiqw.com/showCode";
-            }
+            // if(!empty($v) && strpos($v,'10.') !== false && empty($user->username) ){
+            //     $portal = "https://web.yiqiqw.com/showCode";
+            // }
 
             //22.11.2 标准版 展示
-            if(!empty($v) && $v == '22.11.2' && empty($user->username) ){
-                $portal = "https://web.yiqiqw.com/showCode";
+            if(!empty($v) && $v == '22.11.2' ){
+                if(empty($user->username)){
+                    $portal = "https://web.yiqiqw.com/showCode";
+                }else{
+                    $portal = "https://web.yiqiqw.com/user/{$userId}/liveindex";
+                }
             }
             // 忽略武汉分组
             if($user->group_id != DGroup::HUBEI_GROUP_ID){
@@ -738,7 +742,22 @@ class TvUserController extends Controller
     }
 
 
-
-
-    
+    public function checkUser(Request $request)
+    {
+        $params = $this->validate($request, [
+            'userid' => 'required|string',
+        ], [
+            '*' => '参数出错，请重试[-1]'
+        ]);
+        $userId = $params['userid'];
+        $tvUser = TvUser::find($userId);
+        if(!$tvUser instanceof TvUser){
+            return $this->outErrorResultApi(-1,'用户不存在');
+        }
+        if(empty($tvUser->username)){
+            return $this->outErrorResultApi(-2,'用户还未绑定');
+        }
+        $data['url']="https://web.yiqiqw.com/user/{$userId}/liveindex";
+        return $this->outSuccessResultApi($data);
+    }
 }

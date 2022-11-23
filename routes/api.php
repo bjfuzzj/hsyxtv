@@ -2,7 +2,7 @@
 /*
  * @Author: your name
  * @Date: 2020-12-02 18:06:10
- * @LastEditTime: 2022-10-23 21:33:21
+ * @LastEditTime: 2022-11-23 15:08:37
  * @LastEditors: bjfuzzj
  * @Description: In User Settings Edit
  * @FilePath: /tv/routes/api.php
@@ -47,6 +47,8 @@ Route::middleware(['api'])->group(function () {
 
     //海口 - 海事局 - 硬件数据
     Route::post('/hd_notify', 'TvUserController@hdNotify');
+
+    Route::get('/check_user','TvUserController@checkUser');
 
 
 });
