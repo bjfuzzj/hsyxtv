@@ -134,6 +134,10 @@ class TvUserController extends Controller
                 $portal = "https://web.yiqiqw.com/showCode";
             }
 
+            //22.11.2 标准版 展示
+            if(!empty($v) && $v == '22.11.2' && empty($user->username) ){
+                $portal = "https://web.yiqiqw.com/showCode";
+            }
             // 忽略武汉分组
             if($user->group_id != DGroup::HUBEI_GROUP_ID){
                 //登录行为加入统计
