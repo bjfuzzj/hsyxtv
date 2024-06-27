@@ -2,7 +2,7 @@
 /*
  * @Author: bjfuzzj
  * @Date: 2022-08-17 12:39:36
- * @LastEditTime: 2022-11-22 21:51:05
+ * @LastEditTime: 2023-03-09 17:22:25
  * @LastEditors: bjfuzzj
  * @Description: 
  * @FilePath: /tv/app/Http/Controllers/IndexController.php
@@ -47,7 +47,7 @@ class IndexController extends Controller
     {
         $tvUserId = $request->route('tv_user_id', 0);
         $tvUser = TvUser::find($tvUserId);
-        Log::info('user_id==='.$tvUser);
+        Log::info('user_id==='.$tvUserId);
 
         if (!$tvUser instanceof TvUser) {
             abort(404);

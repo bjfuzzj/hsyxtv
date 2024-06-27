@@ -24,7 +24,7 @@ class TvUserController extends Controller
     public function login(Request $request)
     {
         $params = $this->validate($request, [
-            'mac'   => 'required|string',
+            'mac'   => 'nullable|string',
             't'     => 'required|string',
             'token' => 'required|string',
             'v'     => 'nullable|string',
@@ -41,7 +41,8 @@ class TvUserController extends Controller
         $sn = $params['sn'] ?? '';
 
 
-        if (empty($mac) || empty($t) || empty($token)) {
+        // if (empty($mac) || empty($t) || empty($token)) {
+        if ( empty($t) || empty($token)) {
             return $this->outErrorResultApi(500, '内部错误[1]');
         }
         $sign = md5(config('app.login_key') . $mac . $t);
@@ -77,6 +78,7 @@ class TvUserController extends Controller
             //无 sn 的话如何处理
             else
             {
+                if(empty($mac)) $mac = $this->genTransferId($salt);
                 if(!empty($v) && strpos($v,'6.0') !== false ){
                     Log::info(print_r($request->all(),1));
                     $user     = TvUser::firstOrCreate(['mac' => $mac], ['group_id' => DGroup::HUBEI_GROUP_ID, 'expire' => $expire_time,'vername'=>$v,'salt'=>$salt,'passwd'=>$passwd]);
@@ -125,6 +127,7 @@ class TvUserController extends Controller
             }
             $expireTime = Carbon::parse($user->expire);
             $expire = $expireTime->timestamp;
+            
 
 
 
