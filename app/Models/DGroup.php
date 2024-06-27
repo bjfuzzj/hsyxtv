@@ -2,7 +2,7 @@
 /*
  * @Author: bjfuzzj
  * @Date: 2021-03-09 21:09:24
- * @LastEditTime: 2024-06-27 12:08:33
+ * @LastEditTime: 2024-06-27 12:25:25
  * @LastEditors: bjfuzzj
  * @Description: 
  * @FilePath: /tv/app/Models/DGroup.php
@@ -15,7 +15,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class DGroup extends Model
 {
-    const DEFAULT_ID = 49;
+    const DEFAULT_ID = 1;
     const HUBEI_GROUP_ID = 23;
     protected $table      = "dgroup";
     protected $primaryKey = 'd_id';
