@@ -93,6 +93,10 @@ class TvUserController extends Controller
                     //内蒙-20220817 变达飞 10.*
                     $user     = TvUser::firstOrCreate(['mac' => $mac], ['group_id' => DGroup::DEFAULT_ID, 'expire' => $expire_time,'vername'=>$v,'salt'=>$salt,'passwd'=>$passwd,'note'=>'达飞']);
                 }
+                else if(!empty($v) && strpos($v,'22.11') !== false ) {
+                    //2024 年安哥的分组
+                    $user     = TvUser::firstOrCreate(['mac' => $mac], ['group_id' => DGroup::ANGE_GROUP_ID, 'expire' => $expire_time,'vername'=>$v,'salt'=>$salt,'passwd'=>$passwd,'note'=>'安哥']);
+                }
                 else{
                     $user     = TvUser::firstOrCreate(['mac' => $mac], ['group_id' => DGroup::DEFAULT_ID, 'expire' => $expire_time,'salt'=>$salt,'passwd'=>$passwd]);
                 }
@@ -137,14 +141,16 @@ class TvUserController extends Controller
             //     $portal = "https://web.yiqiqw.com/showCode";
             // }
 
-            //22.11.2 标准版 展示
-            if(!empty($v) && $v == '22.11.2' ){
-                if(empty($user->username)){
-                    $portal = "https://web.yiqiqw.com/showCode";
-                }else{
-                    $portal = "https://web.yiqiqw.com/user/{$userId}/liveindex";
-                }
-            }
+            //22.11.2 标准版 展示，可以手机绑定修改的
+            // if(!empty($v) && $v == '22.11.2' ){
+
+            //      // add by zzj 2024最后一版，这个版本的用户默认 2024 分组
+            //     // if(empty($user->username)){
+            //     //     $portal = "https://web.yiqiqw.com/showCode";
+            //     // }else{
+            //     //     $portal = "https://web.yiqiqw.com/user/{$userId}/liveindex";
+            //     // }
+            // }
             // 忽略武汉分组
             if($user->group_id != DGroup::HUBEI_GROUP_ID){
                 //登录行为加入统计

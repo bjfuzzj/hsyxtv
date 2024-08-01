@@ -2,7 +2,7 @@
 /*
  * @Author: bjfuzzj
  * @Date: 2021-03-09 21:09:24
- * @LastEditTime: 2024-06-27 12:25:25
+ * @LastEditTime: 2024-08-01 15:53:27
  * @LastEditors: bjfuzzj
  * @Description: 
  * @FilePath: /tv/app/Models/DGroup.php
@@ -17,6 +17,7 @@ class DGroup extends Model
 {
     const DEFAULT_ID = 1;
     const HUBEI_GROUP_ID = 23;
+    const ANGE_GROUP_ID = 77;
     protected $table      = "dgroup";
     protected $primaryKey = 'd_id';
     protected $guarded    = [];
