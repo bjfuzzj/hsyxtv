@@ -115,7 +115,7 @@ class TvUserController extends Controller
                 $user->save();
             }
 
-            $portal = 'http://dxy.yiqiqw.com/lanmu-1.html';
+            $portal = 'https://dxy.yiqiqw.com/lanmu-1.html';
             //查看分组
             $group = DGroup::find($user->group_id);
             if ($group instanceof DGroup) {
@@ -166,9 +166,9 @@ class TvUserController extends Controller
                 'mp1_interval'     => $mp1_interval,
                 'mode'             => $mode,
                 'mix_ad_time'      => $mix_ad_time,
-                'ext_enable' => 0,
-                'expire' => $expire,
-                'expire_url'=>'https://v.static.yiqiqw.com/pic/5f947b0fdb6b9bb655e0525745a85bf4.png',
+                'ext_enable'       => 0,
+                'expire'           => $expire,
+                'expire_url'       => 'https://v.static.yiqiqw.com/pic/5f947b0fdb6b9bb655e0525745a85bf4.png',
                 // 'expire_pic'=>'',
                 // 'expire_pic_md5'=>'',
                 // 'expire_url'=>'http://h.qr61.cn/optFHZ/qyLgXgN',
